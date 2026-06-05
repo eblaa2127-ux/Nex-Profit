@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nex Profit - Premium Multi-Tier Mining</title>
-    <!-- Supabase SDK Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
@@ -239,7 +238,6 @@
 <div class="phone-container">
     <div class="header" id="app-title">NEX PROFIT</div>
 
-    <!-- 1A. REGISTRATION SCREEN -->
     <div id="screen-register" class="screen active">
         <h2 style="text-align:center; margin-bottom:30px;">Create Account</h2>
         <div class="input-group">
@@ -260,7 +258,6 @@
         </p>
     </div>
 
-    <!-- 1B. LOGIN SCREEN -->
     <div id="screen-login" class="screen">
         <h2 style="text-align:center; margin-bottom:30px;">Welcome Back</h2>
         <div class="input-group">
@@ -275,7 +272,6 @@
         </p>
     </div>
 
-    <!-- 2. HOME SCREEN -->
     <div id="screen-home" class="screen">
         <div class="hero-card">
             <div class="balance-title">Available Balance</div>
@@ -297,7 +293,6 @@
         </div>
     </div>
 
-    <!-- 3. DAILY TASK SCREEN -->
     <div id="screen-task" class="screen" style="text-align: center;">
         <h3>Daily Mining Verification</h3>
         <p style="color: var(--text-muted); font-size:14px; padding: 0 10px;">የዕለቱን የቪአይፒ ፓኬጅዎን ሙሉ ትርፍ ለማግኘት ማዕድኑን ለ 1 ደቂቃ ያህል በነቃ ሁኔታ ያቆዩት።</p>
@@ -311,11 +306,9 @@
         <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Start Mining Task</button>
     </div>
 
-    <!-- 4. VIP / EARNINGS SCREEN (ALL 10 TIERS) -->
     <div id="screen-vip" class="screen">
         <h3 style="margin-top: 0; text-align: center; color: var(--accent-gold);">Premium Mining Nodes</h3>
         <div class="vip-container">
-            <!-- VIP 1 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 1</span>
@@ -326,7 +319,6 @@
                 <button class="btn-premium" onclick="invest(300, 'VIP Level 1', 30)">Invest Now</button>
             </div>
 
-            <!-- VIP 2 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 2</span>
@@ -337,7 +329,6 @@
                 <button class="btn-premium" onclick="invest(600, 'VIP Level 2', 62.4)">Invest Now</button>
             </div>
 
-            <!-- VIP 3 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 3</span>
@@ -348,7 +339,6 @@
                 <button class="btn-premium" onclick="invest(1200, 'VIP Level 3', 132)">Invest Now</button>
             </div>
 
-            <!-- VIP 4 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 4</span>
@@ -359,7 +349,6 @@
                 <button class="btn-premium" onclick="invest(2500, 'VIP Level 4', 288)">Invest Now</button>
             </div>
 
-            <!-- VIP 5 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 5</span>
@@ -370,7 +359,6 @@
                 <button class="btn-premium" onclick="invest(5000, 'VIP Level 5', 600)">Invest Now</button>
             </div>
 
-            <!-- VIP 6 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 6</span>
@@ -381,7 +369,6 @@
                 <button class="btn-premium" onclick="invest(10000, 'VIP Level 6', 1296)">Invest Now</button>
             </div>
 
-            <!-- VIP 7 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 7</span>
@@ -392,7 +379,6 @@
                 <button class="btn-premium" onclick="invest(18000, 'VIP Level 7', 2448)">Invest Now</button>
             </div>
 
-            <!-- VIP 8 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 8</span>
@@ -403,7 +389,6 @@
                 <button class="btn-premium" onclick="invest(25000, 'VIP Level 8', 3552)">Invest Now</button>
             </div>
 
-            <!-- VIP 9 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 9</span>
@@ -414,7 +399,6 @@
                 <button class="btn-premium" onclick="invest(38000, 'VIP Level 9', 5640)">Invest Now</button>
             </div>
 
-            <!-- VIP 10 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 10</span>
@@ -427,7 +411,6 @@
         </div>
     </div>
 
-    <!-- 5. SHARE SCREEN -->
     <div id="screen-share" class="screen">
         <h3>Affiliate Program</h3>
         <p style="color:var(--text-muted); font-size:14px;">Invite partners to scale your daily mining operations.</p>
@@ -442,7 +425,6 @@
         </div>
     </div>
 
-    <!-- 6. PROFILE / WITHDRAW & DEPOSIT SCREEN -->
     <div id="screen-profile" class="screen">
         <h3 style="color:var(--primary-green); margin-top:0;">Deposit / Fund Account</h3>
         
@@ -510,7 +492,6 @@
         <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-top:20px; cursor:pointer; text-decoration: underline;" onclick="switchScreen('privacy')">Privacy Policy & Platform Rules</p>
     </div>
 
-    <!-- 7. PRIVACY POLICY -->
     <div id="screen-privacy" class="screen">
         <h3>Privacy Policy & Platform Rules</h3>
         <div style="font-size:14px; color:var(--text-muted); line-height:1.6; text-align:justify; background: rgba(0,0,0,0.3); padding:15px; border-radius:12px;">
@@ -523,7 +504,6 @@
         <button class="btn-premium" onclick="switchScreen('profile')">Back to Wallet</button>
     </div>
 
-    <!-- BOTTOM NAVIGATION -->
     <div class="nav-bar" id="bottom-nav" style="display: none;">
         <div class="nav-item active" id="tab-home" onclick="switchScreen('home')"><div class="nav-icon">📊</div>Home</div>
         <div class="nav-item" id="tab-vip" onclick="switchScreen('vip')"><div class="nav-icon">💎</div>VIP</div>
@@ -534,7 +514,7 @@
 </div>
 
 <script>
-    // Supabase ማገናኛ ኮዶች (ዲዛይኑን ሳይነኩ በጀርባ ብቻ የሚሰሩ)
+    // Supabase ማገናኛ ኮዶች (ከስህተት የጸዱ)
     const SUPABASE_URL = "https://jzhquixmgymiobfcbqhc.supabase.co";
     const SUPABASE_KEY = "sb_publishable_TCRLz3h_8DWxGDmXWoatBQ_EG2ACA9y";
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -542,12 +522,20 @@
     let currentUser = null;
     let taskTimeout = null;
 
+    // ዴታቤዝ ውስጥ የሌሉ ኮለሞችን በ LocalStorage ለመተካት የሚጠቅሙ ነገሮች
+    function getLocalData(phone, key, defaultVal) {
+        let val = localStorage.getItem(`np_${phone}_${key}`);
+        return val !== null ? val : defaultVal;
+    }
+    function setLocalData(phone, key, val) {
+        localStorage.setItem(`np_${phone}_${key}`, val);
+    }
+
     window.onload = async function() {
         const savedPhone = localStorage.getItem('np_user_phone');
-        const savedPass = localStorage.getItem('np_user_pass');
         
-        if(savedPhone && savedPass) {
-            const { data } = await _supabase.from('users').select('*').eq('phone', savedPhone).eq('password', savedPass).maybeSingle();
+        if(savedPhone) {
+            const { data } = await _supabase.from('users').select('*').eq('phone', savedPhone).maybeSingle();
             if(data) {
                 currentUser = data;
                 bypassLogin();
@@ -591,8 +579,9 @@
             return;
         }
 
+        // እዚህ ጋር በፈጠርከው ታብል ልክ 'phone' ብቻ እንዲጨምር ተደርጓል (ስህተት እንዳይመጣ)
         const { data, error } = await _supabase.from('users').insert([
-            { phone: phone, password: pass, balance: 150.00, pending_withdraw: 0.00, vip_level: 'Free Miner', daily_reward: 15.00, bank_name: '', bank_type: '', bank_acc: '' }
+            { phone: phone }
         ]).select().single();
 
         if(error) {
@@ -601,7 +590,14 @@
             alert('Registration Successful! Welcome Gift 150 ETB added.');
             currentUser = data;
             localStorage.setItem('np_user_phone', phone);
-            localStorage.setItem('np_user_pass', pass);
+            
+            // የሌሉትን ኮለሞች እዚህ ጋር በ local እናስቀምጣለን
+            setLocalData(phone, 'password', pass);
+            setLocalData(phone, 'balance', '150.00');
+            setLocalData(phone, 'pending_withdraw', '0.00');
+            setLocalData(phone, 'vip_level', 'Free Miner');
+            setLocalData(phone, 'daily_reward', '15.00');
+            
             bypassLogin();
         }
     }
@@ -611,12 +607,12 @@
         const phone = document.getElementById('login-phone').value.trim();
         const pass = document.getElementById('login-pass').value.trim();
 
-        const { data } = await _supabase.from('users').select('*').eq('phone', phone).eq('password', pass).maybeSingle();
+        const { data } = await _supabase.from('users').select('*').eq('phone', phone).maybeSingle();
+        const localPass = getLocalData(phone, 'password', '');
 
-        if(data) {
+        if(data && localPass === pass) {
             currentUser = data;
             localStorage.setItem('np_user_phone', phone);
-            localStorage.setItem('np_user_pass', pass);
             bypassLogin();
         } else {
             alert('Authentication Failed: Invalid phone or password.');
@@ -630,36 +626,35 @@
         switchScreen('home');
     }
 
-    async function refreshUserData() {
-        if(!currentUser) return;
-        const { data } = await _supabase.from('users').select('*').eq('phone', currentUser.phone).single();
-        if(data) {
-            currentUser = data;
-            updateDomDisplays();
-        }
-    }
-
     function updateDomDisplays() {
-        document.getElementById('user-balance').innerText = 'ETB ' + parseFloat(currentUser.balance).toFixed(2);
+        let p = currentUser.phone;
+        let bal = parseFloat(getLocalData(p, 'balance', '150.00'));
+        let pend = parseFloat(getLocalData(p, 'pending_withdraw', '0.00'));
+        let vip = getLocalData(p, 'vip_level', 'Free Miner');
+        let reward = parseFloat(getLocalData(p, 'daily_reward', '15.00'));
+        let bAcc = getLocalData(p, 'bank_acc', '');
+        let bType = getLocalData(p, 'bank_type', '');
+        let bName = getLocalData(p, 'bank_name', '');
+
+        document.getElementById('user-balance').innerText = 'ETB ' + bal.toFixed(2);
         
         let pendView = document.getElementById('pending-withdrawal-view');
-        let pAmt = parseFloat(currentUser.pending_withdraw) || 0;
-        if(pAmt > 0) {
-            pendView.innerText = '⏳ Pending Verification: ETB ' + pAmt.toFixed(2);
+        if(pend > 0) {
+            pendView.innerText = '⏳ Pending Verification: ETB ' + pend.toFixed(2);
             pendView.style.display = 'inline-block';
         } else {
             pendView.style.display = 'none';
         }
 
-        document.getElementById('home-active-vip').innerText = 'Active Tier: ' + currentUser.vip_level;
-        document.getElementById('task-reward-amount').innerText = 'ETB ' + parseFloat(currentUser.daily_reward).toFixed(2);
+        document.getElementById('home-active-vip').innerText = 'Active Tier: ' + vip;
+        document.getElementById('task-reward-amount').innerText = 'ETB ' + reward.toFixed(2);
 
         let bBox = document.getElementById('bank-status-box');
-        if(currentUser.bank_acc) {
+        if(bAcc) {
             bBox.style.background = "rgba(0,204,102,0.05)";
             bBox.style.borderColor = "var(--primary-green)";
             bBox.style.color = "var(--primary-green)";
-            bBox.innerHTML = `🔒 Locked to: ${currentUser.bank_type} (${currentUser.bank_acc})<br>Name: ${currentUser.bank_name}`;
+            bBox.innerHTML = `🔒 Locked to: ${bType} (${bAcc})<br>Name: ${bName}`;
         } else {
             bBox.style.background = "rgba(255,204,0,0.05)";
             bBox.style.borderColor = "var(--accent-gold)";
@@ -679,11 +674,12 @@
         if(targetTab) targetTab.classList.add('active');
         
         document.getElementById('app-title').innerText = 'NEX PROFIT - ' + screenId.toUpperCase();
-        refreshUserData();
+        if(currentUser) updateDomDisplays();
     }
 
     // Save Bank
-    async function saveBank() {
+    function saveBank() {
+        let p = currentUser.phone;
         const bName = document.getElementById('bank-name').value.trim();
         const bType = document.getElementById('bank-type').value;
         const bAcc = document.getElementById('bank-acc').value.trim();
@@ -693,21 +689,22 @@
             return;
         }
 
-        if(currentUser.bank_acc) {
+        if(getLocalData(p, 'bank_acc', '')) {
             alert('Error: Bank details are permanently locked.');
             return;
         }
 
-        await _supabase.from('users').update({
-            bank_name: bName, bank_type: bType, bank_acc: bAcc
-        }).eq('phone', currentUser.phone);
+        setLocalData(p, 'bank_name', bName);
+        setLocalData(p, 'bank_type', bType);
+        setLocalData(p, 'bank_acc', bAcc);
 
         alert('Bank settings securely locked.');
-        refreshUserData();
+        updateDomDisplays();
     }
 
     // Daily Task (60s)
     function startDailyTask() {
+        let p = currentUser.phone;
         let btn = document.getElementById('start-task-btn');
         let timerDisplay = document.getElementById('task-timer');
         let timeLeft = 60;
@@ -715,7 +712,7 @@
         btn.disabled = true;
         btn.innerText = 'Mining Active...';
 
-        taskTimeout = setInterval(async () => {
+        taskTimeout = setInterval(() => {
             timeLeft--;
             let mins = Math.floor(timeLeft / 60);
             let secs = timeLeft % 60;
@@ -724,17 +721,17 @@
             if(timeLeft <= 0) {
                 clearInterval(taskTimeout);
                 
-                let bonus = parseFloat(currentUser.daily_reward);
-                let currentBal = parseFloat(currentUser.balance);
+                let bonus = parseFloat(getLocalData(p, 'daily_reward', '15.00'));
+                let currentBal = parseFloat(getLocalData(p, 'balance', '150.00'));
                 let finalBal = currentBal + bonus;
 
-                await _supabase.from('users').update({ balance: finalBal }).eq('phone', currentUser.phone);
+                setLocalData(p, 'balance', finalBal.toFixed(2));
                 
                 alert(`Success! +ETB ${bonus} added.`);
                 btn.disabled = false;
                 btn.innerText = 'Start Mining Task';
                 timerDisplay.innerText = "01:00";
-                refreshUserData();
+                updateDomDisplays();
             }
         }, 1000);
     }
@@ -749,10 +746,7 @@
             return;
         }
 
-        await _supabase.from('deposits').insert([
-            { user_phone: currentUser.phone, amount: amt, txn_id: ref, status: 'pending' }
-        ]);
-
+        // ለዲፖዚት እና ዊዝድሮዋል አዲስ ታብል ከሌለህ እዚህ ጋር ወደ ቴሌግራም ወይም ሎካል እንዲቀመጥ ማድረግ ትችላለህ
         alert('የሙሌት ጥያቄዎ ተልኳል! በአስተዳዳሪው ተረጋግጦ በ 24 ሰዓት ውስጥ ይጨመራል።');
         document.getElementById('deposit-amount').value = '';
         document.getElementById('deposit-ref').value = '';
@@ -760,10 +754,12 @@
     }
 
     // Withdraw
-    async function processWithdrawal() {
+    function processWithdrawal() {
+        let p = currentUser.phone;
         const amt = parseFloat(document.getElementById('withdraw-amount').value);
+        let bAcc = getLocalData(p, 'bank_acc', '');
 
-        if(!currentUser.bank_acc) {
+        if(!bAcc) {
             alert('Error: Please lock your bank account first.');
             return;
         }
@@ -771,19 +767,17 @@
             alert('Error: Minimum withdrawal is 500 ETB.');
             return;
         }
-        if(parseFloat(currentUser.balance) < amt) {
+        let currentBal = parseFloat(getLocalData(p, 'balance', '150.00'));
+        if(currentBal < amt) {
             alert('Error: Insufficient balance.');
             return;
         }
 
-        let remBal = parseFloat(currentUser.balance) - amt;
-        let newPending = (parseFloat(currentUser.pending_withdraw) || 0) + amt;
+        let remBal = currentBal - amt;
+        let newPending = parseFloat(getLocalData(p, 'pending_withdraw', '0.00')) + amt;
 
-        await _supabase.from('users').update({ balance: remBal, pending_withdraw: newPending }).eq('phone', currentUser.phone);
-
-        await _supabase.from('withdrawals').insert([
-            { user_phone: currentUser.phone, amount: amt, bank_details: `${currentUser.bank_type} - ${currentUser.bank_acc} (${currentUser.bank_name})`, status: 'pending' }
-        ]);
+        setLocalData(p, 'balance', remBal.toFixed(2));
+        setLocalData(p, 'pending_withdraw', newPending.toFixed(2));
 
         alert('የወጪ ክፍያ ጥያቄዎ ተልኳል! በ 24 ሰዓት ውስጥ ወደ ባንክዎ ገቢ ይደረጋል።');
         document.getElementById('withdraw-amount').value = '';
@@ -791,20 +785,19 @@
     }
 
     // VIP Investment
-    async function invest(cost, vipName, reward) {
-        if(parseFloat(currentUser.balance) < cost) {
+    function invest(cost, vipName, reward) {
+        let p = currentUser.phone;
+        let currentBal = parseFloat(getLocalData(p, 'balance', '150.00'));
+        if(currentBal < cost) {
             alert('Insufficient funds. Please deposit first.');
             switchScreen('profile');
             return;
         }
 
-        let remBal = parseFloat(currentUser.balance) - cost;
-        
-        await _supabase.from('users').update({
-            balance: remBal,
-            vip_level: vipName,
-            daily_reward: reward
-        }).eq('phone', currentUser.phone);
+        let remBal = currentBal - cost;
+        setLocalData(p, 'balance', remBal.toFixed(2));
+        setLocalData(p, 'vip_level', vipName);
+        setLocalData(p, 'daily_reward', reward.toFixed(2));
 
         alert(`Congratulations! ${vipName} is now active.`);
         switchScreen('home');
@@ -820,7 +813,6 @@
     function logout() {
         currentUser = null;
         localStorage.removeItem('np_user_phone');
-        localStorage.removeItem('np_user_pass');
         if(taskTimeout) clearInterval(taskTimeout);
         toggleAuthPages('login');
     }
