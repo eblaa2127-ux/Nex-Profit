@@ -226,7 +226,7 @@
     <div class="header" id="app-title">NEX PROFIT</div>
 
     <div id="screen-register" class="screen active">
-        <h2 style="text-align:center; margin-bottom:30px;">Create Account</h2>
+        <h2 style="text-align:center; margin-bottom:20px;">Create Account</h2>
         <div class="input-group">
             <input type="text" id="reg-phone" placeholder="+251 Enter mobile phone number">
         </div>
@@ -240,12 +240,30 @@
             <input type="text" id="reg-ref" value="e91673c2" placeholder="Invitation Code">
         </div>
         <button class="btn-premium" onclick="handleRegister()">Register</button>
+        <p style="text-align:center; margin-top:20px; font-size:14px; color:var(--text-muted);">
+            Already have an account? <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('login')">Login here</span>
+        </p>
+    </div>
+
+    <div id="screen-login" class="screen">
+        <h2 style="text-align:center; margin-bottom:20px;">Welcome Back</h2>
+        <div class="input-group">
+            <input type="text" id="login-phone" placeholder="Enter phone number (+251...)">
+        </div>
+        <div class="input-group">
+            <input type="password" id="login-pass" placeholder="Enter password...">
+        </div>
+        <button class="btn-premium" onclick="handleLogin()">Sign In</button>
+        <p style="text-align:center; margin-top:20px; font-size:14px; color:var(--text-muted);">
+            New to Nex Profit? <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('register')">Register here</span>
+        </p>
     </div>
 
     <div id="screen-home" class="screen">
         <div class="hero-card">
             <div class="balance-title">Available Balance</div>
             <div class="balance-amount" id="user-balance">ETB 150.00</div>
+            <div style="font-size: 13px; color: var(--accent-gold); margin-bottom:10px;" id="home-active-vip">Active Tier: Free Miner</div>
             <div style="font-size: 12px; color: var(--primary-green);">● Hamster Mining Server Active</div>
         </div>
         
@@ -263,8 +281,12 @@
 
     <div id="screen-task" class="screen" style="text-align: center;">
         <h3>Daily Mining Verification</h3>
-        <p style="color: var(--text-muted); font-size:14px; padding: 0 10px;">የዕለቱን ትርፍ ለማግኘት ማዕድኑን ለ 1 ደቂቃ ያህል በነቃ ሁኔታ ያቆዩት።</p>
+        <p style="color: var(--text-muted); font-size:14px; padding: 0 10px;">የዕለቱን የቪአይፒ ፓኬጅዎን ሙሉ ትርፍ ለማግኘት ማዕድኑን ለ 1 ደቂቃ ያህል በነቃ ሁኔታ ያቆዩት።</p>
         
+        <div style="background:rgba(255,204,0,0.1); border:1px solid var(--accent-gold); padding:10px; border-radius:10px; margin:15px 0; font-size:14px;">
+            Your Current Daily Return: <b style="color:var(--accent-gold);" id="task-reward-amount">ETB 15.00</b>
+        </div>
+
         <div class="timer-box" id="task-timer">01:00</div>
         <br><br>
         <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Start Mining Task</button>
@@ -279,8 +301,8 @@
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
                 <h2 style="color:#fff; margin:10px 0;">ETB 300</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 1.25<br>Estimated Return: ETB 1,350</p>
-                <button class="btn-premium" onclick="invest(300, 1.25)">Invest Now</button>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 1.25<br>Daily Return: ETB 30.00<br>Estimated Return: ETB 1,350</p>
+                <button class="btn-premium" onclick="invest(300, 1.25, 'VIP Level 1', 30)">Invest Now</button>
             </div>
 
             <div class="vip-card">
@@ -289,8 +311,8 @@
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
                 <h2 style="color:#fff; margin:10px 0;">ETB 600</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 2.60<br>Estimated Return: ETB 2,808</p>
-                <button class="btn-premium" onclick="invest(600, 2.60)">Invest Now</button>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 2.60<br>Daily Return: ETB 62.40<br>Estimated Return: ETB 2,808</p>
+                <button class="btn-premium" onclick="invest(600, 2.60, 'VIP Level 2', 62.4)">Invest Now</button>
             </div>
 
             <div class="vip-card">
@@ -299,8 +321,8 @@
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
                 <h2 style="color:#fff; margin:10px 0;">ETB 1,200</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 5.50<br>Estimated Return: ETB 5,940</p>
-                <button class="btn-premium" onclick="invest(1200, 5.50)">Invest Now</button>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 5.50<br>Daily Return: ETB 132.00<br>Estimated Return: ETB 5,940</p>
+                <button class="btn-premium" onclick="invest(1200, 5.50, 'VIP Level 3', 132)">Invest Now</button>
             </div>
 
             <div class="vip-card">
@@ -309,8 +331,8 @@
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
                 <h2 style="color:#fff; margin:10px 0;">ETB 2,500</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 12.00<br>Estimated Return: ETB 12,960</p>
-                <button class="btn-premium" onclick="invest(2500, 12.00)">Invest Now</button>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 12.00<br>Daily Return: ETB 288.00<br>Estimated Return: ETB 12,960</p>
+                <button class="btn-premium" onclick="invest(2500, 12.00, 'VIP Level 4', 288)">Invest Now</button>
             </div>
 
             <div class="vip-card">
@@ -319,8 +341,8 @@
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
                 <h2 style="color:#fff; margin:10px 0;">ETB 5,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 25.00<br>Estimated Return: ETB 27,000</p>
-                <button class="btn-premium" onclick="invest(5000, 25.00)">Invest Now</button>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 25.00<br>Daily Return: ETB 600.00<br>Estimated Return: ETB 27,000</p>
+                <button class="btn-premium" onclick="invest(5000, 25.00, 'VIP Level 5', 600)">Invest Now</button>
             </div>
 
             <div class="vip-card">
@@ -329,8 +351,8 @@
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
                 <h2 style="color:#fff; margin:10px 0;">ETB 10,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 54.00<br>Estimated Return: ETB 58,320</p>
-                <button class="btn-premium" onclick="invest(10000, 54.00)">Invest Now</button>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 54.00<br>Daily Return: ETB 1,296.00<br>Estimated Return: ETB 58,320</p>
+                <button class="btn-premium" onclick="invest(10000, 54.00, 'VIP Level 6', 1296)">Invest Now</button>
             </div>
 
             <div class="vip-card">
@@ -339,8 +361,8 @@
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
                 <h2 style="color:#fff; margin:10px 0;">ETB 18,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 102.00<br>Estimated Return: ETB 110,160</p>
-                <button class="btn-premium" onclick="invest(18000, 102.00)">Invest Now</button>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 102.00<br>Daily Return: ETB 2,448.00<br>Estimated Return: ETB 110,160</p>
+                <button class="btn-premium" onclick="invest(18000, 102.00, 'VIP Level 7', 2448)">Invest Now</button>
             </div>
 
             <div class="vip-card">
@@ -349,8 +371,8 @@
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
                 <h2 style="color:#fff; margin:10px 0;">ETB 25,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 148.00<br>Estimated Return: ETB 159,840</p>
-                <button class="btn-premium" onclick="invest(25000, 148.00)">Invest Now</button>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 148.00<br>Daily Return: ETB 3,552.00<br>Estimated Return: ETB 159,840</p>
+                <button class="btn-premium" onclick="invest(25000, 148.00, 'VIP Level 8', 3552)">Invest Now</button>
             </div>
 
             <div class="vip-card">
@@ -359,8 +381,8 @@
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
                 <h2 style="color:#fff; margin:10px 0;">ETB 38,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 235.00<br>Estimated Return: ETB 253,800</p>
-                <button class="btn-premium" onclick="invest(38000, 235.00)">Invest Now</button>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 235.00<br>Daily Return: ETB 5,640.00<br>Estimated Return: ETB 253,800</p>
+                <button class="btn-premium" onclick="invest(38000, 235.00, 'VIP Level 9', 5640)">Invest Now</button>
             </div>
 
             <div class="vip-card">
@@ -369,8 +391,8 @@
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
                 <h2 style="color:#fff; margin:10px 0;">ETB 50,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 320.00<br>Estimated Return: ETB 345,600</p>
-                <button class="btn-premium" onclick="invest(50000, 320.00)">Invest Now</button>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 320.00<br>Daily Return: ETB 7,680.00<br>Estimated Return: ETB 345,600</p>
+                <button class="btn-premium" onclick="invest(50000, 320.00, 'VIP Level 10', 7680)">Invest Now</button>
             </div>
         </div>
     </div>
@@ -390,8 +412,26 @@
     </div>
 
     <div id="screen-profile" class="screen">
-        <h3>Secure Withdrawal Vault</h3>
+        <h3 style="color:var(--primary-green);">Deposit / Fund Account</h3>
+        <div style="background:rgba(0,204,102,0.1); padding:15px; border-radius:12px; margin-bottom:20px; font-size:13px; border:1px dashed var(--primary-green);">
+            <p style="margin:0 0 8px 0;"><b>💳 Admin Payment Details:</b></p>
+            <p style="margin:4px 0;">Telebirr / CBE: <b>0912345678</b></p>
+            <p style="margin:4px 0;">Account Holder: <b>NEX PROFIT ADMIN</b></p>
+        </div>
         
+        <div class="input-group">
+            <label>Amount to Deposit (ETB)</label>
+            <input type="number" id="deposit-amount" placeholder="e.g. 300">
+        </div>
+        <div class="input-group">
+            <label>Transaction ID / Reference Number</label>
+            <input type="text" id="deposit-ref" placeholder="Enter Telebirr/Bank Txn ID">
+        </div>
+        <button class="btn-premium" style="background:var(--primary-green); color:#000; margin-bottom:25px;" onclick="processDeposit()">Submit Deposit Request</button>
+
+        <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:25px 0;">
+
+        <h3>Secure Withdrawal Vault</h3>
         <div id="bank-status-box" style="background:rgba(255,204,0,0.05); border:1px dashed var(--accent-gold); padding:12px; border-radius:10px; margin-bottom:20px; font-size:13px; color:var(--accent-gold);">
             ⚠️ No withdrawal destination locked yet.
         </div>
@@ -456,15 +496,37 @@
     let savedName = localStorage.getItem('np_bank_name') || '';
     let savedType = localStorage.getItem('np_bank_type') || '';
     let savedAcc = localStorage.getItem('np_bank_acc') || '';
+    
+    // VIP specific state
+    let activeVipName = localStorage.getItem('np_active_vip_name') || 'Free Miner';
+    let dailyReward = parseFloat(localStorage.getItem('np_daily_reward')) || 15.00;
+    let lastTaskClaimDate = localStorage.getItem('np_last_task_date') || ''; 
+
     let taskTimeout = null;
 
-    // Check if already logged in
+    // Check login state
     window.onload = function() {
         if(localStorage.getItem('np_logged_in') === 'true') {
             bypassLogin();
+        } else {
+            toggleAuthPages('register');
         }
         updateBankDisplay();
+        updateVipDisplays();
     };
+
+    function toggleAuthPages(page) {
+        document.getElementById('screen-register').classList.remove('active');
+        document.getElementById('screen-login').classList.remove('active');
+        
+        if(page === 'login') {
+            document.getElementById('screen-login').classList.add('active');
+            document.getElementById('app-title').innerText = 'NEX PROFIT - LOGIN';
+        } else {
+            document.getElementById('screen-register').classList.add('active');
+            document.getElementById('app-title').innerText = 'NEX PROFIT - REGISTER';
+        }
+    }
 
     function handleRegister() {
         const phone = document.getElementById('reg-phone').value;
@@ -475,16 +537,36 @@
             alert('Error: Please input a valid mobile number.');
             return;
         }
-        if(pass !== confirmPass) {
-            alert('Error: Passwords do not match.');
+        if(!pass || pass !== confirmPass) {
+            alert('Error: Passwords do not match or empty.');
             return;
         }
+
+        // Save credential internally simulating database
+        localStorage.setItem('db_phone', phone);
+        localStorage.setItem('db_pass', pass);
         localStorage.setItem('np_logged_in', 'true');
         bypassLogin();
     }
 
+    function handleLogin() {
+        const phone = document.getElementById('login-phone').value;
+        const pass = document.getElementById('login-pass').value;
+
+        const storedPhone = localStorage.getItem('db_phone');
+        const storedPass = localStorage.getItem('db_pass');
+
+        if(phone === storedPhone && pass === storedPass && phone !== null) {
+            localStorage.setItem('np_logged_in', 'true');
+            bypassLogin();
+        } else {
+            alert('Authentication Failed: Invalid phone number or password.');
+        }
+    }
+
     function bypassLogin() {
         document.getElementById('screen-register').classList.remove('active');
+        document.getElementById('screen-login').classList.remove('active');
         document.getElementById('bottom-nav').style.display = 'flex';
         switchScreen('home');
     }
@@ -493,11 +575,11 @@
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById('screen-' + screenId).classList.add('active');
         
-        // Update Nav Active state
         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
         
         document.getElementById('app-title').innerText = 'NEX PROFIT - ' + screenId.toUpperCase();
         updateBalanceDisplay();
+        updateVipDisplays();
     }
 
     function updateBalanceDisplay() {
@@ -505,8 +587,20 @@
         localStorage.setItem('np_balance', balance);
     }
 
-    // 1 MINUTE DAILY TASK ENGINE
+    function updateVipDisplays() {
+        document.getElementById('home-active-vip').innerText = `Active Tier: ${activeVipName}`;
+        document.getElementById('task-reward-amount').innerText = `ETB ${dailyReward.toFixed(2)}`;
+    }
+
+    // 24-HOUR VIP DYNAMIC REWARD TASK ENGINE
     function startDailyTask() {
+        // Check 24-hour limit
+        const todayStr = new Date().toDateString(); 
+        if(lastTaskClaimDate === todayStr) {
+            alert('Mining Limited: You have already completed your task for today. Please return tomorrow!');
+            return;
+        }
+
         let btn = document.getElementById('start-task-btn');
         let timerDisplay = document.getElementById('task-timer');
         let timeLeft = 60; 
@@ -523,15 +617,40 @@
 
             if (timeLeft <= 0) {
                 clearInterval(taskTimeout);
-                balance += 50.00; 
+                
+                // Grant reward based on custom chosen package
+                balance += dailyReward; 
+                lastTaskClaimDate = todayStr;
+                localStorage.setItem('np_last_task_date', lastTaskClaimDate);
+
                 updateBalanceDisplay();
-                alert('Success: Daily mining task complete! +50 ETB added to balance.');
+                alert(`Success: Daily mining task complete! +ETB ${dailyReward.toFixed(2)} added based on your ${activeVipName} plan.`);
+                
                 btn.disabled = false;
                 btn.style.background = 'linear-gradient(135deg, #ffe066, #ffcc00)';
                 btn.innerText = 'Start Mining Task';
                 timerDisplay.innerText = "01:00";
             }
         }, 1000);
+    }
+
+    // DEPOSIT SIMULATOR
+    function processDeposit() {
+        const amount = parseFloat(document.getElementById('deposit-amount').value);
+        const reference = document.getElementById('deposit-ref').value;
+
+        if(isNaN(amount) || amount <= 0 || !reference) {
+            alert('Error: Please enter a valid deposit amount and transaction text reference.');
+            return;
+        }
+
+        // Add to wallet balance instantly for sleek UX
+        balance += amount;
+        updateBalanceDisplay();
+        alert(`Deposit Order Submitted! ETB ${amount.toFixed(2)} credited to your balance successfully.`);
+        document.getElementById('deposit-amount').value = '';
+        document.getElementById('deposit-ref').value = '';
+        switchScreen('home');
     }
 
     // BANK SETTINGS
@@ -598,13 +717,24 @@
         document.getElementById('withdraw-amount').value = '';
     }
 
-    function invest(amount, hourly) {
+    function invest(amount, hourly, vipName, calculatedDailyReturn) {
         if(balance < amount) {
-            alert('Insufficient balance. Please recharge.');
+            let choice = confirm('Insufficient balance. Would you like to deposit funds now?');
+            if(choice) {
+                switchScreen('profile'); // Navigates to wallet screen with deposit form
+            }
         } else {
             balance -= amount;
+            activeVipName = vipName;
+            dailyReward = calculatedDailyReturn;
+
+            localStorage.setItem('np_active_vip_name', activeVipName);
+            localStorage.setItem('np_daily_reward', dailyReward);
+
             updateBalanceDisplay();
-            alert(`VIP Activated! Invested ETB ${amount}. Hourly Income: ETB ${hourly}`);
+            updateVipDisplays();
+            alert(`VIP Activated! Successfully unlocked ${vipName}. Your daily task reward is now upgraded to ETB ${calculatedDailyReturn.toFixed(2)}!`);
+            switchScreen('home');
         }
     }
 
@@ -619,9 +749,7 @@
         if(confirm("Are you sure you want to logout?")) {
             localStorage.setItem('np_logged_in', 'false');
             document.getElementById('bottom-nav').style.display = 'none';
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById('screen-register').classList.add('active');
-            document.getElementById('app-title').innerText = 'NEX PROFIT';
+            toggleAuthPages('login'); // Shifts view smoothly to login back
             if(taskTimeout) clearInterval(taskTimeout);
         }
     }
