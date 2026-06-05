@@ -358,7 +358,7 @@
             <div style="font-size: 12px; color: var(--primary-green);">● Nex Profit Mining Server Active</div>
         </div>
         
-        <!-- 🔥 NEW: RULES BUTTON RIGHT UNDER HERO CARD -->
+        <!-- RULES BUTTON -->
         <button class="btn-premium" style="background: linear-gradient(135deg, #2c5314, #142b08); color: #fff; border: 1px solid var(--primary-green); margin-bottom: 20px; padding: 10px;" onclick="openRulesModal()">📜 Platform Rules & Privacy</button>
 
         <div class="grid-menu">
@@ -376,7 +376,7 @@
     <!-- DAILY TASK SCREEN -->
     <div id="screen-task" class="screen" style="text-align: center;">
         <h3>Daily Mining Verification</h3>
-        <p style="color: var(--text-muted); font-size:14px; padding: 0 10px;">የዕለቱን የቪአይፒ ፓኬጅዎን ሙሉ ትርፍ ለማግኘት ማዕድኑን ለ 1 ደቂቃ ያህል በነቃ ሁኔታ ያቆዩት።</p>
+        <p style="color: var(--text-muted); font-size:14px; padding: 0 10px;">To claim your current daily VIP node reward, activate the cloud server and keep it active for 1 minute.</p>
         
         <div style="background:rgba(255,204,0,0.1); border:1px solid var(--accent-gold); padding:10px; border-radius:10px; margin:15px 0; font-size:14px;">
             Your Current Daily Return: <b style="color:var(--accent-gold);" id="task-reward-amount">ETB 0.00</b>
@@ -475,7 +475,7 @@
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
                 <h2 style="color:#fff; margin:10px 0;">ETB 50,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 291.60<br>Daily Return: ETB 6,998.40<br>Estimated Return: ETB 314,928</p>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 291.60<br>Daily Return: ETB 6998.40<br>Estimated Return: ETB 314,928</p>
                 <button class="btn-premium" onclick="invest(50000, 'VIP Level 8', 6998.4)">Invest Now</button>
             </div>
 
@@ -522,11 +522,11 @@
     <div id="screen-profile" class="screen">
         <h3 style="color:var(--primary-green); margin-top:0;">Deposit / Fund Account</h3>
         <div class="notice-box">
-            ⚠️ <b>የማረጋገጫ ማሳሰቢያ፦</b> የሙሌት ጥያቄ ካስገቡ በኋላ አስተዳዳሪው የባንክ ማዘዣ ቁጥሩን አረጋግጦ በ <b>24 ሰዓት</b> ውስጥ አካውንትዎ ላይ ይጨምራል።
+            ⚠️ <b>Verification Notice:</b> After submitting a deposit, the administrator will verify the bank transaction reference number and credit your balance within <b>24 hours</b>.
         </div>
         <div style="background:rgba(0,204,102,0.1); padding:15px; border-radius:12px; margin-bottom:20px; font-size:13px; border:1px dashed var(--primary-green);">
             <p style="margin:0 0 8px 0;"><b>💳 Admin Payment Details:</b></p>
-            <p style="margin:4px 0;">Telebirr / CBE: <b>0954406366</b></p>
+            <p style="margin:4px 0;">Telebirr: <b>0954406366</b></p>
             <p style="margin:4px 0;">Account Holder: <b>Temesgen Ayenew</b></p>
         </div>
         <div class="input-group">
@@ -567,7 +567,7 @@
 
         <h3>Request Payout</h3>
         <div class="notice-box" style="background:rgba(255, 51, 51, 0.1); border-color:var(--danger-red); color:#ff6666;">
-            🛑 <b>የክፍያ ማሳሰቢያ፦</b> ማንኛውም የወጪ ክፍያ ጥያቄ በአስተዳዳሪው ተረጋግጦ በ <b>24 ሰዓት</b> ውስጥ ወደ ባንክዎ ገቢ ይደረጋል።
+            🛑 <b>Payout Notice:</b> All withdrawal requests are verified manually and processed straight to your designated bank within <b>24 hours</b>.
         </div>
         <div class="input-group">
             <label>Amount to Withdraw (Min: 500 ETB)</label>
@@ -583,14 +583,14 @@
     <div id="screen-admin" class="screen">
         <h3 style="color:var(--accent-gold); text-align:center; margin-top:0;">🛡️ Nex Profit Admin Panel</h3>
         
-        <h4 style="color:var(--primary-green); margin-bottom:5px;">💵 የሙሌት ጥያቄዎች (Deposits)</h4>
+        <h4 style="color:var(--primary-green); margin-bottom:5px;">💵 Pending Deposit Requests</h4>
         <div id="admin-deposits-list">
             <p style="color:var(--text-muted); font-size:12px;">Loading deposits...</p>
         </div>
 
         <hr style="border-color:rgba(255,255,255,0.1); margin:20px 0;">
 
-        <h4 style="color:var(--danger-red); margin-bottom:5px;">🏧 የወጪ ክፍያ ጥያቄዎች (Withdrawals)</h4>
+        <h4 style="color:var(--danger-red); margin-bottom:5px;">🏧 Pending Withdrawal Requests</h4>
         <div id="admin-withdrawals-list">
             <p style="color:var(--text-muted); font-size:12px;">Loading withdrawals...</p>
         </div>
@@ -607,30 +607,30 @@
     </div>
 </div>
 
-<!-- 🔥 RULES AND PRIVACY MODAL POPUP -->
+<!-- RULES AND PRIVACY MODAL POPUP -->
 <div id="rules-modal" class="modal-overlay" onclick="closeRulesModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div class="modal-header">📜 Platform Rules & Privacy Policy</div>
         <div class="modal-body">
-            <h4>1. ስለ Web App ሥራ (About Platform)</h4>
-            <p>Nex Profit የደመና ማዕድን (Cloud Mining) ቴክኖሎጂን በመጠቀም ተጠቃሚዎች በተለያዩ የቪአይፒ ደረጃዎች ፈንድ በማድረግ በየሰዓቱ እና በየቀኑ የተረጋገጠ የትርፍ ክፍያ የሚያገኙበት እውነተኛ የኢንቨስትመንት መድረክ ነው።</p>
+            <h4>1. About Web App Platform</h4>
+            <p>Nex Profit is a smart investment ecosystem utilizing decentralized Cloud Mining configurations. Users fund their accounts across multi-tiered VIP configurations to receive consistent, computational hourly and daily algorithmic returns.</p>
             
-            <h4>2. ስለ ዋና ገንዘብ (Principal Investment Rule)</h4>
-            <p style="color: var(--warning-orange); font-weight: bold;">⚠️ በጣም አስፈላጊ ሕግ፦ አንድ ተጠቃሚ በመድረኩ ላይ የመረጠው የቪአይፒ ፓኬጅ የ 45 ቀናት ኮንትራት ጊዜ ሳይጠናቀቅ ዋናውን የኢንቨስትመንት ገንዘብ (Principal Amount) ማውጣት አይችልም። ሆኖም ግን ከማዕድኑ የሚወጣውን ዕለታዊ ወለድ/ትርፍ በማንኛውም ጊዜ ማውጣት ይቻላል።</p>
+            <h4>2. Principal Investment Rule</h4>
+            <p style="color: var(--warning-orange); font-weight: bold;">⚠️ Critical Regulation: Once a user commits funds to any VIP Tier package, the principal investment amount cannot be withdrawn under any circumstances before the 45-day active contract cycle expires. However, accumulated daily interest/returns can be withdrawn securely at any given time.</p>
 
-            <h4>3. ስለ ዕለታዊ ተግባር (Daily Task)</h4>
-            <p>እያንዳንዱ ተጠቃሚ የዕለቱን ትርፍ ወደ ካዝናው ለማዛወር በየ 24 ሰዓቱ 1 ጊዜ የ 1 ደቂቃ የንቁ ማዕድን ማውጣት ተግባር (Mining Task) ማጠናቀቅ አለበት። ይህ ተግባር በቀን አንድ ጊዜ ብቻ ነው የሚፈቀደው።</p>
+            <h4>3. Daily Tasks Configuration</h4>
+            <p>To authorize and push server rewards to your main balance, users must actively initialize the computational verification task once every 24 hours. The active mining node verification session lasts exactly 1 minute.</p>
 
-            <h4>4. ስለ ማዕድን ሙሌት (Deposit Policy)</h4>
-            <p>የሙሌት ጥያቄዎች በቴሌብር ወይም በኢትዮጵያ ንግድ ባንክ በኩል ትክክለኛውን የትራንዛክሽን ማዘዣ ቁጥር (Txn ID) በማስገባት ይላካሉ። አስተዳዳሪው በ 24 ሰዓት ውስጥ መረጃውን አረጋግጦ አካውንትዎን ወደ ተገቢው የቪአይፒ ደረጃ በራስ-ሰር ያሳድገዋል።</p>
+            <h4>4. Deposit Guidelines</h4>
+            <p>All deposits must be completed via designated Telebirr routes using valid Transaction ID (Txn ID) references. The administrative team reviews and authorizes pending requests within a maximum window of 24 hours, automatically upgrading accounts based on the deposited tiers.</p>
 
-            <h4>5. ስለ ወጪ ክፍያ (Withdrawal Policy)</h4>
-            <p>አነስተኛው የወጪ ክፍያ ጥያቄ 500 ETB ነው። የባንክ አካውንትዎ አንዴ ከተቆለፈ በኋላ ለደህንነት ሲባል በቀላሉ አይቀየርም። ሁሉም የተጠየቁ ክፍያዎች በአስተዳዳሪው ተረጋግጠው በ 24 ሰዓታት ውስጥ በቀጥታ ወደ ባንክዎ ገቢ ይደረጋሉ።</p>
+            <h4>5. Withdrawal Protocols</h4>
+            <p>The system enforces a minimum individual withdrawal limit of 500 ETB. To maintain maximum security against account takeovers, bank details are permanently locked upon initial setup. Validated payouts are dispatched within 24 hours.</p>
 
-            <h4>6. ደህንነት እና ግላዊነት (Privacy & Security)</h4>
-            <p>የተጠቃሚዎች የይለፍ ቃላት እና የባንክ መረጃዎች በ Supabase የደህንነት ካዝና ውስጥ በጥብቅ የተቆለፉ ናቸው። መድረኩ ከአንድ አካውንት በላይ መክፈትን በጥብቅ ይከለክላል።</p>
+            <h4>6. Data Privacy & Systems Security</h4>
+            <p>All sensitive credentials and payment routes are heavily locked via Supabase security vault layers. Operating multiple accounts per individual is strictly prohibited and results in immediate automated machine bans.</p>
         </div>
-        <button class="btn-premium" style="margin-top: 15px;" onclick="closeRulesModal()">አነበብኩ / ዝጋ</button>
+        <button class="btn-premium" style="margin-top: 15px;" onclick="closeRulesModal()">I Understand / Close</button>
     </div>
 </div>
 
@@ -639,14 +639,13 @@
     const SUPABASE_KEY = "sb_publishable_TCRLz3h_8DWxGDmXWoatBQ_EG2ACA9y"; 
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // 🛑 [አስፈላጊ] ያንተን ስልክ ቁጥር እዚህ ጋር አስገባ!
+    // 🛡️ ADMIN CONFIGURATION LOCKED 
     const ADMIN_PHONE = "0954406366"; 
 
     let sessionUser = null; 
     let taskTimeout = null;
 
     window.onload = async function() {
-        // 🔥 ቼክ፦ በሊንክ የመጣ የሪፈራል ኮድ ካለ ፈልጎ ይመዝግበው
         const urlParams = new URLSearchParams(window.location.search);
         const refCode = urlParams.get('ref');
         if (refCode) {
@@ -678,7 +677,6 @@
                 document.getElementById('tab-admin').style.display = 'none';
             }
 
-            // 🔥 በአሁኑ የዌብሳይት ሊንክ ላይ ተመስርቶ ሁለንተናዊ የሪፈራል ሊንክ ይፈጥራል (በማንኛውም ብሮውዘር ይከፍታል)
             const currentDomain = window.location.origin + window.location.pathname;
             document.getElementById('ref-link').value = `${currentDomain}?ref=${sessionUser.phone}`;
 
@@ -761,17 +759,17 @@
     }
 
     async function handleForgotPassword() {
-        const phone = prompt("እባክዎ አካውንት የከፈቱበትን ስልክ ቁጥር ያስገቡ:");
+        const phone = prompt("Please enter your registered mobile number:");
         if(!phone) return;
 
         const { data, error } = await _supabase.from('users').select('password').eq('phone', phone.trim()).maybeSingle();
 
         if(error) {
-            alert("ስህተት ተፈጥሯል፣ እባክዎ እንደገና ይሞክሩ።");
+            alert("An error occurred. Please try again.");
         } else if(data) {
-            alert(`የእርስዎ የይለፍ ቃል (Password)፦ ${data.password} ነው። በጥንቃቄ ይያዙት።`);
+            alert(`Your password is: ${data.password}. Keep it secure.`);
         } else {
-            alert("ይህ ስልክ ቁጥር በሲስተሙ ውስጥ አልተገኘም!");
+            alert("This phone number was not found in our database.");
         }
     }
 
@@ -788,7 +786,6 @@
         document.getElementById('home-active-vip').innerText = 'Active Tier: ' + sessionUser.vip_level;
         document.getElementById('task-reward-amount').innerText = 'ETB ' + parseFloat(sessionUser.daily_reward).toFixed(2);
 
-        // Task Button ቼክ በቀን 1 ጊዜ ብቻ
         const lastMined = localStorage.getItem(`last_mined_date_${sessionUser.phone}`);
         const todayStr = new Date().toDateString();
         const btn = document.getElementById('start-task-btn');
@@ -833,7 +830,6 @@
         }
     }
 
-    /* Modals Control */
     function openRulesModal() { document.getElementById('rules-modal').style.display = 'flex'; }
     function closeRulesModal() { document.getElementById('rules-modal').style.display = 'none'; }
 
@@ -844,7 +840,7 @@
         const { data, error } = await _supabase.from('deposits').select('*').eq('status', 'pending');
 
         if(error || !data || data.length === 0) {
-            container.innerHTML = '<p style="color:var(--primary-green); font-size:13px;">🎉 አዲስ የሙሌት ጥያቄ የለም።</p>';
+            container.innerHTML = '<p style="color:var(--primary-green); font-size:13px;">🎉 No pending deposit requests.</p>';
             return;
         }
 
@@ -869,7 +865,7 @@
         const { data, error } = await _supabase.from('withdrawals').select('*').eq('status', 'pending');
 
         if(error || !data || data.length === 0) {
-            container.innerHTML = '<p style="color:var(--primary-green); font-size:13px;">🎉 አዲስ የወጪ ክፍያ ጥያቄ የለም።</p>';
+            container.innerHTML = '<p style="color:var(--primary-green); font-size:13px;">🎉 No pending withdrawal requests.</p>';
             return;
         }
 
@@ -888,52 +884,31 @@
     }
 
     async function approveDeposit(id, userPhone, amount) {
-        if(!confirm(`ቁጥር ${userPhone} ላይ ${amount} ETB ለመጨመር እርግጠኛ ነህ?`)) return;
+        if(!confirm(`Are you sure you want to add ${amount} ETB to user ${userPhone}?`)) return;
 
         const { data: userData } = await _supabase.from('users').select('balance').eq('phone', userPhone).maybeSingle();
         if(!userData) {
-            alert("Error: ተጠቃሚው አልተገኘም!");
+            alert("Error: User account not found!");
             return;
         }
 
         let currentBalance = parseFloat(userData.balance || 0);
         let newBalance = currentBalance + parseFloat(amount);
 
-        // 🔥 AUTOMATIC VIP UPGRADE BASED ON NEW BALANCE (UP TO LEVEL 10)
+        // Auto VIP tier classification
         let newVip = "Free Miner";
         let newReward = 5.00;
 
-        if (newBalance >= 200000) {
-            newVip = "VIP Level 10";
-            newReward = 30664.80;
-        } else if (newBalance >= 100000) {
-            newVip = "VIP Level 9";
-            newReward = 14666.40;
-        } else if (newBalance >= 50000) {
-            newVip = "VIP Level 8";
-            newReward = 6998.40;
-        } else if (newBalance >= 25000) {
-            newVip = "VIP Level 7";
-            newReward = 3331.20;
-        } else if (newBalance >= 12000) {
-            newVip = "VIP Level 6";
-            newReward = 1531.20;
-        } else if (newBalance >= 6000) {
-            newVip = "VIP Level 5";
-            newReward = 732.00;
-        } else if (newBalance >= 3000) {
-            newVip = "VIP Level 4";
-            newReward = 348.00;
-        } else if (newBalance >= 1200) {
-            newVip = "VIP Level 3";
-            newReward = 132.00;
-        } else if (newBalance >= 600) {
-            newVip = "VIP Level 2";
-            newReward = 62.40;
-        } else if (newBalance >= 300) {
-            newVip = "VIP Level 1";
-            newReward = 30.00;
-        }
+        if (newBalance >= 200000) { newVip = "VIP Level 10"; newReward = 30664.80; }
+        else if (newBalance >= 100000) { newVip = "VIP Level 9"; newReward = 14666.40; }
+        else if (newBalance >= 50000) { newVip = "VIP Level 8"; newReward = 6998.40; }
+        else if (newBalance >= 25000) { newVip = "VIP Level 7"; newReward = 3331.20; }
+        else if (newBalance >= 12000) { newVip = "VIP Level 6"; newReward = 1531.20; }
+        else if (newBalance >= 6000) { newVip = "VIP Level 5"; newReward = 732.00; }
+        else if (newBalance >= 3000) { newVip = "VIP Level 4"; newReward = 348.00; }
+        else if (newBalance >= 1200) { newVip = "VIP Level 3"; newReward = 132.00; }
+        else if (newBalance >= 600) { newVip = "VIP Level 2"; newReward = 62.40; }
+        else if (newBalance >= 300) { newVip = "VIP Level 1"; newReward = 30.00; }
 
         const { error: userError } = await _supabase.from('users').update({ 
             balance: newBalance,
@@ -942,24 +917,24 @@
         }).eq('phone', userPhone);
 
         if(userError) {
-            alert("ስህተት: ብሩን መጫን አልተቻለም።");
+            alert("Error updating user balance.");
             return;
         }
 
         await _supabase.from('deposits').update({ status: 'approved' }).eq('id', id);
-        alert(`ስኬታማ ነው! +${amount} ETB ገብቷል። ተጠቃሚው ወደ ${newVip} አድጓል።`);
+        alert(`Success! +${amount} ETB credited. User tier set to ${newVip}.`);
         loadAdminDeposits();
     }
 
     async function approveWithdrawal(id, userPhone, amount) {
-        if(!confirm(`ለቁጥር ${userPhone} የ ${amount} ETB ክፍያ መፈጸሙን አረጋግጠሃል?`)) return;
+        if(!confirm(`Confirm that payout of ${amount} ETB has been processed to ${userPhone}?`)) return;
 
         const { error } = await _supabase.from('withdrawals').update({ status: 'approved' }).eq('id', id);
 
         if(error) {
-            alert("ስህተት: ማጽደቅ አልተቻለም " + error.message);
+            alert("Error approving withdrawal: " + error.message);
         } else {
-            alert("የወጪ ክፍያው በተሳካ ሁኔታ ጸድቋል!");
+            alert("Withdrawal marked as successfully completed!");
             loadAdminWithdrawals();
         }
     }
@@ -995,7 +970,7 @@
         const todayStr = new Date().toDateString();
 
         if (lastMined === todayStr) {
-            alert("በቀን 1 ጊዜ ብቻ ነው መፍቀድ የሚቻለው! ነገ ይመለሱ።");
+            alert("You have already performed mining verification today. Come back tomorrow!");
             return;
         }
 
@@ -1023,7 +998,7 @@
                 if(!error) {
                     sessionUser.balance = newBalance;
                     localStorage.setItem(`last_mined_date_${sessionUser.phone}`, todayStr);
-                    alert(`ተሳክቷል! +ETB ${bonus} አካውንትዎ ላይ ተጨምሯል።`);
+                    alert(`Verification Complete! +ETB ${bonus} successfully added to balance.`);
                 } else {
                     alert('Error updating balance: ' + error.message);
                 }
@@ -1047,7 +1022,7 @@
             { user_phone: sessionUser.phone, amount: amt, txn_id: ref, status: 'pending' }
         ]);
 
-        alert('የሙሌት ጥያቄዎ ተልኳል! በአስተዳዳሪው ተረጋግጦ በ 24 ሰዓት ውስጥ ይጨመራል።');
+        alert('Deposit request submitted! Subject to verification within 24 hours.');
         document.getElementById('deposit-amount').value = '';
         document.getElementById('deposit-ref').value = '';
         switchScreen('home');
@@ -1078,7 +1053,7 @@
             await _supabase.from('withdrawals').insert([
                 { user_phone: sessionUser.phone, amount: amt, bank_details: `${sessionUser.bank_type} - ${sessionUser.bank_acc} (${sessionUser.bank_name})`, status: 'pending' }
             ]);
-            alert('የወጪ ክፍያ ጥያቄዎ ተልኳል! በ 24 ሰዓት ውስጥ ወደ ባንክዎ ገቢ ይደረጋል።');
+            alert('Withdrawal request successfully queued! Processing completes within 24 hours.');
             document.getElementById('withdraw-amount').value = '';
             switchScreen('home');
         } else {
@@ -1116,7 +1091,7 @@
         let copyText = document.getElementById("ref-link");
         copyText.select();
         document.execCommand("copy");
-        alert("የሪፈራል ሊንክዎ በተሳካ ሁኔታ ኮፒ ሆኗል! በማንኛውም ቦታ ሼር ማድረግ ይችላሉ።");
+        alert("Referral link copied successfully! Share it anywhere.");
     }
 
     function logout() {
