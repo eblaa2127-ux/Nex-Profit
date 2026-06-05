@@ -226,6 +226,51 @@
             margin-bottom: 3px;
         }
 
+        /* Rules Modal Overlay Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .modal-content {
+            background: #0f1c08;
+            border: 2px solid var(--primary-green);
+            border-radius: 16px;
+            max-width: 400px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .modal-header {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent-gold);
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .modal-body h4 {
+            color: var(--primary-green);
+            margin: 12px 0 5px 0;
+            font-size: 14px;
+        }
+        .modal-body p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0 0 10px 0;
+            line-height: 1.5;
+        }
+
         /* Admin Dashboard Styles */
         .admin-request-card {
             background: #1e1111;
@@ -278,7 +323,7 @@
             <input type="password" id="reg-confirm" placeholder="Confirm password">
         </div>
         <div class="input-group">
-            <input type="text" id="reg-ref" value="e91673c2" placeholder="Invitation Code">
+            <input type="text" id="reg-ref" placeholder="Invitation Code (Optional)">
         </div>
         <button class="btn-premium" onclick="handleRegister()">Register</button>
         <p style="text-align:center; margin-top:25px; font-size:14px; color:var(--text-muted);">
@@ -313,6 +358,9 @@
             <div style="font-size: 12px; color: var(--primary-green);">● Nex Profit Mining Server Active</div>
         </div>
         
+        <!-- 🔥 NEW: RULES BUTTON RIGHT UNDER HERO CARD -->
+        <button class="btn-premium" style="background: linear-gradient(135deg, #2c5314, #142b08); color: #fff; border: 1px solid var(--primary-green); margin-bottom: 20px; padding: 10px;" onclick="openRulesModal()">📜 Platform Rules & Privacy</button>
+
         <div class="grid-menu">
             <div class="grid-item" onclick="switchScreen('vip')">💎<br><span style="font-size:13px; font-weight:bold;">VIP Tiers</span></div>
             <div class="grid-item" onclick="switchScreen('task')">⏱️<br><span style="font-size:13px; font-weight:bold;">Daily Task</span></div>
@@ -339,7 +387,7 @@
         <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Start Mining Task</button>
     </div>
 
-    <!-- VIP / EARNINGS SCREEN -->
+    <!-- VIP / EARNINGS SCREEN (LEVEL 1 TO LEVEL 10) -->
     <div id="screen-vip" class="screen">
         <h3 style="margin-top: 0; text-align: center; color: var(--accent-gold);">Premium Mining Nodes</h3>
         <div class="vip-container">
@@ -371,9 +419,86 @@
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 3</span>
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 1200</h2>
+                <h2 style="color:#fff; margin:10px 0;">ETB 1,200</h2>
                 <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 5.50<br>Daily Return: ETB 132.00<br>Estimated Return: ETB 5,940</p>
                 <button class="btn-premium" onclick="invest(1200, 'VIP Level 3', 132)">Invest Now</button>
+            </div>
+
+            <!-- VIP 4 -->
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 4</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 3,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 14.50<br>Daily Return: ETB 348.00<br>Estimated Return: ETB 15,660</p>
+                <button class="btn-premium" onclick="invest(3000, 'VIP Level 4', 348)">Invest Now</button>
+            </div>
+
+            <!-- VIP 5 -->
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 5</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 6,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 30.50<br>Daily Return: ETB 732.00<br>Estimated Return: ETB 32,940</p>
+                <button class="btn-premium" onclick="invest(6000, 'VIP Level 5', 732)">Invest Now</button>
+            </div>
+
+            <!-- VIP 6 -->
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 6</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 12,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 63.80<br>Daily Return: ETB 1,531.20<br>Estimated Return: ETB 68,904</p>
+                <button class="btn-premium" onclick="invest(12000, 'VIP Level 6', 1531.2)">Invest Now</button>
+            </div>
+
+            <!-- VIP 7 -->
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 7</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 25,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 138.80<br>Daily Return: ETB 3,331.20<br>Estimated Return: ETB 149,904</p>
+                <button class="btn-premium" onclick="invest(25000, 'VIP Level 7', 3331.2)">Invest Now</button>
+            </div>
+
+            <!-- VIP 8 -->
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 8</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 50,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 291.60<br>Daily Return: ETB 6,998.40<br>Estimated Return: ETB 314,928</p>
+                <button class="btn-premium" onclick="invest(50000, 'VIP Level 8', 6998.4)">Invest Now</button>
+            </div>
+
+            <!-- VIP 9 -->
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 9</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 100,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 611.10<br>Daily Return: ETB 14,666.40<br>Estimated Return: ETB 659,988</p>
+                <button class="btn-premium" onclick="invest(100000, 'VIP Level 9', 14666.4)">Invest Now</button>
+            </div>
+
+            <!-- VIP 10 -->
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 10</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 200,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 1,277.70<br>Daily Return: ETB 30,664.80<br>Estimated Return: ETB 1,379,916</p>
+                <button class="btn-premium" onclick="invest(200000, 'VIP Level 10', 30664.8)">Invest Now</button>
             </div>
         </div>
     </div>
@@ -383,7 +508,7 @@
         <h3>Affiliate Program</h3>
         <p style="color:var(--text-muted); font-size:14px;">Invite partners to scale your daily mining operations.</p>
         <div style="display:flex; background:rgba(0,0,0,0.4); padding:10px; border-radius:8px; border:1px solid rgba(0,204,102,0.2); margin:15px 0;">
-            <input type="text" id="ref-link" value="https://t.me/NexProfitBot/app?startapp=e91673c2" readonly style="background:none; border:none; color:#fff; flex:1; outline:none; font-size:14px;">
+            <input type="text" id="ref-link" value="Loading referral link..." readonly style="background:none; border:none; color:#fff; flex:1; outline:none; font-size:14px;">
             <button onclick="copyLink()" style="background:var(--primary-green); border:none; color:#000; font-weight:bold; padding:5px 15px; border-radius:6px; cursor:pointer;">Copy</button>
         </div>
         <div style="background:var(--card-bg); padding:15px; border-radius:12px; font-size:14px;">
@@ -454,7 +579,7 @@
         <button class="btn-premium" style="background:var(--danger-red); color:#fff;" onclick="logout()">Secure Logout</button>
     </div>
 
-    <!-- 🔥 ADMIN DASHBOARD SCREEN -->
+    <!-- ADMIN DASHBOARD SCREEN -->
     <div id="screen-admin" class="screen">
         <h3 style="color:var(--accent-gold); text-align:center; margin-top:0;">🛡️ Nex Profit Admin Panel</h3>
         
@@ -482,6 +607,33 @@
     </div>
 </div>
 
+<!-- 🔥 RULES AND PRIVACY MODAL POPUP -->
+<div id="rules-modal" class="modal-overlay" onclick="closeRulesModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-header">📜 Platform Rules & Privacy Policy</div>
+        <div class="modal-body">
+            <h4>1. ስለ Web App ሥራ (About Platform)</h4>
+            <p>Nex Profit የደመና ማዕድን (Cloud Mining) ቴክኖሎጂን በመጠቀም ተጠቃሚዎች በተለያዩ የቪአይፒ ደረጃዎች ፈንድ በማድረግ በየሰዓቱ እና በየቀኑ የተረጋገጠ የትርፍ ክፍያ የሚያገኙበት እውነተኛ የኢንቨስትመንት መድረክ ነው።</p>
+            
+            <h4>2. ስለ ዋና ገንዘብ (Principal Investment Rule)</h4>
+            <p style="color: var(--warning-orange); font-weight: bold;">⚠️ በጣም አስፈላጊ ሕግ፦ አንድ ተጠቃሚ በመድረኩ ላይ የመረጠው የቪአይፒ ፓኬጅ የ 45 ቀናት ኮንትራት ጊዜ ሳይጠናቀቅ ዋናውን የኢንቨስትመንት ገንዘብ (Principal Amount) ማውጣት አይችልም። ሆኖም ግን ከማዕድኑ የሚወጣውን ዕለታዊ ወለድ/ትርፍ በማንኛውም ጊዜ ማውጣት ይቻላል።</p>
+
+            <h4>3. ስለ ዕለታዊ ተግባር (Daily Task)</h4>
+            <p>እያንዳንዱ ተጠቃሚ የዕለቱን ትርፍ ወደ ካዝናው ለማዛወር በየ 24 ሰዓቱ 1 ጊዜ የ 1 ደቂቃ የንቁ ማዕድን ማውጣት ተግባር (Mining Task) ማጠናቀቅ አለበት። ይህ ተግባር በቀን አንድ ጊዜ ብቻ ነው የሚፈቀደው።</p>
+
+            <h4>4. ስለ ማዕድን ሙሌት (Deposit Policy)</h4>
+            <p>የሙሌት ጥያቄዎች በቴሌብር ወይም በኢትዮጵያ ንግድ ባንክ በኩል ትክክለኛውን የትራንዛክሽን ማዘዣ ቁጥር (Txn ID) በማስገባት ይላካሉ። አስተዳዳሪው በ 24 ሰዓት ውስጥ መረጃውን አረጋግጦ አካውንትዎን ወደ ተገቢው የቪአይፒ ደረጃ በራስ-ሰር ያሳድገዋል።</p>
+
+            <h4>5. ስለ ወጪ ክፍያ (Withdrawal Policy)</h4>
+            <p>አነስተኛው የወጪ ክፍያ ጥያቄ 500 ETB ነው። የባንክ አካውንትዎ አንዴ ከተቆለፈ በኋላ ለደህንነት ሲባል በቀላሉ አይቀየርም። ሁሉም የተጠየቁ ክፍያዎች በአስተዳዳሪው ተረጋግጠው በ 24 ሰዓታት ውስጥ በቀጥታ ወደ ባንክዎ ገቢ ይደረጋሉ።</p>
+
+            <h4>6. ደህንነት እና ግላዊነት (Privacy & Security)</h4>
+            <p>የተጠቃሚዎች የይለፍ ቃላት እና የባንክ መረጃዎች በ Supabase የደህንነት ካዝና ውስጥ በጥብቅ የተቆለፉ ናቸው። መድረኩ ከአንድ አካውንት በላይ መክፈትን በጥብቅ ይከለክላል።</p>
+        </div>
+        <button class="btn-premium" style="margin-top: 15px;" onclick="closeRulesModal()">አነበብኩ / ዝጋ</button>
+    </div>
+</div>
+
 <script>
     const SUPABASE_URL = "https://jzhquixmgymiobfcbqhc.supabase.co";
     const SUPABASE_KEY = "sb_publishable_TCRLz3h_8DWxGDmXWoatBQ_EG2ACA9y"; 
@@ -494,6 +646,14 @@
     let taskTimeout = null;
 
     window.onload = async function() {
+        // 🔥 ቼክ፦ በሊንክ የመጣ የሪፈራል ኮድ ካለ ፈልጎ ይመዝግበው
+        const urlParams = new URLSearchParams(window.location.search);
+        const refCode = urlParams.get('ref');
+        if (refCode) {
+            const regRefInput = document.getElementById('reg-ref');
+            if(regRefInput) regRefInput.value = refCode;
+        }
+
         const cachedPhone = localStorage.getItem('nex_user_phone');
         if(cachedPhone) {
             await fetchUserData(cachedPhone);
@@ -517,6 +677,10 @@
             } else {
                 document.getElementById('tab-admin').style.display = 'none';
             }
+
+            // 🔥 በአሁኑ የዌብሳይት ሊንክ ላይ ተመስርቶ ሁለንተናዊ የሪፈራል ሊንክ ይፈጥራል (በማንኛውም ብሮውዘር ይከፍታል)
+            const currentDomain = window.location.origin + window.location.pathname;
+            document.getElementById('ref-link').value = `${currentDomain}?ref=${sessionUser.phone}`;
 
             bypassLogin();
         } else {
@@ -569,7 +733,7 @@
                 password: pass,        
                 balance: 150.00,       
                 vip_level: 'Free Miner', 
-                daily_reward: 5.00 // 5 ብር ተደርጓል
+                daily_reward: 5.00 
             })
             .eq('phone', phone)
             .select()
@@ -596,7 +760,6 @@
         }
     }
 
-    // 🔑 FORGOT PASSWORD FUNCTION
     async function handleForgotPassword() {
         const phone = prompt("እባክዎ አካውንት የከፈቱበትን ስልክ ቁጥር ያስገቡ:");
         if(!phone) return;
@@ -670,6 +833,10 @@
         }
     }
 
+    /* Modals Control */
+    function openRulesModal() { document.getElementById('rules-modal').style.display = 'flex'; }
+    function closeRulesModal() { document.getElementById('rules-modal').style.display = 'none'; }
+
     async function loadAdminDeposits() {
         const container = document.getElementById('admin-deposits-list');
         container.innerHTML = '<p style="color:var(--text-muted);">Loading pending deposits...</p>';
@@ -695,7 +862,6 @@
         });
     }
 
-    // 🏧 የወጪ ክፍያዎችን ለአስተዳዳሪው ማሳያ
     async function loadAdminWithdrawals() {
         const container = document.getElementById('admin-withdrawals-list');
         container.innerHTML = '<p style="color:var(--text-muted);">Loading pending withdrawals...</p>';
@@ -715,7 +881,7 @@
                 <div>📱 <b>User:</b> ${req.user_phone}</div>
                 <div style="margin:4px 0;">🔻 <b>Amount:</b> <span style="color:red; font-weight:bold;">${req.amount} ETB</span></div>
                 <div style="font-size:12px; color:var(--text-muted);">🏦 <b>Bank Details:</b> ${req.bank_details}</div>
-                <button class="admin-btn-withdraw" onclick="approveWithdrawal(${req.id}, '${req.user_phone}', ${req.amount})">✔ Approve (ክፍያውን አጽድቅ)</button>
+                <button class="admin-btn-withdraw" onclick="approveWithdrawal(${req.id}, '${req.user_phone}', ${req.amount})">✔ Approve Withdrawal</button>
             `;
             container.appendChild(card);
         });
@@ -733,11 +899,32 @@
         let currentBalance = parseFloat(userData.balance || 0);
         let newBalance = currentBalance + parseFloat(amount);
 
-        // 🔥 AUTOMATIC VIP UPGRADE BASED ON NEW BALANCE
+        // 🔥 AUTOMATIC VIP UPGRADE BASED ON NEW BALANCE (UP TO LEVEL 10)
         let newVip = "Free Miner";
         let newReward = 5.00;
 
-        if (newBalance >= 1200) {
+        if (newBalance >= 200000) {
+            newVip = "VIP Level 10";
+            newReward = 30664.80;
+        } else if (newBalance >= 100000) {
+            newVip = "VIP Level 9";
+            newReward = 14666.40;
+        } else if (newBalance >= 50000) {
+            newVip = "VIP Level 8";
+            newReward = 6998.40;
+        } else if (newBalance >= 25000) {
+            newVip = "VIP Level 7";
+            newReward = 3331.20;
+        } else if (newBalance >= 12000) {
+            newVip = "VIP Level 6";
+            newReward = 1531.20;
+        } else if (newBalance >= 6000) {
+            newVip = "VIP Level 5";
+            newReward = 732.00;
+        } else if (newBalance >= 3000) {
+            newVip = "VIP Level 4";
+            newReward = 348.00;
+        } else if (newBalance >= 1200) {
             newVip = "VIP Level 3";
             newReward = 132.00;
         } else if (newBalance >= 600) {
@@ -764,7 +951,6 @@
         loadAdminDeposits();
     }
 
-    // 🔥 የወጪ ክፍያን በአንድ ክሊክ ማጽደቂያ
     async function approveWithdrawal(id, userPhone, amount) {
         if(!confirm(`ለቁጥር ${userPhone} የ ${amount} ETB ክፍያ መፈጸሙን አረጋግጠሃል?`)) return;
 
@@ -804,7 +990,6 @@
         updateDomDisplays();
     }
 
-    // ⏱️ DAILY TASK - 24 SEAT LIMIT (1 PER DAY)
     function startDailyTask() {
         const lastMined = localStorage.getItem(`last_mined_date_${sessionUser.phone}`);
         const todayStr = new Date().toDateString();
@@ -837,7 +1022,7 @@
 
                 if(!error) {
                     sessionUser.balance = newBalance;
-                    localStorage.setItem(`last_mined_date_${sessionUser.phone}`, todayStr); // ዛሬ መስራቱን መዝግብ
+                    localStorage.setItem(`last_mined_date_${sessionUser.phone}`, todayStr);
                     alert(`ተሳክቷል! +ETB ${bonus} አካውንትዎ ላይ ተጨምሯል።`);
                 } else {
                     alert('Error updating balance: ' + error.message);
@@ -931,7 +1116,7 @@
         let copyText = document.getElementById("ref-link");
         copyText.select();
         document.execCommand("copy");
-        alert("Link copied!");
+        alert("የሪፈራል ሊንክዎ በተሳካ ሁኔታ ኮፒ ሆኗል! በማንኛውም ቦታ ሼር ማድረግ ይችላሉ።");
     }
 
     function logout() {
