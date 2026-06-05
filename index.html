@@ -53,7 +53,7 @@
 
         /* Screen Wrapper Rules */
         .screen {
-            display: none; /* ሁሉም ገጾች በነባሪ ፍጹም የተደበቁ ናቸው */
+            display: none; 
             flex: 1;
             width: 100%;
             height: 100%;
@@ -64,7 +64,7 @@
         }
 
         .screen.active {
-            display: block; /* የነቃው ገጽ ብቻ ነው ራሱን ችሎ የሚታየው */
+            display: block; 
         }
 
         @keyframes fadeIn {
@@ -222,6 +222,7 @@
 <div class="phone-container">
     <div class="header" id="app-title">NEX PROFIT</div>
 
+    <!-- 1A. REGISTRATION SCREEN -->
     <div id="screen-register" class="screen active">
         <h2 style="text-align:center; margin-bottom:30px;">Create Account</h2>
         <div class="input-group">
@@ -242,6 +243,7 @@
         </p>
     </div>
 
+    <!-- 1B. LOGIN SCREEN -->
     <div id="screen-login" class="screen">
         <h2 style="text-align:center; margin-bottom:30px;">Welcome Back</h2>
         <div class="input-group">
@@ -256,6 +258,7 @@
         </p>
     </div>
 
+    <!-- 2. HOME SCREEN -->
     <div id="screen-home" class="screen">
         <div class="hero-card">
             <div class="balance-title">Available Balance</div>
@@ -276,6 +279,7 @@
         </div>
     </div>
 
+    <!-- 3. DAILY TASK SCREEN -->
     <div id="screen-task" class="screen" style="text-align: center;">
         <h3>Daily Mining Verification</h3>
         <p style="color: var(--text-muted); font-size:14px; padding: 0 10px;">የዕለቱን የቪአይፒ ፓኬጅዎን ሙሉ ትርፍ ለማግኘት ማዕድኑን ለ 1 ደቂቃ ያህል በነቃ ሁኔታ ያቆዩት።</p>
@@ -289,9 +293,11 @@
         <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Start Mining Task</button>
     </div>
 
+    <!-- 4. VIP / EARNINGS SCREEN (ALL 10 TIERS) -->
     <div id="screen-vip" class="screen">
         <h3 style="margin-top: 0; text-align: center; color: var(--accent-gold);">Premium Mining Nodes</h3>
         <div class="vip-container">
+            <!-- VIP 1 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 1</span>
@@ -302,6 +308,7 @@
                 <button class="btn-premium" onclick="invest(300, 1.25, 'VIP Level 1', 30)">Invest Now</button>
             </div>
 
+            <!-- VIP 2 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 2</span>
@@ -312,6 +319,7 @@
                 <button class="btn-premium" onclick="invest(600, 2.60, 'VIP Level 2', 62.4)">Invest Now</button>
             </div>
 
+            <!-- VIP 3 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 3</span>
@@ -322,6 +330,7 @@
                 <button class="btn-premium" onclick="invest(1200, 5.50, 'VIP Level 3', 132)">Invest Now</button>
             </div>
 
+            <!-- VIP 4 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 4</span>
@@ -332,6 +341,7 @@
                 <button class="btn-premium" onclick="invest(2500, 12.00, 'VIP Level 4', 288)">Invest Now</button>
             </div>
 
+            <!-- VIP 5 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 5</span>
@@ -342,6 +352,7 @@
                 <button class="btn-premium" onclick="invest(5000, 25.00, 'VIP Level 5', 600)">Invest Now</button>
             </div>
 
+            <!-- VIP 6 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 6</span>
@@ -352,6 +363,7 @@
                 <button class="btn-premium" onclick="invest(10000, 54.00, 'VIP Level 6', 1296)">Invest Now</button>
             </div>
 
+            <!-- VIP 7 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 7</span>
@@ -362,6 +374,7 @@
                 <button class="btn-premium" onclick="invest(18000, 102.00, 'VIP Level 7', 2448)">Invest Now</button>
             </div>
 
+            <!-- VIP 8 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 8</span>
@@ -372,6 +385,7 @@
                 <button class="btn-premium" onclick="invest(25000, 148.00, 'VIP Level 8', 3552)">Invest Now</button>
             </div>
 
+            <!-- VIP 9 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 9</span>
@@ -382,6 +396,7 @@
                 <button class="btn-premium" onclick="invest(38000, 235.00, 'VIP Level 9', 5640)">Invest Now</button>
             </div>
 
+            <!-- VIP 10 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 10</span>
@@ -394,6 +409,7 @@
         </div>
     </div>
 
+    <!-- 5. SHARE SCREEN -->
     <div id="screen-share" class="screen">
         <h3>Affiliate Program</h3>
         <p style="color:var(--text-muted); font-size:14px;">Invite partners to scale your daily mining operations.</p>
@@ -408,11 +424,13 @@
         </div>
     </div>
 
+    <!-- 6. PROFILE / WITHDRAW & DEPOSIT SCREEN -->
     <div id="screen-profile" class="screen">
+        <!-- Deposit Segment -->
         <h3 style="color:var(--primary-green); margin-top:0;">Deposit / Fund Account</h3>
         <div style="background:rgba(0,204,102,0.1); padding:15px; border-radius:12px; margin-bottom:20px; font-size:13px; border:1px dashed var(--primary-green);">
             <p style="margin:0 0 8px 0;"><b>💳 Admin Payment Details:</b></p>
-            <p style="margin:4px 0;">Telebirr / CBE: <b>0912345678</b></p>
+            <p style="margin:4px 0;">Telebirr / CBE: <b>0954406366</b></p>
             <p style="margin:4px 0;">Account Holder: <b>NEX PROFIT ADMIN</b></p>
         </div>
         
@@ -428,6 +446,7 @@
 
         <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:25px 0;">
 
+        <!-- Withdrawal Vault Segment -->
         <h3>Secure Withdrawal Vault</h3>
         <div id="bank-status-box" style="background:rgba(255,204,0,0.05); border:1px dashed var(--accent-gold); padding:12px; border-radius:10px; margin-bottom:20px; font-size:13px; color:var(--accent-gold);">
             ⚠️ No withdrawal destination locked yet.
@@ -453,6 +472,7 @@
 
         <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:20px 0;">
 
+        <!-- Payout Request Segment -->
         <h3>Request Payout</h3>
         <div class="input-group">
             <label>Amount to Withdraw (Min: 500 ETB)</label>
@@ -465,6 +485,7 @@
         <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-top:20px; cursor:pointer; text-decoration: underline;" onclick="switchScreen('privacy')">Privacy Policy & Platform Rules</p>
     </div>
 
+    <!-- 7. PRIVACY POLICY -->
     <div id="screen-privacy" class="screen">
         <h3>Privacy Policy & Platform Rules</h3>
         <div style="font-size:14px; color:var(--text-muted); line-height:1.6; text-align:justify; background: rgba(0,0,0,0.3); padding:15px; border-radius:12px;">
@@ -477,6 +498,7 @@
         <button class="btn-premium" onclick="switchScreen('profile')">Back to Wallet</button>
     </div>
 
+    <!-- BOTTOM NAVIGATION (HIDDEN ON AUTH BY DEFAULT) -->
     <div class="nav-bar" id="bottom-nav" style="display: none;">
         <div class="nav-item active" id="tab-home" onclick="switchScreen('home')"><div class="nav-icon">📊</div>Home</div>
         <div class="nav-item" id="tab-vip" onclick="switchScreen('vip')"><div class="nav-icon">💎</div>VIP</div>
@@ -513,9 +535,9 @@
     };
 
     function toggleAuthPages(page) {
-        document.getElementById('screen-register').classList.remove('active');
-        document.getElementById('screen-login').classList.remove('active');
-        document.getElementById('bottom-nav').style.display = 'none'; // አውታንቲኬሽን ላይ ከስር ምንም ነገር እንዳይታይ
+        // መጀመሪያ ሁሉንም የውስጥ ገጾች እና የታችኛውን ማውጫ ፍጹም ደብቅ
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('bottom-nav').style.display = 'none'; 
         
         if(page === 'login') {
             document.getElementById('screen-login').classList.add('active');
@@ -569,14 +591,17 @@
     }
 
     function switchScreen(screenId) {
-        // ሁሉንም ገጾች ደብቅ
+        // ደህንነቱ በተጠበቀ ሁኔታ በመጀመሪያ የውስጥ ማውጫ መኖሩን አረጋግጥ
+        if(localStorage.getItem('np_logged_in') !== 'true') {
+            toggleAuthPages('login');
+            return;
+        }
+
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         
-        // የተመረጠውን ገጽ ብቻ ክፈት
         let targetScreen = document.getElementById('screen-' + screenId);
         if(targetScreen) targetScreen.classList.add('active');
         
-        // የታችኛውን ማውጫ አድምቅ
         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
         let targetTab = document.getElementById('tab-' + screenId);
         if(targetTab) targetTab.classList.add('active');
@@ -598,7 +623,7 @@
         if(taskRew) taskRew.innerText = `ETB ${dailyReward.toFixed(2)}`;
     }
 
-    // 24-HOUR DYNAMIC TIMER TASK ENGINE
+    // 24-HOUR TIMER ENGINE
     function startDailyTask() {
         const todayStr = new Date().toDateString(); 
         if(lastTaskClaimDate === todayStr) {
@@ -628,7 +653,7 @@
                 localStorage.setItem('np_last_task_date', lastTaskClaimDate);
 
                 updateBalanceDisplay();
-                alert(`Success: Daily mining task complete! +ETB ${dailyReward.toFixed(2)} added based on your ${activeVipName} plan.`);
+                alert(`Success: Daily mining task complete! +ETB ${dailyReward.toFixed(2)} added.`);
                 
                 btn.disabled = false;
                 btn.style.background = 'linear-gradient(135deg, #ffe066, #ffcc00)';
@@ -688,10 +713,6 @@
             box.style.borderColor = 'var(--primary-green)';
             box.style.color = 'var(--primary-green)';
             box.innerHTML = `🔒 Locked Account Destination:<br><b>${savedType}</b><br>Name: ${savedName}<br>Acc: ${savedAcc}`;
-            
-            document.getElementById('bank-name').value = savedName;
-            document.getElementById('bank-type').value = savedType;
-            document.getElementById('bank-acc').value = savedAcc;
         }
     }
 
@@ -738,7 +759,7 @@
 
             updateBalanceDisplay();
             updateVipDisplays();
-            alert(`VIP Activated! Successfully unlocked ${vipName}. Your daily task reward is now upgraded to ETB ${calculatedDailyReturn.toFixed(2)}!`);
+            alert(`VIP Activated! Successfully unlocked ${vipName}.`);
             switchScreen('home');
         }
     }
@@ -750,12 +771,18 @@
         alert("Referral link copied successfully!");
     }
 
+    // FIXED LOGOUT BLOCK
     function logout() {
         if(confirm("Are you sure you want to logout?")) {
-            localStorage.setItem('np_logged_in', 'false');
-            document.getElementById('bottom-nav').style.display = 'none';
-            toggleAuthPages('login'); 
             if(taskTimeout) clearInterval(taskTimeout);
+            
+            localStorage.setItem('np_logged_in', 'false');
+            
+            // የታችኛው ማውጫ ፍጹም መጥፋቱን እዚህ ጋር እናረጋግጣለን
+            document.getElementById('bottom-nav').style.display = 'none';
+            
+            // ወደ መግቢያ ገጽ ቀይር
+            toggleAuthPages('login'); 
         }
     }
 </script>
