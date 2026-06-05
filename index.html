@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nex Profit - Premium Multi-Tier Mining</title>
+    <!-- Supabase SDK Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
@@ -228,6 +229,7 @@
 <div class="phone-container">
     <div class="header" id="app-title">NEX PROFIT</div>
 
+    <!-- REGISTRATION SCREEN -->
     <div id="screen-register" class="screen active">
         <h2 style="text-align:center; margin-bottom:30px;">Create Account</h2>
         <div class="input-group">
@@ -248,6 +250,7 @@
         </p>
     </div>
 
+    <!-- LOGIN SCREEN -->
     <div id="screen-login" class="screen">
         <h2 style="text-align:center; margin-bottom:30px;">Welcome Back</h2>
         <div class="input-group">
@@ -262,6 +265,7 @@
         </p>
     </div>
 
+    <!-- HOME SCREEN -->
     <div id="screen-home" class="screen">
         <div class="hero-card">
             <div class="balance-title">Available Balance</div>
@@ -282,6 +286,7 @@
         </div>
     </div>
 
+    <!-- DAILY TASK SCREEN -->
     <div id="screen-task" class="screen" style="text-align: center;">
         <h3>Daily Mining Verification</h3>
         <p style="color: var(--text-muted); font-size:14px; padding: 0 10px;">የዕለቱን የቪአይፒ ፓኬጅዎን ሙሉ ትርፍ ለማግኘት ማዕድኑን ለ 1 ደቂቃ ያህል በነቃ ሁኔታ ያቆዩት።</p>
@@ -295,9 +300,11 @@
         <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Start Mining Task</button>
     </div>
 
+    <!-- VIP / EARNINGS SCREEN -->
     <div id="screen-vip" class="screen">
         <h3 style="margin-top: 0; text-align: center; color: var(--accent-gold);">Premium Mining Nodes</h3>
         <div class="vip-container">
+            <!-- VIP 1 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 1</span>
@@ -308,6 +315,7 @@
                 <button class="btn-premium" onclick="invest(300, 'VIP Level 1', 30)">Invest Now</button>
             </div>
 
+            <!-- VIP 2 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 2</span>
@@ -318,6 +326,7 @@
                 <button class="btn-premium" onclick="invest(600, 'VIP Level 2', 62.4)">Invest Now</button>
             </div>
 
+            <!-- VIP 3 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 3</span>
@@ -330,6 +339,7 @@
         </div>
     </div>
 
+    <!-- SHARE SCREEN -->
     <div id="screen-share" class="screen">
         <h3>Affiliate Program</h3>
         <p style="color:var(--text-muted); font-size:14px;">Invite partners to scale your daily mining operations.</p>
@@ -344,6 +354,7 @@
         </div>
     </div>
 
+    <!-- PROFILE / WALLET SCREEN -->
     <div id="screen-profile" class="screen">
         <h3 style="color:var(--primary-green); margin-top:0;">Deposit / Fund Account</h3>
         <div class="notice-box">
@@ -404,6 +415,7 @@
         <button class="btn-premium" style="background:var(--danger-red); color:#fff;" onclick="logout()">Secure Logout</button>
     </div>
 
+    <!-- BOTTOM NAVIGATION -->
     <div class="nav-bar" id="bottom-nav" style="display: none;">
         <div class="nav-item active" id="tab-home" onclick="switchScreen('home')"><div class="nav-icon">📊</div>Home</div>
         <div class="nav-item" id="tab-vip" onclick="switchScreen('vip')"><div class="nav-icon">💎</div>VIP</div>
@@ -414,7 +426,6 @@
 </div>
 
 <script>
-    // Supabase Credentials
     const SUPABASE_URL = "https://jzhquixmgymiobfcbqhc.supabase.co";
     const SUPABASE_KEY = "sb_publishable_TCRLz3h_8DWxGDmXWoatBQ_EG2ACA9y"; 
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -425,19 +436,16 @@
     window.onload = async function() {
         const cachedPhone = localStorage.getItem('nex_user_phone');
         if(cachedPhone) {
-            // ከ Supabase ላይ አዲሱን ወቅታዊ መረጃ ያመጣል
             await fetchUserData(cachedPhone);
         } else {
             toggleAuthPages('register');
         }
     };
 
-    // ከ Supabase መረጃ ማንበቢያ ፈንክሽን
     async function fetchUserData(phone) {
         const { data, error } = await _supabase.from('users').select('*').eq('phone', phone).maybeSingle();
         if(data) {
             sessionUser = data;
-            // ባንክ መረጃዎችን በጊዜያዊነት ከ LocalStorage ያገናኛል
             sessionUser.bank_name = localStorage.getItem(`bank_name_${phone}`) || '';
             sessionUser.bank_type = localStorage.getItem(`bank_type_${phone}`) || '';
             sessionUser.bank_acc = localStorage.getItem(`bank_acc_${phone}`) || '';
@@ -462,7 +470,7 @@
         }
     }
 
-    // 1. መመዝገቢያ (Register) - ሁሉንም አዲስ ኮለምኖች ያካትታል
+    // 🌟 አዲሱ የተስተካከለው የዘገባ ፈንክሽን (Supabase Default እሴቶችን በሃይል ያጠፋል)
     async function handleRegister() {
         const phone = document.getElementById('reg-phone').value.trim();
         const pass = document.getElementById('reg-pass').value.trim();
@@ -483,26 +491,34 @@
             return;
         }
 
-        // Supabase ላይ ያሉህን ሁሉንም ኮለምኖች እዚህ ጋር ይሞላል
-        const { data, error } = await _supabase.from('users').insert([
-            { 
-                phone: phone, 
-                password: pass, 
-                balance: 150.00, 
-                vip_level: 'Free Miner', 
-                daily_reward: 15.00 
-            }
-        ]).select().single();
+        // 1. መጀመሪያ ተጠቃሚውን ዝም ብሎ ያስገባል (Supabase የራሱን default ሊሰጠው ይችላል)
+        const { error: insertError } = await _supabase.from('users').insert([{ phone: phone }]);
 
-        if(error) {
-            alert('Database Error: ' + error.message);
+        if(insertError) {
+            alert('Database Error: ' + insertError.message);
+            return;
+        }
+
+        // 2. 🔥 ቁልፍ መፍትሄ፡ ልክ እንደገባ በግዳጅ (Force Update) ዳታውን አንተ በፈለግኸው ይተካዋል!
+        const { data: updatedData, error: updateError } = await _supabase.from('users')
+            .update({ 
+                password: pass,        // ከ NULL ወደ መረጠው ይቀይራል
+                balance: 150.00,       // ከ 50 ወደ 150 ያሳድገዋል
+                vip_level: 'Free Miner', 
+                daily_reward: 15.00    // ከ 5 ወደ 15 ያሳድገዋል
+            })
+            .eq('phone', phone)
+            .select()
+            .single();
+
+        if(updateError) {
+            alert('Sync Error: Default values override failed. ' + updateError.message);
         } else {
             alert('Registration Successful! Welcome Gift 150 ETB added.');
             await fetchUserData(phone);
         }
     }
 
-    // 2. መግቢያ (Login)
     async function handleLogin() {
         const phone = document.getElementById('login-phone').value.trim();
         const pass = document.getElementById('login-pass').value.trim();
@@ -556,7 +572,6 @@
         updateDomDisplays();
     }
 
-    // Bank መቆለፊያ
     function saveBank() {
         const bName = document.getElementById('bank-name').value.trim();
         const bType = document.getElementById('bank-type').value;
@@ -583,7 +598,6 @@
         updateDomDisplays();
     }
 
-    // 3. Daily Task - ከተጠናቀቀ በኋላ Supabase ላይ ቀጥታ ይጨምራል
     function startDailyTask() {
         let btn = document.getElementById('start-task-btn');
         let timerDisplay = document.getElementById('task-timer');
@@ -604,7 +618,6 @@
                 let bonus = parseFloat(sessionUser.daily_reward);
                 let newBalance = parseFloat(sessionUser.balance) + bonus;
 
-                // በ Supabase ላይ Balance ያድሳል
                 const { error } = await _supabase.from('users').update({ balance: newBalance }).eq('phone', sessionUser.phone);
 
                 if(!error) {
@@ -622,7 +635,6 @@
         }, 1000);
     }
 
-    // Deposit ማድረጊያ
     async function processDeposit() {
         const amt = parseFloat(document.getElementById('deposit-amount').value);
         const ref = document.getElementById('deposit-ref').value.trim();
@@ -642,7 +654,6 @@
         switchScreen('home');
     }
 
-    // Withdraw ማድረጊያ
     async function processWithdrawal() {
         const amt = parseFloat(document.getElementById('withdraw-amount').value);
 
@@ -661,7 +672,6 @@
 
         let newBalance = parseFloat(sessionUser.balance) - amt;
 
-        // Supabase ላይ ብሩን ይቀንሳል
         const { error } = await _supabase.from('users').update({ balance: newBalance }).eq('phone', sessionUser.phone);
 
         if(!error) {
@@ -677,7 +687,6 @@
         }
     }
 
-    // 4. VIP መግዣ - Supabase ላይ ያሉትን ሶስቱንም ኮለምኖች በአንድ ጊዜ ያድሳል
     async function invest(cost, vipName, reward) {
         if(parseFloat(sessionUser.balance) < cost) {
             alert('Insufficient funds. Please deposit first.');
@@ -687,7 +696,6 @@
 
         let newBalance = parseFloat(sessionUser.balance) - cost;
 
-        // የቪአይፒ መረጃዎችን Supabase ላይ ያዘምናል
         const { error } = await _supabase.from('users').update({ 
             balance: newBalance,
             vip_level: vipName,
