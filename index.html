@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nex Profit - Premium Multi-Tier Mining</title>
-    <!-- Supabase SDK Library ማካተት -->
+    <!-- Supabase SDK Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
@@ -534,7 +534,7 @@
 </div>
 
 <script>
-    // ያንተን Supabase መረጃዎች ማገናኛ ቁልፎች
+    // Supabase ማገናኛ ኮዶች (ዲዛይኑን ሳይነኩ በጀርባ ብቻ የሚሰሩ)
     const SUPABASE_URL = "https://jzhquixmgymiobfcbqhc.supabase.co";
     const SUPABASE_KEY = "sb_publishable_TCRLz3h_8DWxGDmXWoatBQ_EG2ACA9y";
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -543,7 +543,6 @@
     let taskTimeout = null;
 
     window.onload = async function() {
-        // በስልኩ ላይ አስቀድሞ Login የተደረገ አካውንት ካለ ማረጋገጫ
         const savedPhone = localStorage.getItem('np_user_phone');
         const savedPass = localStorage.getItem('np_user_pass');
         
@@ -571,7 +570,7 @@
         }
     }
 
-    // 1. መመዝገቢያ (Register Engine)
+    // Register 
     async function handleRegister() {
         const phone = document.getElementById('reg-phone').value.trim();
         const pass = document.getElementById('reg-pass').value.trim();
@@ -582,24 +581,22 @@
             return;
         }
         if(!pass || pass !== confirmPass) {
-            alert('Error: Passwords do not match or empty.');
+            alert('Error: Passwords do not match.');
             return;
         }
 
-        // በደመናው (Database) ላይ ስልኩ አስቀድሞ መኖሩን ቼክ ማድረጊያ
         const { data: checkUser } = await _supabase.from('users').select('*').eq('phone', phone).maybeSingle();
         if(checkUser) {
             alert('Error: This phone number is already registered.');
             return;
         }
 
-        // አዲስ ተጠቃሚ ወደ Supabase ማስገቢያ (የ 150 ብር ስጦታን ጨምሮ)
         const { data, error } = await _supabase.from('users').insert([
             { phone: phone, password: pass, balance: 150.00, pending_withdraw: 0.00, vip_level: 'Free Miner', daily_reward: 15.00, bank_name: '', bank_type: '', bank_acc: '' }
         ]).select().single();
 
         if(error) {
-            alert('Database Connection Failed: ' + error.message);
+            alert('Error: ' + error.message);
         } else {
             alert('Registration Successful! Welcome Gift 150 ETB added.');
             currentUser = data;
@@ -609,12 +606,12 @@
         }
     }
 
-    // 2. መግቢያ (Login Engine)
+    // Login
     async function handleLogin() {
         const phone = document.getElementById('login-phone').value.trim();
         const pass = document.getElementById('login-pass').value.trim();
 
-        const { data, error } = await _supabase.from('users').select('*').eq('phone', phone).eq('password', pass).maybeSingle();
+        const { data } = await _supabase.from('users').select('*').eq('phone', phone).eq('password', pass).maybeSingle();
 
         if(data) {
             currentUser = data;
@@ -622,7 +619,7 @@
             localStorage.setItem('np_user_pass', pass);
             bypassLogin();
         } else {
-            alert('Authentication Failed: Invalid phone number or password.');
+            alert('Authentication Failed: Invalid phone or password.');
         }
     }
 
@@ -643,10 +640,8 @@
     }
 
     function updateDomDisplays() {
-        // ባላንስ ማሳያ
         document.getElementById('user-balance').innerText = 'ETB ' + parseFloat(currentUser.balance).toFixed(2);
         
-        // ፔንዲንግ ማሳያ
         let pendView = document.getElementById('pending-withdrawal-view');
         let pAmt = parseFloat(currentUser.pending_withdraw) || 0;
         if(pAmt > 0) {
@@ -656,11 +651,9 @@
             pendView.style.display = 'none';
         }
 
-        // ቪአይፒ ማሳያ
         document.getElementById('home-active-vip').innerText = 'Active Tier: ' + currentUser.vip_level;
         document.getElementById('task-reward-amount').innerText = 'ETB ' + parseFloat(currentUser.daily_reward).toFixed(2);
 
-        // የባንክ መቆለፊያ ስታተስ ማሳያ
         let bBox = document.getElementById('bank-status-box');
         if(currentUser.bank_acc) {
             bBox.style.background = "rgba(0,204,102,0.05)";
@@ -689,7 +682,7 @@
         refreshUserData();
     }
 
-    // 3. የባንክ መረጃ መቆለፊያ (Lock Bank)
+    // Save Bank
     async function saveBank() {
         const bName = document.getElementById('bank-name').value.trim();
         const bType = document.getElementById('bank-type').value;
@@ -701,7 +694,7 @@
         }
 
         if(currentUser.bank_acc) {
-            alert('Error: Bank details are permanently locked. Contact support to change.');
+            alert('Error: Bank details are permanently locked.');
             return;
         }
 
@@ -709,18 +702,18 @@
             bank_name: bName, bank_type: bType, bank_acc: bAcc
         }).eq('phone', currentUser.phone);
 
-        alert('Bank settings securely locked to your account.');
+        alert('Bank settings securely locked.');
         refreshUserData();
     }
 
-    // 4. ዕለታዊ ታስክ (Daily Task Mining 60s)
+    // Daily Task (60s)
     function startDailyTask() {
         let btn = document.getElementById('start-task-btn');
         let timerDisplay = document.getElementById('task-timer');
         let timeLeft = 60;
 
         btn.disabled = true;
-        btn.innerText = 'Mining Active... Keep Screen Open';
+        btn.innerText = 'Mining Active...';
 
         taskTimeout = setInterval(async () => {
             timeLeft--;
@@ -737,7 +730,7 @@
 
                 await _supabase.from('users').update({ balance: finalBal }).eq('phone', currentUser.phone);
                 
-                alert(`Success! Task Completed. +ETB ${bonus} added to your safe wallet.`);
+                alert(`Success! +ETB ${bonus} added.`);
                 btn.disabled = false;
                 btn.innerText = 'Start Mining Task';
                 timerDisplay.innerText = "01:00";
@@ -746,13 +739,13 @@
         }, 1000);
     }
 
-    // 5. የዲፖዚት ፎርም (Deposit Logic)
+    // Deposit
     async function processDeposit() {
         const amt = parseFloat(document.getElementById('deposit-amount').value);
         const ref = document.getElementById('deposit-ref').value.trim();
 
         if(!amt || amt <= 0 || !ref) {
-            alert('Please enter a valid amount and Transaction Reference ID.');
+            alert('Please enter amount and Txn ID.');
             return;
         }
 
@@ -760,49 +753,47 @@
             { user_phone: currentUser.phone, amount: amt, txn_id: ref, status: 'pending' }
         ]);
 
-        alert('የሙሌት ጥያቄዎ በተሳካ ሁኔታ ተልኳል። መረጃው በአስተዳዳሪው ተረጋግጦ በ 24 ሰዓት ውስጥ አካውንትዎ ላይ ይጨመራል።');
+        alert('የሙሌት ጥያቄዎ ተልኳል! በአስተዳዳሪው ተረጋግጦ በ 24 ሰዓት ውስጥ ይጨመራል።');
         document.getElementById('deposit-amount').value = '';
         document.getElementById('deposit-ref').value = '';
         switchScreen('home');
     }
 
-    // 6. የወጪ ክፍያ ጥያቄ (Withdrawal Logic)
+    // Withdraw
     async function processWithdrawal() {
         const amt = parseFloat(document.getElementById('withdraw-amount').value);
 
         if(!currentUser.bank_acc) {
-            alert('Error: Please lock your bank account settings first.');
+            alert('Error: Please lock your bank account first.');
             return;
         }
         if(!amt || amt < 500) {
-            alert('Error: Minimum withdrawal threshold is 500 ETB.');
+            alert('Error: Minimum withdrawal is 500 ETB.');
             return;
         }
         if(parseFloat(currentUser.balance) < amt) {
-            alert('Error: Insufficient balance in your secure vault.');
+            alert('Error: Insufficient balance.');
             return;
         }
 
         let remBal = parseFloat(currentUser.balance) - amt;
         let newPending = (parseFloat(currentUser.pending_withdraw) || 0) + amt;
 
-        // 1. የባላንስ መቀነሻ ማዘዣ ወደ አገልጋይ
         await _supabase.from('users').update({ balance: remBal, pending_withdraw: newPending }).eq('phone', currentUser.phone);
 
-        // 2. ጥያቄውን ወደ withdrawals ቴብል መላኪያ
         await _supabase.from('withdrawals').insert([
             { user_phone: currentUser.phone, amount: amt, bank_details: `${currentUser.bank_type} - ${currentUser.bank_acc} (${currentUser.bank_name})`, status: 'pending' }
         ]);
 
-        alert('የወጪ ክፍያ ጥያቄዎ በተሳካ ሁኔታ ቀርቧል። በአስተዳዳሪው ተረጋግጦ በ 24 ሰዓት ውስጥ ወደ ባንክዎ ገቢ ይደረጋል።');
+        alert('የወጪ ክፍያ ጥያቄዎ ተልኳል! በ 24 ሰዓት ውስጥ ወደ ባንክዎ ገቢ ይደረጋል።');
         document.getElementById('withdraw-amount').value = '';
         switchScreen('home');
     }
 
-    // 7. የፓኬጅ ኢንቨስትመንት (Buy VIP Node)
+    // VIP Investment
     async function invest(cost, vipName, reward) {
         if(parseFloat(currentUser.balance) < cost) {
-            alert('Insufficient funds to deploy this node. Please process a deposit.');
+            alert('Insufficient funds. Please deposit first.');
             switchScreen('profile');
             return;
         }
@@ -815,16 +806,15 @@
             daily_reward: reward
         }).eq('phone', currentUser.phone);
 
-        alert(`Congratulations! ${vipName} is now active and deployed.`);
+        alert(`Congratulations! ${vipName} is now active.`);
         switchScreen('home');
     }
 
     function copyLink() {
         let copyText = document.getElementById("ref-link");
         copyText.select();
-        copyText.setSelectionRange(0, 99999);
         document.execCommand("copy");
-        alert("Affiliate invite link copied to clipboard!");
+        alert("Link copied!");
     }
 
     function logout() {
