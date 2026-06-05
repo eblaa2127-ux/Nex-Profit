@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nex Profit - Premium Multi-Tier Mining</title>
-    <!-- Supabase SDK Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
@@ -222,6 +221,29 @@
             font-size: 20px;
             margin-bottom: 3px;
         }
+
+        /* Admin Dashboard Styles */
+        .admin-request-card {
+            background: #1e1111;
+            border: 1px solid #ff4444;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .admin-request-card.deposit-type {
+            background: #0d1f11;
+            border: 1px solid var(--primary-green);
+        }
+        .admin-btn-approve {
+            background-color: var(--primary-green);
+            color: #000;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -229,7 +251,6 @@
 <div class="phone-container">
     <div class="header" id="app-title">NEX PROFIT</div>
 
-    <!-- REGISTRATION SCREEN -->
     <div id="screen-register" class="screen active">
         <h2 style="text-align:center; margin-bottom:30px;">Create Account</h2>
         <div class="input-group">
@@ -250,7 +271,6 @@
         </p>
     </div>
 
-    <!-- LOGIN SCREEN -->
     <div id="screen-login" class="screen">
         <h2 style="text-align:center; margin-bottom:30px;">Welcome Back</h2>
         <div class="input-group">
@@ -265,13 +285,12 @@
         </p>
     </div>
 
-    <!-- HOME SCREEN -->
     <div id="screen-home" class="screen">
         <div class="hero-card">
             <div class="balance-title">Available Balance</div>
             <div class="balance-amount" id="user-balance">ETB 0.00</div>
             <div style="font-size: 13px; color: var(--accent-gold); margin-top:10px; margin-bottom:5px;" id="home-active-vip">Active Tier: Loading...</div>
-            <div style="font-size: 12px; color: var(--primary-green);">● Hamster Mining Server Active</div>
+            <div style="font-size: 12px; color: var(--primary-green);">● Nex Profit Mining Server Active</div>
         </div>
         
         <div class="grid-menu">
@@ -286,7 +305,6 @@
         </div>
     </div>
 
-    <!-- DAILY TASK SCREEN -->
     <div id="screen-task" class="screen" style="text-align: center;">
         <h3>Daily Mining Verification</h3>
         <p style="color: var(--text-muted); font-size:14px; padding: 0 10px;">የዕለቱን የቪአይፒ ፓኬጅዎን ሙሉ ትርፍ ለማግኘት ማዕድኑን ለ 1 ደቂቃ ያህል በነቃ ሁኔታ ያቆዩት።</p>
@@ -300,11 +318,9 @@
         <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Start Mining Task</button>
     </div>
 
-    <!-- VIP / EARNINGS SCREEN -->
     <div id="screen-vip" class="screen">
         <h3 style="margin-top: 0; text-align: center; color: var(--accent-gold);">Premium Mining Nodes</h3>
         <div class="vip-container">
-            <!-- VIP 1 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 1</span>
@@ -315,7 +331,6 @@
                 <button class="btn-premium" onclick="invest(300, 'VIP Level 1', 30)">Invest Now</button>
             </div>
 
-            <!-- VIP 2 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 2</span>
@@ -326,7 +341,6 @@
                 <button class="btn-premium" onclick="invest(600, 'VIP Level 2', 62.4)">Invest Now</button>
             </div>
 
-            <!-- VIP 3 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 3</span>
@@ -339,7 +353,6 @@
         </div>
     </div>
 
-    <!-- SHARE SCREEN -->
     <div id="screen-share" class="screen">
         <h3>Affiliate Program</h3>
         <p style="color:var(--text-muted); font-size:14px;">Invite partners to scale your daily mining operations.</p>
@@ -354,7 +367,6 @@
         </div>
     </div>
 
-    <!-- PROFILE / WALLET SCREEN -->
     <div id="screen-profile" class="screen">
         <h3 style="color:var(--primary-green); margin-top:0;">Deposit / Fund Account</h3>
         <div class="notice-box">
@@ -415,13 +427,23 @@
         <button class="btn-premium" style="background:var(--danger-red); color:#fff;" onclick="logout()">Secure Logout</button>
     </div>
 
-    <!-- BOTTOM NAVIGATION -->
+    <div id="screen-admin" class="screen">
+        <h3 style="color:var(--accent-gold); text-align:center; margin-top:0;">🛡️ Nex Profit Admin Panel</h3>
+        <p style="font-size:13px; color:var(--text-muted); text-align:center;">የተጠቃሚዎች የሙሌት ጥያቄዎች ዝርዝር (Pending Deposits)</p>
+        <hr style="border-color:rgba(255,255,255,0.1); margin-bottom:15px;">
+        
+        <div id="admin-deposits-list">
+            <p style="text-align:center; color:var(--text-muted); font-size:14px;">Loading pending deposits...</p>
+        </div>
+    </div>
+
     <div class="nav-bar" id="bottom-nav" style="display: none;">
         <div class="nav-item active" id="tab-home" onclick="switchScreen('home')"><div class="nav-icon">📊</div>Home</div>
         <div class="nav-item" id="tab-vip" onclick="switchScreen('vip')"><div class="nav-icon">💎</div>VIP</div>
         <div class="nav-item" id="tab-task" onclick="switchScreen('task')"><div class="nav-icon">⏱️</div>Task</div>
         <div class="nav-item" id="tab-share" onclick="switchScreen('share')"><div class="nav-icon">🔗</div>Share</div>
         <div class="nav-item" id="tab-profile" onclick="switchScreen('profile')"><div class="nav-icon">👤</div>Wallet</div>
+        <div class="nav-item" id="tab-admin" onclick="switchScreen('admin')" style="display:none; color:var(--accent-gold);"><div class="nav-icon">⚙️</div>Admin</div>
     </div>
 </div>
 
@@ -429,6 +451,9 @@
     const SUPABASE_URL = "https://jzhquixmgymiobfcbqhc.supabase.co";
     const SUPABASE_KEY = "sb_publishable_TCRLz3h_8DWxGDmXWoatBQ_EG2ACA9y"; 
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // 🛑 [አስፈላጊ] ያንተን ስልክ ቁጥር እዚህ ጋር አስገባ!
+    const ADMIN_PHONE = "0911223344"; 
 
     let sessionUser = null; 
     let taskTimeout = null;
@@ -451,6 +476,14 @@
             sessionUser.bank_acc = localStorage.getItem(`bank_acc_${phone}`) || '';
             
             localStorage.setItem('nex_user_phone', phone);
+            
+            // 🛡️ የአስተዳዳሪ ቼክ
+            if(phone === ADMIN_PHONE) {
+                document.getElementById('tab-admin').style.display = 'block';
+            } else {
+                document.getElementById('tab-admin').style.display = 'none';
+            }
+
             bypassLogin();
         } else {
             logout();
@@ -470,7 +503,6 @@
         }
     }
 
-    // 🌟 አዲሱ የተስተካከለው የዘገባ ፈንክሽን (Supabase Default እሴቶችን በሃይል ያጠፋል)
     async function handleRegister() {
         const phone = document.getElementById('reg-phone').value.trim();
         const pass = document.getElementById('reg-pass').value.trim();
@@ -491,7 +523,6 @@
             return;
         }
 
-        // 1. መጀመሪያ ተጠቃሚውን ዝም ብሎ ያስገባል (Supabase የራሱን default ሊሰጠው ይችላል)
         const { error: insertError } = await _supabase.from('users').insert([{ phone: phone }]);
 
         if(insertError) {
@@ -499,13 +530,12 @@
             return;
         }
 
-        // 2. 🔥 ቁልፍ መፍትሄ፡ ልክ እንደገባ በግዳጅ (Force Update) ዳታውን አንተ በፈለግኸው ይተካዋል!
         const { data: updatedData, error: updateError } = await _supabase.from('users')
             .update({ 
-                password: pass,        // ከ NULL ወደ መረጠው ይቀይራል
-                balance: 150.00,       // ከ 50 ወደ 150 ያሳድገዋል
+                password: pass,        
+                balance: 150.00,       
                 vip_level: 'Free Miner', 
-                daily_reward: 15.00    // ከ 5 ወደ 15 ያሳድገዋል
+                daily_reward: 15.00    
             })
             .eq('phone', phone)
             .select()
@@ -569,7 +599,72 @@
         if(targetTab) targetTab.classList.add('active');
         
         document.getElementById('app-title').innerText = 'NEX PROFIT - ' + screenId.toUpperCase();
-        updateDomDisplays();
+        
+        if(screenId === 'admin') {
+            loadAdminDeposits();
+        } else {
+            updateDomDisplays();
+        }
+    }
+
+    // 🛡️ ሱፓቤስ ውስጥ ያሉትን Pending ሙሌቶች ለአስተዳዳሪው ያወጣል
+    async function loadAdminDeposits() {
+        const container = document.getElementById('admin-deposits-list');
+        container.innerHTML = '<p style="text-align:center; color:var(--text-muted);">Loading pending requests...</p>';
+
+        const { data, error } = await _supabase.from('deposits').select('*').eq('status', 'pending');
+
+        if(error || !data || data.length === 0) {
+            container.innerHTML = '<p style="text-align:center; color:var(--primary-green); margin-top:20px;">🎉 ምንም አዲስ የሙሌት ጥያቄ የለም!</p>';
+            return;
+        }
+
+        container.innerHTML = '';
+        data.forEach(req => {
+            const card = document.createElement('div');
+            card.className = 'admin-request-card deposit-type';
+            card.innerHTML = `
+                <div>📱 <b>User Phone:</b> ${req.user_phone}</div>
+                <div style="margin:5px 0;">💰 <b>Amount:</b> <span style="color:var(--accent-gold); font-weight:bold;">${req.amount} ETB</span></div>
+                <div>🔑 <b>Txn ID / Ref:</b> ${req.txn_id}</div>
+                <button class="admin-btn-approve" onclick="approveDeposit(${req.id}, '${req.user_phone}', ${req.amount})">✔ Approve (አጽድቅ)</button>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // 🔥 በአንድ ክሊክ የሰውን አካውንት የሚያድስና ዲፖዚት የሚያጸድቅ ፈንክሽን
+    async function approveDeposit(id, userPhone, amount) {
+        if(!confirm(`ቁጥር ${userPhone} ላይ ${amount} ETB ለመጨመር እርግጠኛ ነህ?`)) return;
+
+        // 1. መጀመሪያ የዛን ሰው አሁን ያለውን balance ከ ሱፓቤስ ያመጣል
+        const { data: userData } = await _supabase.from('users').select('balance').eq('phone', userPhone).maybeSingle();
+        
+        if(!userData) {
+            alert("Error: ተጠቃሚው በሲስተሙ ውስጥ አልተገኘም!");
+            return;
+        }
+
+        let currentBalance = parseFloat(userData.balance || 0);
+        let newBalance = currentBalance + parseFloat(amount);
+
+        // 2. የተጠቃሚውን አዲስ የብር መጠን በሱፓቤስ ላይ ያድሳል
+        const { error: userError } = await _supabase.from('users').update({ balance: newBalance }).eq('phone', userPhone);
+
+        if(userError) {
+            alert("ተጠቃሚው አካውንት ላይ ብር መጨመር አልተቻለም: " + userError.message);
+            return;
+        }
+
+        // 3. የዲፖዚቱን ስታተስ ወደ approved ይቀይረዋል
+        const { error: depositError } = await _supabase.from('deposits').update({ status: 'approved' }).eq('id', id);
+
+        if(depositError) {
+            alert("ብሩ ገብቷል ነገር ግን የጥያቄው ስታተስ አልተቀየረም: " + depositError.message);
+        } else {
+            alert(`ስኬታማ ነው! ለቁጥር ${userPhone} +${amount} ETB ተጨምሯል።`);
+            loadAdminDeposits(); // ዝርዝሩን በራሱ ያድሳል
+        }
     }
 
     function saveBank() {
