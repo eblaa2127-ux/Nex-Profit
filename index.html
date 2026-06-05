@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nex Profit - Hamster Mining Platform</title>
+    <title>Nex Profit - Premium Multi-Tier Mining</title>
     <style>
         :root {
             --bg-dark: #0a1103;
@@ -154,7 +154,20 @@
             background-color: #253d17;
         }
 
-        /* VIP Cards */
+        /* VIP Cards Container */
+        .vip-container {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .vip-container::-webkit-scrollbar {
+            width: 5px;
+        }
+        .vip-container::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 10px;
+        }
+
         .vip-card {
             background: #11220a;
             border-radius: 16px;
@@ -258,32 +271,115 @@
     </div>
 
     <div id="screen-vip" class="screen">
-        <div class="vip-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                <span style="font-size:20px; font-weight:bold; color:var(--accent-gold);">VIP Level 2</span>
-                <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">365 Days</span>
+        <h3 style="margin-top: 0; text-align: center; color: var(--accent-gold);">Premium Mining Nodes</h3>
+        <div class="vip-container">
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 1</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 300</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 1.25<br>Estimated Return: ETB 1,350</p>
+                <button class="btn-premium" onclick="invest(300, 1.25)">Invest Now</button>
             </div>
-            <h2 style="color:#fff; margin:10px 0;">ETB 1,200</h2>
-            <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 6.25<br>Estimated Return: ETB 54,750</p>
-            <button class="btn-premium" onclick="invest(1200, 6.25)">Invest Now</button>
-        </div>
 
-        <div class="vip-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                <span style="font-size:20px; font-weight:bold; color:var(--accent-gold);">VIP Level 3</span>
-                <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">365 Days</span>
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 2</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 600</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 2.60<br>Estimated Return: ETB 2,808</p>
+                <button class="btn-premium" onclick="invest(600, 2.60)">Invest Now</button>
             </div>
-            <h2 style="color:#fff; margin:10px 0;">ETB 2,500</h2>
-            <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 13.875<br>Estimated Return: ETB 121,545</p>
-            <button class="btn-premium" onclick="invest(2500, 13.875)">Invest Now</button>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 3</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 1,200</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 5.50<br>Estimated Return: ETB 5,940</p>
+                <button class="btn-premium" onclick="invest(1200, 5.50)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 4</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 2,500</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 12.00<br>Estimated Return: ETB 12,960</p>
+                <button class="btn-premium" onclick="invest(2500, 12.00)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 5</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 5,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 25.00<br>Estimated Return: ETB 27,000</p>
+                <button class="btn-premium" onclick="invest(5000, 25.00)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 6</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 10,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 54.00<br>Estimated Return: ETB 58,320</p>
+                <button class="btn-premium" onclick="invest(10000, 54.00)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 7</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 18,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 102.00<br>Estimated Return: ETB 110,160</p>
+                <button class="btn-premium" onclick="invest(18000, 102.00)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 8</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 25,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 148.00<br>Estimated Return: ETB 159,840</p>
+                <button class="btn-premium" onclick="invest(25000, 148.00)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 9</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 38,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 235.00<br>Estimated Return: ETB 253,800</p>
+                <button class="btn-premium" onclick="invest(38000, 235.00)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 10</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 50,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 320.00<br>Estimated Return: ETB 345,600</p>
+                <button class="btn-premium" onclick="invest(50000, 320.00)">Invest Now</button>
+            </div>
         </div>
     </div>
 
     <div id="screen-share" class="screen">
-        <h3>Invite Friends</h3>
+        <h3>Affiliate Program</h3>
         <p style="color:var(--text-muted); font-size:14px;">Invite partners to scale your daily mining operations.</p>
         <div style="display:flex; background:rgba(0,0,0,0.4); padding:10px; border-radius:8px; border:1px solid rgba(0,204,102,0.2); margin:15px 0;">
-            <input type="text" id="ref-link" value="https://hamster-kl.cyou/login/register?e91673c2" readonly style="background:none; border:none; color:#fff; flex:1; outline:none; font-size:14px;">
+            <input type="text" id="ref-link" value="https://t.me/NexProfitBot/app?startapp=e91673c2" readonly style="background:none; border:none; color:#fff; flex:1; outline:none; font-size:14px;">
             <button onclick="copyLink()" style="background:var(--primary-green); border:none; color:#000; font-weight:bold; padding:5px 15px; border-radius:6px; cursor:pointer;">Copy</button>
         </div>
         <div style="background:var(--card-bg); padding:15px; border-radius:12px; font-size:14px;">
