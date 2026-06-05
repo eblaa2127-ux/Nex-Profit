@@ -3,726 +3,759 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamster Mining - Premium Platform</title>
+    <title>Nex Profit - Premium Multi-Tier Mining</title>
     <style>
-        /* 1. CSS VARIABLES & SYSTEM RESET */
         :root {
-            --auth-bg: linear-gradient(180deg, #c38d10, #4a3200);
-            --main-bg: #e2fae7;
-            --primary-green: #00aa55;
-            --dark-green: #0d7c40;
-            --card-white: #ffffff;
-            --text-dark: #113311;
-            --input-bg: rgba(40, 30, 0, 0.4);
+            --bg-dark: #0a1103;
+            --card-bg: #1c2e11;
+            --primary-green: #00cc66;
             --accent-gold: #ffcc00;
+            --text-main: #ffffff;
+            --text-muted: #b3c6b3;
+            --danger-red: #ff3333;
         }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000;
+            color: var(--text-main);
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
-        /* PHONE CONTAINER */
         .phone-container {
             width: 100%;
             max-width: 450px;
             height: 100vh;
-            background-color: var(--main-bg);
+            background-color: var(--bg-dark);
             display: flex;
             flex-direction: column;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.2);
             box-sizing: border-box;
+            overflow: hidden;
         }
 
-        /* 2. ROUTING ENGINE DISPLAY RULES */
+        /* Top Premium Header */
+        .header {
+            background: linear-gradient(180deg, #16350c, #0a1705);
+            padding: 18px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(0, 204, 102, 0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        /* Screen Wrapper Rules */
         .screen {
-            display: none; /* ሁሉንም ገጾች በነባሪ ደብቅ (እንዳይደራረቡ) */
+            display: none; /* ሁሉም ገጾች በነባሪ ፍጹም የተደበቁ ናቸው */
             flex: 1;
             width: 100%;
             height: 100%;
+            padding: 20px;
             box-sizing: border-box;
             overflow-y: auto;
+            animation: fadeIn 0.3s ease-in-out;
         }
 
         .screen.active {
-            display: flex; /* በጃቫስክሪፕት active የተደረገው ገጽ ብቻ ይወጣል */
-            flex-direction: column;
+            display: block; /* የነቃው ገጽ ብቻ ነው ራሱን ችሎ የሚታየው */
         }
 
-        /* 3. AUTH SCREENS (REGISTER & LOGIN) */
-        .auth-screen {
-            background: var(--auth-bg);
-            padding: 40px 25px;
-            align-items: center;
-            color: white;
-            text-align: center;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .avatar-holder {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            border: 3px solid #7ea6ff;
-            overflow: hidden;
+        /* Inputs & Buttons */
+        .input-group {
             margin-bottom: 15px;
-            background-color: #222;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
-        .avatar-holder img {
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+        .input-group input, .input-group select {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .auth-title {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 35px;
-        }
-
-        .auth-input-group {
-            width: 100%;
-            margin-bottom: 18px;
-        }
-
-        .auth-input-group input {
-            width: 100%;
-            padding: 16px 22px;
-            border-radius: 30px; /* ፍጹም ክብ ቅርጽ ያላቸው ሳጥኖች */
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background-color: var(--input-bg);
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 204, 102, 0.3);
+            background-color: rgba(0, 0, 0, 0.5);
             color: white;
             box-sizing: border-box;
             outline: none;
-            font-size: 16px;
+            font-size: 15px;
+            transition: 0.3s;
         }
-        .auth-input-group input::placeholder {
-            color: rgba(255,255,255,0.7);
+        .input-group input:focus {
+            border-color: var(--primary-green);
         }
 
-        .btn-auth-submit {
-            width: 100%;
-            background: linear-gradient(180deg, #ffcc00, #cca300);
-            color: #4a3200;
+        .btn-premium {
+            background: linear-gradient(135deg, #ffe066, var(--accent-gold));
+            color: #000;
             border: none;
-            padding: 15px;
-            border-radius: 30px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        /* 4. MAIN PLATFORM HEADER & INTERFACE */
-        .app-header {
-            background-color: var(--primary-green);
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-size: 19px;
-            font-weight: bold;
-            position: relative;
-        }
-        .back-btn {
-            position: absolute;
-            left: 15px;
-            top: 15px;
-            cursor: pointer;
-        }
-
-        .banner-holder {
-            width: 100%;
-            height: 180px;
-            overflow: hidden;
-        }
-        .banner-holder img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .quick-actions {
-            display: flex;
-            justify-content: space-around;
-            background-color: var(--primary-green);
-            padding: 15px 10px;
-        }
-        .action-item {
-            text-align: center;
-            color: white;
-            font-size: 13px;
-            cursor: pointer;
-        }
-        .action-icon {
-            width: 45px;
-            height: 45px;
-            background-color: white;
+            padding: 14px;
             border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 5px auto;
-            font-size: 22px;
-        }
-
-        .vip-badge-btn {
-            background-color: var(--dark-green);
-            color: white;
-            text-align: center;
-            padding: 12px;
-            margin: 15px;
-            border-radius: 8px;
+            width: 100%;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2);
+            transition: 0.2s;
+        }
+        .btn-premium:active {
+            transform: scale(0.98);
         }
 
-        /* VIP CARDS */
-        .vip-list {
-            padding: 15px;
-        }
-        .vip-card {
-            background-color: var(--card-white);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
+        /* Dashboard Cards */
+        .hero-card {
+            background: linear-gradient(135deg, var(--card-bg), #0f1c08);
+            border-radius: 16px;
+            padding: 25px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0, 204, 102, 0.2);
+            margin-bottom: 20px;
         }
-        .vip-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin: 0 auto 10px auto;
-            border: 2px solid var(--primary-green);
-            overflow: hidden;
+
+        .balance-title {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .vip-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .vip-price {
-            font-size: 26px;
-            font-weight: bold;
-            color: var(--primary-green);
+
+        .balance-amount {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-gold);
             margin: 10px 0;
         }
-        .btn-invest {
-            background-color: var(--dark-green);
-            color: white;
-            border: none;
-            padding: 12px 35px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-        }
 
-        /* PROFILE (MY) PAGE */
-        .profile-header {
-            background: linear-gradient(180deg, var(--dark-green), var(--primary-green));
-            color: white;
-            padding: 35px 20px;
-            text-align: center;
-            border-bottom-left-radius: 35px;
-            border-bottom-right-radius: 35px;
-        }
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 2px solid white;
-            margin: 0 auto 10px auto;
-            overflow: hidden;
-        }
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .menu-grid {
+        /* Action Grid */
+        .grid-menu {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            padding: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
         }
-        .menu-item {
-            background-color: var(--card-white);
+        .grid-item {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.05);
             border-radius: 12px;
-            padding: 15px 5px;
+            padding: 15px;
             text-align: center;
-            font-size: 11px;
-            font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: 0.2s;
         }
-        .menu-icon {
-            font-size: 24px;
-            margin-bottom: 5px;
-            color: var(--primary-green);
+        .grid-item:active {
+            background-color: #253d17;
         }
 
-        /* FORMS & ACCOUNT INTERFACE */
-        .form-container {
+        /* VIP Cards Container */
+        .vip-container {
+            padding-bottom: 40px;
+        }
+
+        .vip-card {
+            background: #11220a;
+            border-radius: 16px;
             padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0,204,102,0.15);
+            text-align: center;
         }
-        .form-card {
-            background-color: var(--card-white);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 14px;
+
+        /* Task Timer styling */
+        .timer-box {
+            font-size: 28px;
             font-weight: bold;
-            color: var(--primary-green);
-            margin-bottom: 5px;
-        }
-        .form-group input, .form-group select {
-            width: 100%;
+            color: var(--accent-gold);
+            margin: 15px 0;
+            background: rgba(0,0,0,0.4);
             padding: 12px;
             border-radius: 8px;
-            border: 1px solid #ddd;
-            background-color: #fafafa;
-            box-sizing: border-box;
-            outline: none;
-        }
-        .btn-save-form {
-            width: 100%;
-            background-color: var(--primary-green);
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
+            display: inline-block;
+            min-width: 120px;
+            border: 1px solid rgba(0, 204, 102, 0.2);
         }
 
-        /* 5. BOTTOM NAVIGATION BAR */
-        .bottom-nav {
-            height: 70px;
-            background-color: var(--primary-green);
-            display: none; /* በመግቢያ ገጾች ላይ ሙሉ በሙሉ ይደበቃል */
+        /* Bottom Nav Bar */
+        .nav-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #050d03;
+            border-top: 1px solid rgba(0,204,102,0.2);
+            display: flex;
             justify-content: space-around;
-            align-items: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 0;
+            z-index: 100;
+            box-sizing: border-box;
         }
-        .nav-tab {
-            color: rgba(255,255,255,0.65);
+        .nav-item {
+            color: var(--text-muted);
             font-size: 12px;
             text-align: center;
             cursor: pointer;
-            flex: 1;
+            transition: 0.2s;
         }
-        .nav-tab.active {
-            color: white;
-            font-weight: bold;
+        .nav-item.active {
+            color: var(--primary-green);
         }
-        .nav-tab-icon {
-            font-size: 22px;
-            margin-bottom: 2px;
-        }
-        .center-coin {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #ffe066, #e6b800);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 32px;
-            border: 3px solid var(--main-bg);
-            margin-top: -25px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 3px;
         }
     </style>
 </head>
 <body>
 
 <div class="phone-container">
+    <div class="header" id="app-title">NEX PROFIT</div>
 
     <div id="screen-register" class="screen active">
-        <div class="auth-screen">
-            <div class="avatar-holder">
-                <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=150" alt="Hamster">
-            </div>
-            <div class="auth-title">Register</div>
-            
-            <div class="auth-input-group">
-                <input type="text" id="reg-phone" placeholder="+251 Enter mobile phone number">
-            </div>
-            <div class="auth-input-group">
-                <input type="password" id="reg-pass" placeholder="Enter password...">
-            </div>
-            <div class="auth-input-group">
-                <input type="password" id="reg-confirm" placeholder="Confirm password">
-            </div>
-            <div class="auth-input-group">
-                <input type="text" id="reg-ref" value="e91673c2" placeholder="Invitation code">
-            </div>
-            
-            <button class="btn-auth-submit" onclick="performRegistration()">Register</button>
-            
-            <p style="margin-top: 25px; font-size: 14px;">
-                Already have an account? <span style="color:var(--accent-gold); cursor:pointer; text-decoration:underline;" onclick="showAuthPage('login')">Login</span>
-            </p>
+        <h2 style="text-align:center; margin-bottom:30px;">Create Account</h2>
+        <div class="input-group">
+            <input type="text" id="reg-phone" placeholder="+251 Enter mobile phone number">
         </div>
+        <div class="input-group">
+            <input type="password" id="reg-pass" placeholder="Enter password...">
+        </div>
+        <div class="input-group">
+            <input type="password" id="reg-confirm" placeholder="Confirm password">
+        </div>
+        <div class="input-group">
+            <input type="text" id="reg-ref" value="e91673c2" placeholder="Invitation Code">
+        </div>
+        <button class="btn-premium" onclick="handleRegister()">Register</button>
+        <p style="text-align:center; margin-top:25px; font-size:14px; color:var(--text-muted);">
+            Already have an account? <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('login')">Login here</span>
+        </p>
     </div>
 
     <div id="screen-login" class="screen">
-        <div class="auth-screen">
-            <div class="avatar-holder">
-                <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=150" alt="Hamster">
-            </div>
-            <div class="auth-title">Login</div>
-            
-            <div class="auth-input-group">
-                <input type="text" id="login-phone" placeholder="Enter phone number">
-            </div>
-            <div class="auth-input-group">
-                <input type="password" id="login-pass" placeholder="Enter password...">
-            </div>
-            
-            <button class="btn-auth-submit" onclick="performLogin()">Sign In</button>
-            
-            <p style="margin-top: 25px; font-size: 14px;">
-                Don't have an account? <span style="color:var(--accent-gold); cursor:pointer; text-decoration:underline;" onclick="showAuthPage('register')">Register</span>
-            </p>
+        <h2 style="text-align:center; margin-bottom:30px;">Welcome Back</h2>
+        <div class="input-group">
+            <input type="text" id="login-phone" placeholder="Enter phone number (+251...)">
         </div>
+        <div class="input-group">
+            <input type="password" id="login-pass" placeholder="Enter password...">
+        </div>
+        <button class="btn-premium" onclick="handleLogin()">Sign In</button>
+        <p style="text-align:center; margin-top:25px; font-size:14px; color:var(--text-muted);">
+            New to Nex Profit? <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('register')">Register here</span>
+        </p>
     </div>
 
     <div id="screen-home" class="screen">
-        <div class="app-header">Hamster Mining</div>
-        <div class="banner-holder">
-            <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=500" alt="Hamster Luxury">
+        <div class="hero-card">
+            <div class="balance-title">Available Balance</div>
+            <div class="balance-amount" id="user-balance">ETB 150.00</div>
+            <div style="font-size: 13px; color: var(--accent-gold); margin-bottom:10px;" id="home-active-vip">Active Tier: Free Miner</div>
+            <div style="font-size: 12px; color: var(--primary-green);">● Hamster Mining Server Active</div>
         </div>
         
-        <div class="quick-actions">
-            <div class="action-item" onclick="switchScreen('deposit')">
-                <div class="action-icon">💵</div>Recharge
-            </div>
-            <div class="action-item" onclick="switchScreen('withdraw')">
-                <div class="action-icon">💰</div>Withdraw
-            </div>
-            <div class="action-item" onclick="switchScreen('share')">
-                <div class="action-icon">👨‍💻</div>Service
-            </div>
+        <div class="grid-menu">
+            <div class="grid-item" onclick="switchScreen('vip')">💎<br><span style="font-size:13px; font-weight:bold;">VIP Tiers</span></div>
+            <div class="grid-item" onclick="switchScreen('task')">⏱️<br><span style="font-size:13px; font-weight:bold;">Daily Task</span></div>
+            <div class="grid-item" onclick="switchScreen('share')">🔗<br><span style="font-size:13px; font-weight:bold;">Referrals</span></div>
+            <div class="grid-item" onclick="switchScreen('profile')">💼<br><span style="font-size:13px; font-weight:bold;">Wallet</span></div>
         </div>
 
-        <div class="vip-badge-btn" onclick="switchScreen('earnings')">VIP</div>
-        
-        <div style="padding: 20px; text-align: center;">
-            <h3 style="margin:0; color:var(--dark-green);">Welcome to Hamster Core Network</h3>
-            <p style="font-size: 13px; color:#555;">Start mining today and maximize your potential daily profit safely.</p>
+        <div style="background: rgba(0,204,102,0.08); padding: 15px; border-radius: 12px; font-size: 13px; line-height: 1.5; border: 1px solid rgba(0,204,102,0.2);">
+            <span style="color:var(--primary-green); font-weight:bold;">Platform Notice:</span> Welcome to Nex Profit. Ensure your withdrawal bank details are properly locked before initiating requests. Daily tasks reset every 24 hours.
         </div>
     </div>
 
-    <div id="screen-earnings" class="screen">
-        <div class="app-header">VIP Mining Tiers</div>
-        <div class="vip-list">
+    <div id="screen-task" class="screen" style="text-align: center;">
+        <h3>Daily Mining Verification</h3>
+        <p style="color: var(--text-muted); font-size:14px; padding: 0 10px;">የዕለቱን የቪአይፒ ፓኬጅዎን ሙሉ ትርፍ ለማግኘት ማዕድኑን ለ 1 ደቂቃ ያህል በነቃ ሁኔታ ያቆዩት።</p>
+        
+        <div style="background:rgba(255,204,0,0.1); border:1px solid var(--accent-gold); padding:10px; border-radius:10px; margin:15px 0; font-size:14px;">
+            Your Current Daily Return: <b style="color:var(--accent-gold);" id="task-reward-amount">ETB 15.00</b>
+        </div>
+
+        <div class="timer-box" id="task-timer">01:00</div>
+        <br><br>
+        <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Start Mining Task</button>
+    </div>
+
+    <div id="screen-vip" class="screen">
+        <h3 style="margin-top: 0; text-align: center; color: var(--accent-gold);">Premium Mining Nodes</h3>
+        <div class="vip-container">
             <div class="vip-card">
-                <div class="vip-avatar">
-                    <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=150" alt="VIP">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 1</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
-                <div style="font-size:22px; font-weight:bold;">VIP2</div>
-                <div style="border-bottom: 2px dashed #ccc; margin: 10px 0;"></div>
-                <div class="vip-price">ETB 1200</div>
-                <button class="btn-invest" onclick="invest(1200, 6.25, 'VIP2')">INVEST NOW</button>
-                <div style="margin-top:15px; text-align:left; font-size:14px; color:#444; padding-left:20px;">
-                    ✔ Cycle: <b>365 Days</b><br>
-                    ✔ Hourly income: <b>ETB 6.25</b><br>
-                    ✔ Estimated income: <b>ETB 54,750</b>
-                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 300</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 1.25<br>Daily Return: ETB 30.00<br>Estimated Return: ETB 1,350</p>
+                <button class="btn-premium" onclick="invest(300, 1.25, 'VIP Level 1', 30)">Invest Now</button>
             </div>
 
             <div class="vip-card">
-                <div class="vip-avatar">
-                    <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=150" alt="VIP">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 2</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
-                <div style="font-size:22px; font-weight:bold;">VIP3</div>
-                <div style="border-bottom: 2px dashed #ccc; margin: 10px 0;"></div>
-                <div class="vip-price">ETB 2500</div>
-                <button class="btn-invest" onclick="invest(2500, 13.875, 'VIP3')">INVEST NOW</button>
-                <div style="margin-top:15px; text-align:left; font-size:14px; color:#444; padding-left:20px;">
-                    ✔ Cycle: <b>365 Days</b><br>
-                    ✔ Hourly income: <b>ETB 13.875</b><br>
-                    ✔ Estimated income: <b>ETB 121,545</b>
+                <h2 style="color:#fff; margin:10px 0;">ETB 600</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 2.60<br>Daily Return: ETB 62.40<br>Estimated Return: ETB 2,808</p>
+                <button class="btn-premium" onclick="invest(600, 2.60, 'VIP Level 2', 62.4)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 3</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 1,200</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 5.50<br>Daily Return: ETB 132.00<br>Estimated Return: ETB 5,940</p>
+                <button class="btn-premium" onclick="invest(1200, 5.50, 'VIP Level 3', 132)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 4</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 2,500</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 12.00<br>Daily Return: ETB 288.00<br>Estimated Return: ETB 12,960</p>
+                <button class="btn-premium" onclick="invest(2500, 12.00, 'VIP Level 4', 288)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 5</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 5,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 25.00<br>Daily Return: ETB 600.00<br>Estimated Return: ETB 27,000</p>
+                <button class="btn-premium" onclick="invest(5000, 25.00, 'VIP Level 5', 600)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 6</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 10,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 54.00<br>Daily Return: ETB 1,296.00<br>Estimated Return: ETB 58,320</p>
+                <button class="btn-premium" onclick="invest(10000, 54.00, 'VIP Level 6', 1296)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 7</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 18,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 102.00<br>Daily Return: ETB 2,448.00<br>Estimated Return: ETB 110,160</p>
+                <button class="btn-premium" onclick="invest(18000, 102.00, 'VIP Level 7', 2448)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 8</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 25,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 148.00<br>Daily Return: ETB 3,552.00<br>Estimated Return: ETB 159,840</p>
+                <button class="btn-premium" onclick="invest(25000, 148.00, 'VIP Level 8', 3552)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 9</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 38,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 235.00<br>Daily Return: ETB 5,640.00<br>Estimated Return: ETB 253,800</p>
+                <button class="btn-premium" onclick="invest(38000, 235.00, 'VIP Level 9', 5640)">Invest Now</button>
+            </div>
+
+            <div class="vip-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 10</span>
+                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
+                </div>
+                <h2 style="color:#fff; margin:10px 0;">ETB 50,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 320.00<br>Daily Return: ETB 7,680.00<br>Estimated Return: ETB 345,600</p>
+                <button class="btn-premium" onclick="invest(50000, 320.00, 'VIP Level 10', 7680)">Invest Now</button>
             </div>
         </div>
     </div>
 
     <div id="screen-share" class="screen">
-        <div class="app-header">Invite Your Friends</div>
-        <div style="padding:20px;">
-            <div style="background-color:white; padding:20px; border-radius:12px; text-align:center;">
-                <p style="color:#555; font-size:14px; margin:0 0 10px 0;">Copy Invitation Link</p>
-                <input type="text" id="share-link-input" value="https://hamster-kl.cyou/login/register?ref=e91673c2" readonly style="width:100%; padding:10px; border:1px solid #ddd; text-align:center; margin-bottom:10px; border-radius:6px;">
-                <button class="btn-save-form" onclick="copyInviteLink()">Copy Link</button>
-            </div>
-
-            <div style="background-color:white; padding:20px; border-radius:12px; margin-top:20px; text-align:center;">
-                <div style="display:flex; justify-content:space-around; margin-bottom:15px;">
-                    <div><span style="font-size:12px; color:#777;">Team Size</span><br><b style="font-size:20px; color:var(--primary-green);">0</b></div>
-                    <div><span style="font-size:12px; color:#777;">Total Commission</span><br><b style="font-size:20px; color:var(--primary-green);">ETB 0.00</b></div>
-                </div>
-                <div style="text-align:left; font-size:14px; border-top:1px solid #eee; padding-top:10px;">
-                    <p>Level 1 Commission: <b style="color:var(--primary-green);">25%</b></p>
-                    <p>Level 2 Commission: <b style="color:var(--primary-green);">3%</b></p>
-                    <p>Level 3 Commission: <b style="color:var(--primary-green);">2%</b></p>
-                </div>
-            </div>
+        <h3>Affiliate Program</h3>
+        <p style="color:var(--text-muted); font-size:14px;">Invite partners to scale your daily mining operations.</p>
+        <div style="display:flex; background:rgba(0,0,0,0.4); padding:10px; border-radius:8px; border:1px solid rgba(0,204,102,0.2); margin:15px 0;">
+            <input type="text" id="ref-link" value="https://t.me/NexProfitBot/app?startapp=e91673c2" readonly style="background:none; border:none; color:#fff; flex:1; outline:none; font-size:14px;">
+            <button onclick="copyLink()" style="background:var(--primary-green); border:none; color:#000; font-weight:bold; padding:5px 15px; border-radius:6px; cursor:pointer;">Copy</button>
+        </div>
+        <div style="background:var(--card-bg); padding:15px; border-radius:12px; font-size:14px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Level 1 Commission</span><span style="color:var(--primary-green); font-weight:bold;">25%</span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Level 2 Commission</span><span style="color:var(--primary-green); font-weight:bold;">3%</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>Level 3 Commission</span><span style="color:var(--primary-green); font-weight:bold;">2%</span></div>
         </div>
     </div>
 
-    <div id="screen-my" class="screen">
-        <div class="profile-header">
-            <div class="profile-avatar">
-                <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=150" alt="User">
-            </div>
-            <div style="font-size:18px; font-weight:bold;" id="profile-phone-display">0992692390</div>
-            <div style="font-size:26px; font-weight:bold; margin-top:10px;" id="profile-balance-display">ETB 150.00</div>
-            <div style="font-size:12px; opacity:0.8;">Current Balance</div>
+    <div id="screen-profile" class="screen">
+        <h3 style="color:var(--primary-green); margin-top:0;">Deposit / Fund Account</h3>
+        <div style="background:rgba(0,204,102,0.1); padding:15px; border-radius:12px; margin-bottom:20px; font-size:13px; border:1px dashed var(--primary-green);">
+            <p style="margin:0 0 8px 0;"><b>💳 Admin Payment Details:</b></p>
+            <p style="margin:4px 0;">Telebirr / CBE: <b>0912345678</b></p>
+            <p style="margin:4px 0;">Account Holder: <b>NEX PROFIT ADMIN</b></p>
+        </div>
+        
+        <div class="input-group">
+            <label>Amount to Deposit (ETB)</label>
+            <input type="number" id="deposit-amount" placeholder="e.g. 300">
+        </div>
+        <div class="input-group">
+            <label>Transaction ID / Reference Number</label>
+            <input type="text" id="deposit-ref" placeholder="Enter Telebirr/Bank Txn ID">
+        </div>
+        <button class="btn-premium" style="background:var(--primary-green); color:#000; margin-bottom:25px;" onclick="processDeposit()">Submit Deposit Request</button>
+
+        <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:25px 0;">
+
+        <h3>Secure Withdrawal Vault</h3>
+        <div id="bank-status-box" style="background:rgba(255,204,0,0.05); border:1px dashed var(--accent-gold); padding:12px; border-radius:10px; margin-bottom:20px; font-size:13px; color:var(--accent-gold);">
+            ⚠️ No withdrawal destination locked yet.
         </div>
 
-        <div class="menu-grid">
-            <div class="menu-item" onclick="switchScreen('deposit')"><div class="menu-icon">📦</div>Recharge</div>
-            <div class="menu-item" onclick="switchScreen('withdraw')"><div class="menu-icon">💸</div>Withdraw</div>
-            <div class="menu-item" onclick="switchScreen('bank')"><div class="menu-icon">💳</div>Bank Account</div>
-            <div class="menu-item" onclick="switchScreen('share')"><div class="menu-icon">🔗</div>Invite</div>
-            <div class="menu-item" onclick="alert('No records found')"><div class="menu-icon">📅</div>History</div>
-            <div class="menu-item" style="color:red;" onclick="triggerLogout()"><div class="menu-icon">🚪</div>Logout</div>
+        <div class="input-group">
+            <label>Account Holder Real Name</label>
+            <input type="text" id="bank-name" placeholder="Enter your name">
         </div>
+        <div class="input-group">
+            <label>Withdrawal Type</label>
+            <select id="bank-type">
+                <option>Commercial Bank of Ethiopia</option>
+                <option>Telebirr</option>
+                <option>CBE Birr</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Bank Account Number</label>
+            <input type="text" id="bank-acc" placeholder="Enter the bank account">
+        </div>
+        <button class="btn-premium" style="background:#1c3d11; color:#fff; margin-bottom:25px;" onclick="saveBank()">Lock Bank Settings</button>
+
+        <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:20px 0;">
+
+        <h3>Request Payout</h3>
+        <div class="input-group">
+            <label>Amount to Withdraw (Min: 500 ETB)</label>
+            <input type="number" id="withdraw-amount" placeholder="Minimum 500">
+        </div>
+        <button class="btn-premium" onclick="processWithdrawal()">Execute Payout</button>
+
+        <br><br>
+        <button class="btn-premium" style="background:var(--danger-red); color:#fff;" onclick="logout()">Secure Logout</button>
+        <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-top:20px; cursor:pointer; text-decoration: underline;" onclick="switchScreen('privacy')">Privacy Policy & Platform Rules</p>
     </div>
 
-    <div id="screen-bank" class="screen">
-        <div class="app-header"><span class="back-btn" onclick="switchScreen('my')">❮</span>Bank Account</div>
-        <div class="form-container">
-            <div class="form-card">
-                <h3 style="margin-top:0; color:var(--dark-green);">Withdrawal account settings</h3>
-                <p style="font-size:12px; color:#666; margin-bottom:20px;">Add your withdrawal account information to receive funds securely.</p>
-                
-                <div class="form-group">
-                    <label>Real name:</label>
-                    <input type="text" id="form-bank-name" placeholder="Enter your name">
-                </div>
-                <div class="form-group">
-                    <label>Withdrawal type:</label>
-                    <select id="form-bank-type">
-                        <option>Commercial Bank of Ethiopia</option>
-                        <option>Telebirr</option>
-                        <option>CBE Birr</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Bank account:</label>
-                    <input type="text" id="form-bank-acc" placeholder="Enter the bank account">
-                </div>
-                
-                <button class="btn-save-form" onclick="saveBankDetails()">Save</button>
-            </div>
+    <div id="screen-privacy" class="screen">
+        <h3>Privacy Policy & Platform Rules</h3>
+        <div style="font-size:14px; color:var(--text-muted); line-height:1.6; text-align:justify; background: rgba(0,0,0,0.3); padding:15px; border-radius:12px;">
+            <p><strong>1. Account Security:</strong> Each user is permitted only one registered account. Multi-accounting will lead to immediate permanent ban of assets.</p>
+            <p><strong>2. Payout Locks:</strong> Bank details once locked cannot be easily modified to prevent hackers from stealing your funds.</p>
+            <p><strong>3. Mining Rules:</strong> Daily tasks require continuous active connection for exactly 60 seconds to validate your daily profits.</p>
+            <p><strong>4. Data Protection:</strong> All local wallets and details are safely sandbox-isolated within the infrastructure.</p>
         </div>
+        <br>
+        <button class="btn-premium" onclick="switchScreen('profile')">Back to Wallet</button>
     </div>
 
-    <div id="screen-deposit" class="screen">
-        <div class="app-header"><span class="back-btn" onclick="switchScreen('home')">❮</span>Recharge Account</div>
-        <div class="form-container">
-            <div class="form-card">
-                <label style="color:var(--primary-green); font-weight:bold;">Admin Account (CBE/Telebirr):</label>
-                <div style="background:#eee; padding:10px; border-radius:6px; margin:5px 0 15px 0; font-weight:bold;">0912345678 (NEX ADMIN)</div>
-                
-                <div class="form-group">
-                    <label>Amount to Deposit (ETB):</label>
-                    <input type="number" id="dep-amount" placeholder="Enter amount">
-                </div>
-                <div class="form-group">
-                    <label>Transaction ID / Txn Ref:</label>
-                    <input type="text" id="dep-ref" placeholder="Enter Txn ID">
-                </div>
-                <button class="btn-save-form" onclick="submitDeposit()">Submit Deposit</button>
-            </div>
-        </div>
+    <div class="nav-bar" id="bottom-nav" style="display: none;">
+        <div class="nav-item active" id="tab-home" onclick="switchScreen('home')"><div class="nav-icon">📊</div>Home</div>
+        <div class="nav-item" id="tab-vip" onclick="switchScreen('vip')"><div class="nav-icon">💎</div>VIP</div>
+        <div class="nav-item" id="tab-task" onclick="switchScreen('task')"><div class="nav-icon">⏱️</div>Task</div>
+        <div class="nav-item" id="tab-share" onclick="switchScreen('share')"><div class="nav-icon">🔗</div>Share</div>
+        <div class="nav-item" id="tab-profile" onclick="switchScreen('profile')"><div class="nav-icon">👤</div>Wallet</div>
     </div>
-
-    <div id="screen-withdraw" class="screen">
-        <div class="app-header"><span class="back-btn" onclick="switchScreen('home')">❮</span>Request Withdrawal</div>
-        <div class="form-container">
-            <div class="form-card">
-                <div class="form-group">
-                    <label>Amount to Withdraw (ETB):</label>
-                    <input type="number" id="wit-amount" placeholder="Minimum 500">
-                </div>
-                <button class="btn-save-form" style="background-color:var(--dark-green);" onclick="submitWithdrawal()">Request Cashout</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="bottom-nav" id="app-bottom-nav">
-        <div class="nav-tab active" id="tab-home" onclick="switchScreen('home')">
-            <div class="nav-tab-icon">🏠</div>Home
-        </div>
-        <div class="nav-tab" id="tab-earnings" onclick="switchScreen('earnings')">
-            <div class="nav-tab-icon">💰</div>Earnings
-        </div>
-        <div class="nav-tab" id="tab-center">
-            <div class="center-coin">🐹</div>
-        </div>
-        <div class="nav-tab" id="tab-share" onclick="switchScreen('share')">
-            <div class="nav-tab-icon">👥</div>Share
-        </div>
-        <div class="nav-tab" id="tab-my" onclick="switchScreen('my')">
-            <div class="nav-tab-icon">👤</div>My
-        </div>
-    </div>
-
 </div>
 
 <script>
-    // System Engine State 
-    let walletBalance = parseFloat(localStorage.getItem('h_balance')) || 150.00;
-    let registeredPhone = localStorage.getItem('h_user_phone') || '0992692390';
+    // State management using LocalStorage
+    let balance = parseFloat(localStorage.getItem('np_balance')) || 150.00;
+    let isBankSaved = localStorage.getItem('np_bank_saved') === 'true';
+    let savedName = localStorage.getItem('np_bank_name') || '';
+    let savedType = localStorage.getItem('np_bank_type') || '';
+    let savedAcc = localStorage.getItem('np_bank_acc') || '';
+    
+    // VIP specific state
+    let activeVipName = localStorage.getItem('np_active_vip_name') || 'Free Miner';
+    let dailyReward = parseFloat(localStorage.getItem('np_daily_reward')) || 15.00;
+    let lastTaskClaimDate = localStorage.getItem('np_last_task_date') || ''; 
 
+    let taskTimeout = null;
+
+    // Check login state
     window.onload = function() {
-        if(localStorage.getItem('h_is_logged') === 'true') {
-            enterMainApp();
+        if(localStorage.getItem('np_logged_in') === 'true') {
+            bypassLogin();
         } else {
-            showAuthPage('register');
+            toggleAuthPages('register');
         }
-        refreshUI();
+        updateBankDisplay();
+        updateVipDisplays();
     };
 
-    function showAuthPage(page) {
+    function toggleAuthPages(page) {
         document.getElementById('screen-register').classList.remove('active');
         document.getElementById('screen-login').classList.remove('active');
-        document.getElementById('app-bottom-nav').style.display = 'none';
-
+        document.getElementById('bottom-nav').style.display = 'none'; // አውታንቲኬሽን ላይ ከስር ምንም ነገር እንዳይታይ
+        
         if(page === 'login') {
             document.getElementById('screen-login').classList.add('active');
+            document.getElementById('app-title').innerText = 'NEX PROFIT - LOGIN';
         } else {
             document.getElementById('screen-register').classList.add('active');
+            document.getElementById('app-title').innerText = 'NEX PROFIT - REGISTER';
         }
     }
 
-    function performRegistration() {
-        let phone = document.getElementById('reg-phone').value;
-        let pass = document.getElementById('reg-pass').value;
-        let confirm = document.getElementById('reg-confirm').value;
+    function handleRegister() {
+        const phone = document.getElementById('reg-phone').value;
+        const pass = document.getElementById('reg-pass').value;
+        const confirmPass = document.getElementById('reg-confirm').value;
 
-        if(!phone || phone.length < 9) { return alert('Please enter a valid phone number'); }
-        if(!pass || pass !== confirm) { return alert('Passwords do not match'); }
+        if(phone.length < 9) {
+            alert('Error: Please input a valid mobile number.');
+            return;
+        }
+        if(!pass || pass !== confirmPass) {
+            alert('Error: Passwords do not match or empty.');
+            return;
+        }
 
-        localStorage.setItem('h_user_phone', phone);
-        localStorage.setItem('h_user_pass', pass);
-        localStorage.setItem('h_is_logged', 'true');
-        registeredPhone = phone;
-        enterMainApp();
+        localStorage.setItem('db_phone', phone);
+        localStorage.setItem('db_pass', pass);
+        localStorage.setItem('np_logged_in', 'true');
+        bypassLogin();
     }
 
-    function performLogin() {
-        let phone = document.getElementById('login-phone').value;
-        let pass = document.getElementById('login-pass').value;
+    function handleLogin() {
+        const phone = document.getElementById('login-phone').value;
+        const pass = document.getElementById('login-pass').value;
 
-        let dbPhone = localStorage.getItem('h_user_phone');
-        let dbPass = localStorage.getItem('h_user_pass');
+        const storedPhone = localStorage.getItem('db_phone');
+        const storedPass = localStorage.getItem('db_pass');
 
-        if(phone === dbPhone && pass === dbPass && phone) {
-            localStorage.setItem('h_is_logged', 'true');
-            enterMainApp();
+        if(phone === storedPhone && pass === storedPass && phone !== null) {
+            localStorage.setItem('np_logged_in', 'true');
+            bypassLogin();
         } else {
-            alert('Invalid Phone or Password');
+            alert('Authentication Failed: Invalid phone number or password.');
         }
     }
 
-    function enterMainApp() {
+    function bypassLogin() {
         document.getElementById('screen-register').classList.remove('active');
         document.getElementById('screen-login').classList.remove('active');
-        document.getElementById('app-bottom-nav').style.display = 'flex';
+        document.getElementById('bottom-nav').style.display = 'flex';
         switchScreen('home');
     }
 
     function switchScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(scr => scr.classList.remove('active'));
+        // ሁሉንም ገጾች ደብቅ
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         
-        let activeTarget = document.getElementById('screen-' + screenId);
-        if(activeTarget) activeTarget.classList.add('active');
-
-        document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+        // የተመረጠውን ገጽ ብቻ ክፈት
+        let targetScreen = document.getElementById('screen-' + screenId);
+        if(targetScreen) targetScreen.classList.add('active');
+        
+        // የታችኛውን ማውጫ አድምቅ
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
         let targetTab = document.getElementById('tab-' + screenId);
         if(targetTab) targetTab.classList.add('active');
-
-        refreshUI();
+        
+        document.getElementById('app-title').innerText = 'NEX PROFIT - ' + screenId.toUpperCase();
+        updateBalanceDisplay();
+        updateVipDisplays();
     }
 
-    function refreshUI() {
-        document.getElementById('profile-balance-display').innerText = 'ETB ' + walletBalance.toFixed(2);
-        document.getElementById('profile-phone-display').innerText = registeredPhone;
-        localStorage.setItem('h_balance', walletBalance);
+    function updateBalanceDisplay() {
+        document.getElementById('user-balance').innerText = 'ETB ' + balance.toFixed(2);
+        localStorage.setItem('np_balance', balance);
     }
 
-    function invest(price, hourly, levelName) {
-        if(walletBalance < price) {
-            let goDep = confirm('Insufficient balance. Go to Recharge page?');
-            if(goDep) switchScreen('deposit');
+    function updateVipDisplays() {
+        let homeVip = document.getElementById('home-active-vip');
+        let taskRew = document.getElementById('task-reward-amount');
+        if(homeVip) homeVip.innerText = `Active Tier: ${activeVipName}`;
+        if(taskRew) taskRew.innerText = `ETB ${dailyReward.toFixed(2)}`;
+    }
+
+    // 24-HOUR DYNAMIC TIMER TASK ENGINE
+    function startDailyTask() {
+        const todayStr = new Date().toDateString(); 
+        if(lastTaskClaimDate === todayStr) {
+            alert('Mining Limited: You have already completed your task for today. Please return tomorrow!');
+            return;
+        }
+
+        let btn = document.getElementById('start-task-btn');
+        let timerDisplay = document.getElementById('task-timer');
+        let timeLeft = 60; 
+        
+        btn.disabled = true;
+        btn.style.background = '#333';
+        btn.innerText = 'Mining... Keep App Open';
+
+        taskTimeout = setInterval(() => {
+            timeLeft--;
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            timerDisplay.innerText = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+            if (timeLeft <= 0) {
+                clearInterval(taskTimeout);
+                
+                balance += dailyReward; 
+                lastTaskClaimDate = todayStr;
+                localStorage.setItem('np_last_task_date', lastTaskClaimDate);
+
+                updateBalanceDisplay();
+                alert(`Success: Daily mining task complete! +ETB ${dailyReward.toFixed(2)} added based on your ${activeVipName} plan.`);
+                
+                btn.disabled = false;
+                btn.style.background = 'linear-gradient(135deg, #ffe066, #ffcc00)';
+                btn.innerText = 'Start Mining Task';
+                timerDisplay.innerText = "01:00";
+            }
+        }, 1000);
+    }
+
+    // DEPOSIT
+    function processDeposit() {
+        const amount = parseFloat(document.getElementById('deposit-amount').value);
+        const reference = document.getElementById('deposit-ref').value;
+
+        if(isNaN(amount) || amount <= 0 || !reference) {
+            alert('Error: Please enter a valid deposit amount and transaction text reference.');
+            return;
+        }
+
+        balance += amount;
+        updateBalanceDisplay();
+        alert(`Deposit Order Submitted! ETB ${amount.toFixed(2)} credited successfully.`);
+        document.getElementById('deposit-amount').value = '';
+        document.getElementById('deposit-ref').value = '';
+        switchScreen('home');
+    }
+
+    // BANK SETTINGS
+    function saveBank() {
+        const name = document.getElementById('bank-name').value;
+        const type = document.getElementById('bank-type').value;
+        const acc = document.getElementById('bank-acc').value;
+
+        if(!name || !acc) {
+            alert('Error: Please enter all bank information.');
+            return;
+        }
+
+        isBankSaved = true;
+        savedName = name;
+        savedType = type;
+        savedAcc = acc;
+
+        localStorage.setItem('np_bank_saved', 'true');
+        localStorage.setItem('np_bank_name', name);
+        localStorage.setItem('np_bank_type', type);
+        localStorage.setItem('np_bank_acc', acc);
+
+        updateBankDisplay();
+        alert('Success: Payout account details locked successfully.');
+    }
+
+    function updateBankDisplay() {
+        let box = document.getElementById('bank-status-box');
+        if(isBankSaved && box) {
+            box.style.background = 'rgba(0,204,102,0.05)';
+            box.style.borderColor = 'var(--primary-green)';
+            box.style.color = 'var(--primary-green)';
+            box.innerHTML = `🔒 Locked Account Destination:<br><b>${savedType}</b><br>Name: ${savedName}<br>Acc: ${savedAcc}`;
+            
+            document.getElementById('bank-name').value = savedName;
+            document.getElementById('bank-type').value = savedType;
+            document.getElementById('bank-acc').value = savedAcc;
+        }
+    }
+
+    // WITHDRAW
+    function processWithdrawal() {
+        if(!isBankSaved) {
+            alert('Error: You must save and lock your Bank Settings before withdrawing.');
+            return;
+        }
+
+        const amtInput = document.getElementById('withdraw-amount').value;
+        const amount = parseFloat(amtInput);
+
+        if(isNaN(amount) || amount < 500) {
+            alert('Transaction Rejected: Minimum withdrawal amount is 500 ETB.');
+            return;
+        }
+
+        if(balance < amount) {
+            alert('Transaction Rejected: Insufficient balance.');
+            return;
+        }
+
+        balance -= amount;
+        updateBalanceDisplay();
+        alert(`Payout Successful! ETB ${amount.toFixed(2)} has been queued. Delivery within 1-12 hours.`);
+        document.getElementById('withdraw-amount').value = '';
+    }
+
+    // INVEST
+    function invest(amount, hourly, vipName, calculatedDailyReturn) {
+        if(balance < amount) {
+            let choice = confirm('Insufficient balance. Would you like to deposit funds now?');
+            if(choice) {
+                switchScreen('profile'); 
+            }
         } else {
-            walletBalance -= price;
-            alert('Successfully activated ' + levelName + '! Your mining return has begun.');
+            balance -= amount;
+            activeVipName = vipName;
+            dailyReward = calculatedDailyReturn;
+
+            localStorage.setItem('np_active_vip_name', activeVipName);
+            localStorage.setItem('np_daily_reward', dailyReward);
+
+            updateBalanceDisplay();
+            updateVipDisplays();
+            alert(`VIP Activated! Successfully unlocked ${vipName}. Your daily task reward is now upgraded to ETB ${calculatedDailyReturn.toFixed(2)}!`);
             switchScreen('home');
         }
     }
 
-    function saveBankDetails() {
-        let n = document.getElementById('form-bank-name').value;
-        let a = document.getElementById('form-bank-acc').value;
-        if(!n || !a) return alert('Fill out all fields');
-        alert('Withdrawal destination locked securely.');
-        switchScreen('my');
+    function copyLink() {
+        const copyText = document.getElementById("ref-link");
+        copyText.select();
+        navigator.clipboard.writeText(copyText.value);
+        alert("Referral link copied successfully!");
     }
 
-    function submitDeposit() {
-        let amt = parseFloat(document.getElementById('dep-amount').value);
-        let ref = document.getElementById('dep-ref').value;
-        if(!amt || !ref) return alert('Fill out deposit details');
-        walletBalance += amt;
-        alert('Deposit of ETB ' + amt + ' requested successfully!');
-        switchScreen('home');
-    }
-
-    function submitWithdrawal() {
-        let amt = parseFloat(document.getElementById('wit-amount').value);
-        if(!amt || amt < 500) return alert('Minimum withdrawal is 500 ETB');
-        if(walletBalance < amt) return alert('Insufficient Balance');
-        walletBalance -= amt;
-        alert('Withdrawal request queued.');
-        switchScreen('my');
-    }
-
-    function copyInviteLink() {
-        let input = document.getElementById('share-link-input');
-        input.select();
-        navigator.clipboard.writeText(input.value);
-        alert('Link Copied!');
-    }
-
-    function triggerLogout() {
-        if(confirm('Logout securely?')) {
-            localStorage.setItem('h_is_logged', 'false');
-            showAuthPage('login');
+    function logout() {
+        if(confirm("Are you sure you want to logout?")) {
+            localStorage.setItem('np_logged_in', 'false');
+            document.getElementById('bottom-nav').style.display = 'none';
+            toggleAuthPages('login'); 
+            if(taskTimeout) clearInterval(taskTimeout);
         }
     }
 </script>
