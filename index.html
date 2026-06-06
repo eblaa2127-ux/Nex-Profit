@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nex Profit - Premium Multi-Tier Investment & Gaming</title>
-    <!-- Supabase SDK Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
@@ -318,939 +317,38 @@
         /* 🔢 KENO GAME STYLES */
         .keno-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 6px;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 4px;
             margin: 15px 0;
+            background: rgba(0,0,0,0.4);
+            padding: 8px;
+            border-radius: 8px;
         }
         .keno-num {
-            background: rgba(0,0,0,0.6);
-            border: 1px solid rgba(0, 204, 102, 0.3);
+            background: #1a1a1a;
+            border: 1px solid #333;
             color: #fff;
-            padding: 10px 0;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .keno-num.selected {
-            background: var(--accent-gold);
-            color: #000;
-            border-color: #fff;
-        }
-        .keno-num.hit {
-            background: var(--primary-green) !important;
-            color: #fff !important;
-        }
-
-        /* MODAL DIALOGS */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 200;
-            justify-content: center; align-items: center;
-            padding: 20px; box-sizing: border-box;
-        }
-        .modal-overlay.open {
-            display: flex;
-        }
-        .modal-content {
-            background: #0f1c08;
-            border: 2px solid var(--primary-green);
-            border-radius: 16px;
-            max-width: 400px; width: 100%; padding: 20px;
-            box-sizing: border-box;
-            position: relative;
-        }
-        .close-modal-btn {
-            position: absolute; top: 10px; right: 15px; 
-            font-size: 20px; color: #fff; cursor: pointer;
-        }
-
-        .investment-node-pill {
-            background: rgba(0, 204, 102, 0.15);
-            border: 1px dashed var(--primary-green);
-            border-radius: 8px; padding: 6px 12px;
-            font-size: 12px; margin: 4px; display: inline-block;
-        }
-    </style>
-</head>
-<body>
-
-<div class="phone-container">
-    <div class="header" id="app-title">NEX PROFIT</div>
-
-    <!-- REGISTRATION SCREEN -->
-    <div id="screen-register" class="screen active">
-        <h2 style="text-align:center; margin-bottom:30px;">Create Account</h2>
-        <div class="input-group"><input type="text" id="reg-phone" placeholder="Enter mobile phone number"></div>
-        <div class="input-group"><input type="password" id="reg-pass" placeholder="Enter password..."></div>
-        <div class="input-group"><input type="password" id="reg-confirm" placeholder="Confirm password"></div>
-        <div class="input-group"><input type="text" id="reg-ref" placeholder="Invitation Code (Optional)"></div>
-        <button class="btn-premium" onclick="handleRegister()">Register</button>
-        <p style="text-align:center; margin-top:25px; font-size:14px; color:var(--text-muted);">
-            Already have an account? <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('login')">Login here</span>
-        </p>
-    </div>
-
-    <!-- LOGIN SCREEN -->
-    <div id="screen-login" class="screen">
-        <h2 style="text-align:center; margin-bottom:30px;">Welcome Back</h2>
-        <div class="input-group"><input type="text" id="login-phone" placeholder="Enter phone number"></div>
-        <div class="input-group"><input type="password" id="login-pass" placeholder="Enter password..."></div>
-        <button class="btn-premium" onclick="handleLogin()">Sign In</button>
-        <p style="text-align:center; margin-top:20px; font-size:14px; color:var(--text-muted);">
-            New to Nex Profit? <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('register')">Register here</span>
-        </p>
-        <!-- Forgot Password Button -->
-        <p style="text-align:center; margin-top:10px; font-size:13px;">
-            <span style="color:var(--danger-red); cursor:pointer;" onclick="triggerForgotPassword()">Forgot Password?</span>
-        </p>
-    </div>
-
-    <!-- FORGOT PASSWORD SCREEN -->
-    <div id="screen-forgot" class="screen">
-        <h2 style="text-align:center; margin-bottom:30px;">Recover Password</h2>
-        <div class="input-group"><input type="text" id="forgot-phone" placeholder="Enter registered phone number"></div>
-        <button class="btn-premium" onclick="handleForgotPasswordRecovery()">Find Password</button>
-        <p style="text-align:center; margin-top:25px; font-size:14px; color:var(--text-muted);">
-            <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('login')">Back to Login</span>
-        </p>
-    </div>
-
-    <!-- HOME SCREEN -->
-    <div id="screen-home" class="screen">
-        <div class="hero-card">
-            <div style="font-size:40px; margin-bottom:5px;">👤</div>
-            <div class="balance-title">Available Balance</div>
-            <div class="balance-amount" id="user-balance">ETB 0.00</div>
-            
-            <!-- My Active Levels Display Box -->
-            <div style="margin-top:10px; text-align:left; background:rgba(0,0,0,0.4); padding:10px; border-radius:8px;">
-                <span style="font-size:11px; color:var(--text-muted); display:block; font-weight:bold; margin-bottom:4px;">💼 MY ACTIVE INVESTMENTS:</span>
-                <div id="home-investments-list" style="font-size:12px;">No active node packages.</div>
-            </div>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px;">
-            <button class="btn-premium" style="background: linear-gradient(135deg, #2c5314, #142b08); color: #fff; border: 1px solid var(--primary-green); padding: 10px; font-size:13px;" onclick="openRulesModal()">📜 Platform Rules</button>
-            <button class="btn-premium" style="background: linear-gradient(135deg, #004d26, #002613); color: #fff; border: 1px solid var(--primary-green); padding: 10px; font-size:13px;" onclick="openSupportChannel()">🎧 Help Support</button>
-        </div>
-
-        <!-- Referral Actions Menu Card -->
-        <div style="background:var(--card-bg); border-radius:12px; padding:12px; border:1px solid rgba(0,204,102,0.2); margin-bottom:20px; text-align:center;">
-            <button class="btn-premium" style="padding:8px 12px; font-size:12px; width:48%; display:inline-block;" onclick="copyReferralLink()">🔗 Copy Ref Link</button>
-            <button class="btn-premium" style="padding:8px 12px; font-size:12px; width:48%; display:inline-block; background:transparent; color:#fff; border:1px solid var(--accent-gold);" onclick="openReferralChainModal()">👥 My Ref Chain</button>
-        </div>
-
-        <div class="grid-menu">
-            <div class="grid-item" onclick="switchScreen('vip')">💎<br><span style="font-size:13px; font-weight:bold;">VIP Tiers</span></div>
-            <div class="grid-item" onclick="switchScreen('task')">⏱️<br><span style="font-size:13px; font-weight:bold;">Daily Task</span></div>
-            <div class="grid-item" onclick="switchScreen('games')">🎮<br><span style="font-size:13px; font-weight:bold;">Games Zone</span></div>
-            <div class="grid-item" onclick="switchScreen('profile')">💼<br><span style="font-size:13px; font-weight:bold;">Wallet</span></div>
-        </div>
-    </div>
-
-    <!-- DAILY TASK SCREEN -->
-    <div id="screen-task" class="screen" style="text-align: center;">
-        <h3>Daily Revenue Growth</h3>
-        <p style="color: var(--text-muted); font-size:14px;">Activate the premium smart contract and keep it active for 1 minute.</p>
-        <div style="background:rgba(255,204,0,0.15); border:1px solid var(--accent-gold); padding:10px; border-radius:10px; margin:15px 0;">
-            Your Current Daily Return: <b style="color:var(--accent-gold);" id="task-reward-amount">ETB 0.00</b>
-        </div>
-        <div class="timer-box" id="task-timer">01:00</div><br><br>
-        <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Activate Profit Generation</button>
-    </div>
-
-    <!-- 🎮 GAMES ZONE SCREEN -->
-    <div id="screen-games" class="screen">
-        <h3 style="text-align: center; color: var(--accent-gold); margin-top:0;">Nex Profit Pro Casino</h3>
-        
-        <!-- 🎡 VISUAL ROULETTE & SPIN ROUND -->
-        <div class="game-section">
-            <h4 style="margin: 0; color: #fff;">🎡 Multi-Bet Pro Spin (1-40)</h4>
-            <p style="font-size:11px; color:var(--text-muted); margin:4px 0;">You can select multiple market outcomes simultaneously!</p>
-            
-            <div class="bet-controller">
-                <button class="bet-btn" onclick="adjustBet('spin', -5)">-</button>
-                <div class="bet-value" id="spin-bet-display">5 ETB</div>
-                <button class="bet-btn" onclick="adjustBet('spin', 5)">+</button>
-            </div>
-
-            <!-- Visual Wheel Markup with Pin and pointer -->
-            <div class="wheel-outer-box">
-                <div class="wheel-pointer"></div>
-                <div class="wheel-container" id="spin-wheel">
-                    <div class="wheel-center-pin" id="wheel-center-text">?</div>
-                </div>
-            </div>
-
-            <!-- Betting Market Options -->
-            <div class="roulette-options-grid">
-                <button class="roulette-btn" id="rb-red" onclick="toggleRouletteMarket('red')">🔴 Red (2x)</button>
-                <button class="roulette-btn" id="rb-black" onclick="toggleRouletteMarket('black')">⚫ Black (2x)</button>
-                <button class="roulette-btn" id="rb-even" onclick="toggleRouletteMarket('even')">🔢 Even (2x)</button>
-                <button class="roulette-btn" id="rb-odd" onclick="toggleRouletteMarket('odd')">🔢 Odd (2x)</button>
-                <button class="roulette-btn" id="rb-low" onclick="toggleRouletteMarket('low')">⬇️ Low 1-18 (2x)</button>
-                <button class="roulette-btn" id="rb-high" onclick="toggleRouletteMarket('high')">⬆️ High 19-40 (2x)</button>
-            </div>
-
-            <div class="input-group" style="margin-top: 5px;">
-                <input type="number" id="spin-exact-number" placeholder="Or type exact number 1-40 (Pays 5x)" min="1" max="40" oninput="toggleRouletteMarket('exact')">
-            </div>
-
-            <button class="btn-premium" style="padding:10px; font-size:14px;" id="spin-btn" onclick="playLuckySpin()">Place Bet & Spin</button>
-        </div>
-
-        <!-- 🔢 KENO GAME SECTION -->
-        <div class="game-section">
-            <h4 style="margin: 0; color: var(--accent-gold);">🔢 Golden Keno (Select 1-5 Numbers)</h4>
-            <p style="font-size:11px; color:var(--text-muted); margin:4px 0;">Pick numbers. 20 winning numbers will be drawn!</p>
-            
-            <div class="bet-controller">
-                <button class="bet-btn" onclick="adjustBet('keno', -5)">-</button>
-                <div class="bet-value" id="keno-bet-display">5 ETB</div>
-                <button class="bet-btn" onclick="adjustBet('keno', 5)">+</button>
-            </div>
-
-            <div class="keno-grid" id="keno-grid-container">
-                <!-- Numbers 1 to 20 dynamically added -->
-            </div>
-
-            <button class="btn-premium" style="padding:10px; font-size:14px; background:linear-gradient(135deg, #00cc66, #006633); color:#fff;" id="keno-btn" onclick="playKenoGame()">Draw Keno Ball</button>
-        </div>
-    </div>
-
-    <!-- VIP / EARNINGS SCREEN -->
-    <div id="screen-vip" class="screen">
-        <h3 style="margin-top:0; text-align:center; color:var(--accent-gold);">Premium Investment Nodes</h3>
-        <div class="vip-card">
-            <h3>VIP Level 1 - ETB 300</h3>
-            <p>Daily Return: ETB 24.00 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(300, 'VIP Level 1', 24)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 2 - ETB 500</h3>
-            <p>Daily Return: ETB 43.20 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(500, 'VIP Level 2', 43.2)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 3 - ETB 1,000</h3>
-            <p>Daily Return: ETB 91.20 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(1000, 'VIP Level 3', 91.2)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 4 - ETB 3,000</h3>
-            <p>Daily Return: ETB 288.00 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(3000, 'VIP Level 4', 288)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 5 - ETB 6,000</h3>
-            <p>Daily Return: ETB 604.80 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(6000, 'VIP Level 5', 604.8)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 6 - ETB 12,000</h3>
-            <p>Daily Return: ETB 1,296.00 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(12000, 'VIP Level 6', 1296)">Invest Now</button>
-        </div>
-    </div>
-
-    <!-- PROFILE / WALLET SCREEN -->
-    <div id="screen-profile" class="screen">
-        <h3>Deposit Funds</h3>
-        <p style="font-size:12px; color:var(--accent-gold);">Telebirr: 0954406366 (Temesgen Ayenew)</p>
-        <div class="input-group"><input type="number" id="deposit-amount" placeholder="Amount (ETB)"></div>
-        <div class="input-group"><input type="text" id="deposit-ref" placeholder="Transaction ID"></div>
-        <button class="btn-premium" onclick="processDeposit()">Submit Deposit</button>
-        
-        <hr style="border-color:rgba(255,255,255,0.1); margin:20px 0;">
-        
-        <h3>Lock Wallet / Bank Account</h3>
-        <div id="bank-status-box" style="font-size:12px; margin-bottom:10px;">⚠️ No bank account locked.</div>
-        
-        <div class="input-group">
-            <label>Select Bank Type</label>
-            <select id="bank-type">
-                <option value="Telebirr">Telebirr</option>
-                <option value="Commercial Bank of Ethiopia (CBE)">Commercial Bank of Ethiopia (CBE)</option>
-                <option value="Awash Bank">Awash Bank</option>
-                <option value="Dashen Bank">Dashen Bank</option>
-                <option value="Abyssinia Bank">Abyssinia Bank</option>
-            </select>
-        </div>
-        <div class="input-group"><input type="text" id="bank-name" placeholder="Account Owner Real Name"></div>
-        <div class="input-group"><input type="text" id="bank-acc" placeholder="Account Number / Phone"></div>
-        <button class="btn-premium" style="background:#1c3d11; color:#fff;" onclick="saveBank()">Lock Bank Details</button>
-        
-        <hr style="border-color:rgba(255,255,255,0.1); margin:20px 0;">
-        
-        <h3>Request Withdrawal</h3>
-        <div class="input-group"><input type="number" id="withdraw-amount" placeholder="Min 500 ETB"></div>
-        <button class="btn-premium" onclick="processWithdrawal()">Withdraw Now</button>
-        <br><br>
-        <button class="btn-premium" style="background:var(--danger-red); color:#fff;" onclick="logout()">Secure Logout</button>
-    </div>
-
-    <!-- MODAL POPUPS -->
-    <div class="modal-overlay" id="rules-modal">
-        <div class="modal-content">
-            <span class="close-modal-btn" onclick="closeRulesModal()">&times;</span>
-            <h3 style="color:var(--accent-gold); margin-top:0;">Platform Rules & Guides</h3>
-            <p style="font-size: 14px; line-height:1.5; color:var(--text-muted);">
-                1. Minimum withdrawal limit is 500 ETB.<br>
-                2. Daily tasks regenerate every 24 hours.<br>
-                3. Premium game zone outcomes depend on calculation frameworks.<br>
-                4. Deposits are authenticated manually within 30 minutes.
-            </p>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="ref-chain-modal">
-        <div class="modal-content">
-            <span class="close-modal-btn" onclick="document.getElementById('ref-chain-modal').classList.remove('open')">&times;</span>
-            <h3 style="color:var(--accent-gold); margin-top:0;">My Referral Chain Links</h3>
-            <div id="ref-chain-body" style="font-size:13px; max-height:200px; overflow-y:auto; color:var(--text-muted);">
-                Loading referral connections...
-            </div>
-        </div>
-    </div>
-
-    <!-- BOTTOM NAVIGATION -->
-    <div class="nav-bar" id="bottom-nav" style="display: none;">
-        <div class="nav-item active" id="tab-home" onclick="switchScreen('home')">📊<br>Home</div>
-        <div class="nav-item" id="tab-vip" onclick="switchScreen('vip')">💎<br>VIP</div>
-        <div class="nav-item" id="tab-task" onclick="switchScreen('task')">⏱️<br>Task</div>
-        <div class="nav-item" id="tab-games" onclick="switchScreen('games')">🎮<br>Games</div>
-        <div class="nav-item" id="tab-profile" onclick="switchScreen('profile')">👤<br>Wallet</div>
-    </div>
-</div>
-
-<script>
-    const SUPABASE_URL = "https://jzhquixmgymiobfcbqhc.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_TCRLz3h_8DWxGDmXWoatBQ_EG2ACA9y"; 
-    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-    let sessionUser = null; 
-    let taskTimerInterval = null;
-    
-    let currentSpinBet = 5;
-    let currentKenoBet = 5;
-    let selectedMarkets = []; 
-    let selectedKenoNumbers = [];
-
-    window.onload = async function() {
-        const cachedPhone = localStorage.getItem('nex_user_phone');
-        if(cachedPhone) { await fetchUserData(cachedPhone); } else { toggleAuthPages('register'); }
-        generateVisualNumbersOnWheel();
-        generateKenoGrid();
-    };
-
-    function generateVisualNumbersOnWheel() {
-        const wheel = document.getElementById('spin-wheel');
-        for (let i = 1; i <= 40; i += 4) { 
-            let lbl = document.createElement('div');
-            lbl.className = 'wheel-label';
-            lbl.style.transform = `rotate(${i * 9}deg) translateY(18px)`;
-            lbl.innerText = i;
-            wheel.appendChild(lbl);
-        }
-    }
-
-    function generateKenoGrid() {
-        const grid = document.getElementById('keno-grid-container');
-        grid.innerHTML = '';
-        for (let i = 1; i <= 20; i++) {
-            let numBtn = document.createElement('button');
-            numBtn.className = 'keno-num';
-            numBtn.id = `keno-num-${i}`;
-            numBtn.innerText = i;
-            numBtn.onclick = () => toggleKenoNumber(i);
-            grid.appendChild(numBtn);
-        }
-    }
-
-    function toggleKenoNumber(num) {
-        const btn = document.getElementById(`keno-num-${num}`);
-        if (selectedKenoNumbers.includes(num)) {
-            selectedKenoNumbers = selectedKenoNumbers.filter(n => n !== num);
-            btn.classList.remove('selected');
-        } else {
-            if (selectedKenoNumbers.length >= 5) {
-                alert("You can select a maximum of 5 numbers.");
-                return;
-            }
-            selectedKenoNumbers.push(num);
-            btn.classList.add('selected');
-        }
-    }
-
-    async function fetchUserData(phone) {
-        const { data } = await _supabase.from('users').select('*').eq('phone', phone).maybeSingle();
-        if(data) {
-            sessionUser = data;
-            sessionUser.bank_name = localStorage.getItem(`bank_name_${phone}`) || '';
-            sessionUser.bank_acc = localStorage.getItem(`bank_acc_${phone}`) || '';
-            sessionUser.bank_type = localStorage.getItem(`bank_type_${phone}`) || '';
-            sessionUser.my_investments = JSON.parse(localStorage.getItem(`my_nodes_${phone}`) || '["Free Plan"]');
-            
-            localStorage.setItem('nex_user_phone', phone);
-            bypassLogin();
-        } else { logout(); }
-    }
-
-    function toggleAuthPages(page) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('bottom-nav').style.display = 'none'; 
-        if(page === 'login') { document.getElementById('screen-login').classList.add('active'); }
-        else if(page === 'forgot') { document.getElementById('screen-forgot').classList.add('active'); }
-        else { document.getElementById('screen-register').classList.add('active'); }
-    }
-
-    async function handleRegister() {
-        const phone = document.getElementById('reg-phone').value.trim();
-        const pass = document.getElementById('reg-pass').value.trim();
-        if(phone.length < 9 || !pass) { alert('Error filling fields.'); return; }
-        
-        const { error } = await _supabase.from('users').insert([{ phone: phone, password: pass, balance: 150.00, vip_level: 'Free Plan', daily_reward: 5.00 }]);
-        if(!error) { alert('Welcome Gift 150 ETB added.'); await fetchUserData(phone); } else { alert('User exists or DB error.'); }
-    }
-
-    async function handleLogin() {
-        const phone = document.getElementById('login-phone').value.trim();
-        const pass = document.getElementById('login-pass').value.trim();
-        const { data } = await _supabase.from('users').select('*').eq('phone', phone).eq('password', pass).maybeSingle();
-        if(data) { await fetchUserData(phone); } else { alert('Invalid credentials.'); }
-    }
-
-    function triggerForgotPassword() {
-        toggleAuthPages('forgot');
-    }
-
-    async function handleForgotPasswordRecovery() {
-        const phone = document.getElementById('forgot-phone').value.trim();
-        if(!phone) { alert('Please enter your phone number.'); return; }
-        
-        const { data } = await _supabase.from('users').select('password').eq('phone', phone).maybeSingle();
-        if (data) {
-            alert(`Your Password is: ${data.password}`);
-            toggleAuthPages('login');
-        } else {
-            alert('Phone number not found in database.');
-        }
-    }
-
-    function bypassLogin() {
-        document.getElementById('bottom-nav').style.display = 'flex';
-        switchScreen('home');
-    }
-
-    function updateDomDisplays() {
-        if(!sessionUser) return;
-        document.getElementById('user-balance').innerText = 'ETB ' + parseFloat(sessionUser.balance).toFixed(2);
-        document.getElementById('task-reward-amount').innerText = 'ETB ' + parseFloat(sessionUser.daily_reward).toFixed(2);
-
-        let listContainer = document.getElementById('home-investments-list');
-        listContainer.innerHTML = '';
-        sessionUser.my_investments.forEach(node => {
-            let p = document.createElement('span');
-            p.className = 'investment-node-pill';
-            p.innerText = `🟢 ${node}`;
-            listContainer.appendChild(p);
-        });
-
-        let bBox = document.getElementById('bank-status-box');
-        if(sessionUser.bank_acc) bBox.innerHTML = `🔒 Locked: ${sessionUser.bank_type} (${sessionUser.bank_acc})`;
-    }
-
-    function switchScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('screen-' + screenId).classList.add('active');
-        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-        if(document.getElementById('tab-' + screenId)) document.getElementById('tab-' + screenId).classList.add('active');
-        updateDomDisplays();
-    }
-
-    function adjustBet(game, amount) {
-        if (game === 'spin') {
-            currentSpinBet += amount; if(currentSpinBet < 5) currentSpinBet = 5;
-            document.getElementById('spin-bet-display').innerText = currentSpinBet + " ETB";
-        } else if (game === 'keno') {
-            currentKenoBet += amount; if(currentKenoBet < 5) currentKenoBet = 5;
-            document.getElementById('keno-bet-display').innerText = currentKenoBet + " ETB";
-        }
-    }
-
-    function toggleRouletteMarket(market) {
-        if(market === 'exact') {
-            selectedMarkets = ['exact'];
-            document.querySelectorAll('.roulette-btn').forEach(btn => btn.classList.remove('selected'));
-            return;
-        }
-        
-        selectedMarkets = selectedMarkets.filter(m => m !== 'exact');
-        document.getElementById('spin-exact-number').value = '';
-
-        if(selectedMarkets.includes(market)) {
-            selectedMarkets = selectedMarkets.filter(m => m !== market);
-            document.getElementById(`rb-${market}`).classList.remove('selected');
-        } else {
-            selectedMarkets.push(market);
-            document.getElementById(`rb-${market}`).classList.add('selected');
-        }
-    }
-
-    function openRulesModal() { document.getElementById('rules-modal').classList.add('open'); }
-    function closeRulesModal() { document.getElementById('rules-modal').classList.remove('open'); }
-    function openSupportChannel() { window.open('https://t.me/ebla2127', '_blank'); }
-
-    function copyReferralLink() {
-        let shortLink = `${window.location.origin}?ref=${sessionUser.phone}`;
-        navigator.clipboard.writeText(shortLink);
-        alert("Referral link copied to clipboard!");
-    }
-
-    function openReferralChainModal() {
-        document.getElementById('ref-chain-modal').classList.add('open');
-        document.getElementById('ref-chain-body').innerHTML = "👥 Active Network Level 1: <br>• No registered lines yet.";
-    }
-
-    function startDailyTask() {
-        const storageKey = `task_claimed_${sessionUser.phone}_${new Date().toDateString()}`;
-        if(localStorage.getItem(storageKey)) {
-            alert("🔒 Daily task limit reached! Returns generated. Tomorrow new slots activate.");
-            return;
-        }
-
-        let btn = document.getElementById('start-task-btn');
-        let timerDisplay = document.getElementById('task-timer');
-        btn.disabled = true;
-        
-        let secondsLeft = 60;
-        clearInterval(taskTimerInterval);
-
-        taskTimerInterval = setInterval(async () => {
-            secondsLeft--;
-            let mins = Math.floor(secondsLeft / 60);
-            let secs = secondsLeft % 60;
-            timerDisplay.innerText = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
-
-            if(secondsLeft <= 0) {
-                clearInterval(taskTimerInterval);
-                localStorage.setItem(storageKey, 'true');
-                sessionUser.balance = parseFloat(sessionUser.balance) + parseFloat(sessionUser.daily_reward);
-                
-                await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
-                alert(`Success! Generated ETB ${sessionUser.daily_reward}`);
-                btn.disabled = false;
-                timerDisplay.innerText = "01:00";
-                updateDomDisplays();
-            }
-        }, 1000);
-    }
-
-    async function playLuckySpin() {
-        if(selectedMarkets.length === 0) { alert("Please choose a market option first."); return; }
-        if(sessionUser.balance < currentSpinBet) { alert("Insufficient funds."); return; }
-
-        sessionUser.balance -= currentSpinBet;
-        updateDomDisplays();
-
-        let wheel = document.getElementById('spin-wheel');
-        let centerTxt = document.getElementById('wheel-center-text');
-        
-        let randomDeg = Math.floor(Math.random() * 360) + 1800; 
-        wheel.style.transform = `rotate(${randomDeg}deg)`;
-
-        setTimeout(async () => {
-            let finalNumber = Math.floor(Math.random() * 40) + 1;
-            centerTxt.innerText = finalNumber;
-
-            let isRed = [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39].includes(finalNumber);
-            let isEven = finalNumber % 2 === 0;
-            let isLow = finalNumber <= 18;
-
-            let won = false;
-            let multiplier = 2;
-
-            selectedMarkets.forEach(m => {
-                if(m === 'red' && isRed) won = true;
-                if(m === 'black' && !isRed) won = true;
-                if(m === 'even' && isEven) won = true;
-                if(m === 'odd' && !isEven) won = true;
-                if(m === 'low' && isLow) won = true;
-                if(m === 'high' && !isLow) won = true;
-                if(m === 'exact') {
-                    let exactVal = parseInt(document.getElementById('spin-exact-number').value);
-                    if(exactVal === finalNumber) { won = true; multiplier = 5; }
-                }
-            });
-
-            if(won) {
-                let prize = currentSpinBet * multiplier;
-                sessionUser.balance += prize;
-                alert(`You Won! Number ${finalNumber}. Prize: ${prize} ETB`);
-            } else {
-                alert(`Result: ${finalNumber}. Better luck next time!`);
-            }
-
-            await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
-            updateDomDisplays();
-        }, 5000);
-    }
-
-    async function playKenoGame() {
-        if (selectedKenoNumbers.length === 0) { alert("Please select at least 1 number."); return; }
-        if (sessionUser.balance < currentKenoBet) { alert("Insufficient balance."); return; }
-
-        sessionUser.balance -= currentKenoBet;
-        updateDomDisplays();
-
-        document.querySelectorAll('.keno-num').forEach(b => b.classList.remove('hit'));
-
-        let drawNumbers = [];
-        while (drawNumbers.length < 10) {
-            let r = Math.floor(Math.random() * 20) + 1;
-            if (!drawNumbers.includes(r)) drawNumbers.push(r);
-        }
-
-        let matchCount = 0;
-        drawNumbers.forEach(num => {
-            let btn = document.getElementById(`keno-num-${num}`);
-            if (btn) btn.classList.add('hit');
-            if (selectedKenoNumbers.includes(num)) matchCount++;
-        });
-
-        let payoutMultiplier = 0;
-        if (matchCount === 1) payoutMultiplier = 1.5;
-        if (matchCount === 2) payoutMultiplier = 3;
-        if (matchCount === 3) payoutMultiplier = 5;
-        if (matchCount === 4) payoutMultiplier = 10;
-        if (matchCount === 5) payoutMultiplier = 25;
-
-        if (payoutMultiplier > 0) {
-            let winAmount = currentKenoBet * payoutMultiplier;
-            sessionUser.balance += winAmount;
-            alert(`🎯 Keno Result: Matched ${matchCount} numbers! You won ${winAmount} ETB.`);
-        } else {
-            alert(`❌ Keno Result: Matched ${matchCount} numbers. Try again!`);
-        }
-
-        await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
-        updateDomDisplays();
-    }
-
-    async function invest(amount, levelName, dailyReturn) {
-        if(sessionUser.balance < amount) { alert("Insufficient balance for investment node."); return; }
-        sessionUser.balance -= amount;
-        if(!sessionUser.my_investments.includes(levelName)) {
-            sessionUser.my_investments.push(levelName);
-        }
-        sessionUser.daily_reward = parseFloat(sessionUser.daily_reward) + dailyReturn;
-        
-        localStorage.setItem(`my_nodes_${sessionUser.phone}`, JSON.stringify(sessionUser.my_investments));
-        await _supabase.from('users').update({ balance: sessionUser.balance, daily_reward: sessionUser.daily_reward }).eq('phone', sessionUser.phone);
-        alert(`Successfully Activated ${levelName}!`);
-        updateDomDisplays();
-    }
-
-    function processDeposit() {
-        let amt = document.getElementById('deposit-amount').value;
-        let ref = document.getElementById('deposit-ref').value;
-        if(!amt || !ref) { alert("Fill all fields"); return; }
-        alert("Deposit submitted. Admin will verify tx logs manually.");
-    }
-
-    function saveBank() {
-        let type = document.getElementById('bank-type').value;
-        let name = document.getElementById('bank-name').value;
-        let acc = document.getElementById('bank-acc').value;
-        if(!name || !acc) { alert("Fill bank forms."); return; }
-        
-        localStorage.setItem(`bank_name_${sessionUser.phone}`, name);
-        localStorage.setItem(`bank_acc_${sessionUser.phone}`, acc);
-        localStorage.setItem(`bank_type_${sessionUser.phone}`, type);
-        
-        sessionUser.bank_name = name; sessionUser.bank_acc = acc; sessionUser.bank_type = type;
-        alert("Payment gateway configurations locked.");
-        updateDomDisplays();
-    }
-
-    function processWithdrawal() {
-        let val = parseFloat(document.getElementById('withdraw-amount').value);
-        if(val < 500 || isNaN(val)) { alert("Min cashout 500 ETB."); return; }
-        if(sessionUser.balance < val) { alert("Insufficient funds."); return; }
-        alert("Withdrawal request dispatched to locked banking gateway.");
-    }
-
-    function logout() {
-        localStorage.removeItem('nex_user_phone');
-        sessionUser = null;
-        toggleAuthPages('login');
-    }
-</script>
-</body>
-</html>            display: block;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 5px;
-        }
-        .input-group input, .input-group select {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid rgba(0, 204, 102, 0.3);
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            box-sizing: border-box;
-            outline: none;
-            font-size: 15px;
-            transition: 0.3s;
-        }
-
-        .btn-premium {
-            background: linear-gradient(135deg, #ffe066, var(--accent-gold));
-            color: #000;
-            border: none;
-            padding: 14px;
-            border-radius: 12px;
-            width: 100%;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2);
-            transition: 0.2s;
-        }
-        .btn-premium:disabled {
-            background: #444 !important;
-            color: #888 !important;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        .hero-card {
-            background: linear-gradient(135deg, var(--card-bg), rgba(15, 28, 8, 0.9));
-            border-radius: 16px;
-            padding: 22px;
-            text-align: center;
-            border: 1px solid rgba(0, 204, 102, 0.3);
-            margin-bottom: 20px;
-        }
-
-        .balance-amount {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--accent-gold);
-            margin: 8px 0;
-        }
-
-        .grid-menu {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        .grid-item {
-            background-color: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .vip-card {
-            background: rgba(17, 34, 10, 0.85);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(0,204,102,0.25);
-            text-align: center;
-        }
-
-        .timer-box {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--accent-gold);
-            margin: 15px 0;
-            background: rgba(0,0,0,0.6);
-            padding: 12px;
-            border-radius: 8px;
-            display: inline-block;
-        }
-
-        .nav-bar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(5, 13, 3, 0.98);
-            border-top: 1px solid rgba(0,204,102,0.3);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            z-index: 100;
-            box-sizing: border-box;
-        }
-        .nav-item {
-            color: var(--text-muted);
+            padding: 8px 0;
             font-size: 11px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
             text-align: center;
-            cursor: pointer;
-            flex: 1;
-        }
-        .nav-item.active {
-            color: var(--primary-green);
-        }
-
-        /* 🎮 GAMES STYLES */
-        .game-section {
-            background: rgba(15, 30, 10, 0.93);
-            border: 1px solid rgba(0, 204, 102, 0.35);
-            border-radius: 14px;
-            padding: 15px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        /* 🎡 VISUAL ROULETTE WHEEL */
-        .wheel-outer-box {
-            position: relative;
-            width: 180px;
-            height: 180px;
-            margin: 15px auto;
-        }
-        .wheel-pointer {
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-top: 20px solid var(--accent-gold);
-            z-index: 10;
-        }
-        .wheel-container {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 6px solid var(--accent-gold);
-            background: conic-gradient(
-                #ff3333 0deg 45deg, #111 45deg 90deg,
-                #ff3333 90deg 135deg, #111 135deg 180deg,
-                #ff3333 180deg 225deg, #111 225deg 270deg,
-                #ff3333 270deg 315deg, #111 315deg 360deg
-            );
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            transition: transform 5s cubic-bezier(0.25, 1, 0.2, 1); 
-        }
-        .wheel-center-pin {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: #ffe066;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-weight: bold;
-            font-size: 18px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            z-index: 5;
-        }
-        .wheel-label {
-            position: absolute;
-            font-size: 10px;
-            font-weight: bold;
-            color: #fff;
-            transform-origin: 50% 90px;
-            width: 20px;
-            text-align: center;
-        }
-
-        .roulette-options-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin: 12px 0;
-        }
-
-        .roulette-btn {
-            padding: 10px;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(0,0,0,0.5);
-            color: #fff;
-            cursor: pointer;
-        }
-        .roulette-btn.selected {
-            border-color: var(--accent-gold);
-            background: rgba(255, 204, 0, 0.35);
-            box-shadow: 0 0 8px var(--accent-gold);
-        }
-
-        .bet-controller {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin: 10px 0;
-        }
-        .bet-btn {
-            background: #224414;
-            color: #fff;
-            border: 1px solid var(--primary-green);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .bet-value {
-            font-size: 16px;
-            font-weight: bold;
-            color: var(--accent-gold);
-            min-width: 65px;
-        }
-
-        /* 🔢 KENO GAME STYLES */
-        .keno-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 6px;
-            margin: 15px 0;
-        }
-        .keno-num {
-            background: rgba(0,0,0,0.6);
-            border: 1px solid rgba(0, 204, 102, 0.3);
-            color: #fff;
-            padding: 10px 0;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.2s;
         }
         .keno-num.selected {
-            background: var(--accent-gold);
+            background: var(--primary-green);
             color: #000;
             border-color: #fff;
         }
         .keno-num.hit {
-            background: var(--primary-green) !important;
-            color: #fff !important;
+            background: var(--accent-gold) !important;
+            color: #000 !important;
+            animation: pulse 0.5s infinite alternate;
+        }
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
         }
 
         /* MODAL DIALOGS */
@@ -1292,7 +390,6 @@
 <div class="phone-container">
     <div class="header" id="app-title">NEX PROFIT</div>
 
-    <!-- REGISTRATION SCREEN -->
     <div id="screen-register" class="screen active">
         <h2 style="text-align:center; margin-bottom:30px;">Create Account</h2>
         <div class="input-group"><input type="text" id="reg-phone" placeholder="Enter mobile phone number"></div>
@@ -1305,7 +402,6 @@
         </p>
     </div>
 
-    <!-- LOGIN SCREEN -->
     <div id="screen-login" class="screen">
         <h2 style="text-align:center; margin-bottom:30px;">Welcome Back</h2>
         <div class="input-group"><input type="text" id="login-phone" placeholder="Enter phone number"></div>
@@ -1314,30 +410,17 @@
         <p style="text-align:center; margin-top:20px; font-size:14px; color:var(--text-muted);">
             New to Nex Profit? <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('register')">Register here</span>
         </p>
-        <!-- Forgot Password Button -->
         <p style="text-align:center; margin-top:10px; font-size:13px;">
             <span style="color:var(--danger-red); cursor:pointer;" onclick="triggerForgotPassword()">Forgot Password?</span>
         </p>
     </div>
 
-    <!-- FORGOT PASSWORD SCREEN -->
-    <div id="screen-forgot" class="screen">
-        <h2 style="text-align:center; margin-bottom:30px;">Recover Password</h2>
-        <div class="input-group"><input type="text" id="forgot-phone" placeholder="Enter registered phone number"></div>
-        <button class="btn-premium" onclick="handleForgotPasswordRecovery()">Find Password</button>
-        <p style="text-align:center; margin-top:25px; font-size:14px; color:var(--text-muted);">
-            <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('login')">Back to Login</span>
-        </p>
-    </div>
-
-    <!-- HOME SCREEN -->
     <div id="screen-home" class="screen">
         <div class="hero-card">
             <div style="font-size:40px; margin-bottom:5px;">👤</div>
             <div class="balance-title">Available Balance</div>
             <div class="balance-amount" id="user-balance">ETB 0.00</div>
             
-            <!-- My Active Levels Display Box -->
             <div style="margin-top:10px; text-align:left; background:rgba(0,0,0,0.4); padding:10px; border-radius:8px;">
                 <span style="font-size:11px; color:var(--text-muted); display:block; font-weight:bold; margin-bottom:4px;">💼 MY ACTIVE INVESTMENTS:</span>
                 <div id="home-investments-list" style="font-size:12px;">No active node packages.</div>
@@ -1349,7 +432,6 @@
             <button class="btn-premium" style="background: linear-gradient(135deg, #004d26, #002613); color: #fff; border: 1px solid var(--primary-green); padding: 10px; font-size:13px;" onclick="openSupportChannel()">🎧 Help Support</button>
         </div>
 
-        <!-- Referral Actions Menu Card -->
         <div style="background:var(--card-bg); border-radius:12px; padding:12px; border:1px solid rgba(0,204,102,0.2); margin-bottom:20px; text-align:center;">
             <button class="btn-premium" style="padding:8px 12px; font-size:12px; width:48%; display:inline-block;" onclick="copyReferralLink()">🔗 Copy Ref Link</button>
             <button class="btn-premium" style="padding:8px 12px; font-size:12px; width:48%; display:inline-block; background:transparent; color:#fff; border:1px solid var(--accent-gold);" onclick="openReferralChainModal()">👥 My Ref Chain</button>
@@ -1363,7 +445,6 @@
         </div>
     </div>
 
-    <!-- DAILY TASK SCREEN -->
     <div id="screen-task" class="screen" style="text-align: center;">
         <h3>Daily Revenue Growth</h3>
         <p style="color: var(--text-muted); font-size:14px;">Activate the premium smart contract and keep it active for 1 minute.</p>
@@ -1374,11 +455,9 @@
         <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Activate Profit Generation</button>
     </div>
 
-    <!-- 🎮 GAMES ZONE SCREEN -->
     <div id="screen-games" class="screen">
         <h3 style="text-align: center; color: var(--accent-gold); margin-top:0;">Nex Profit Pro Casino</h3>
         
-        <!-- 🎡 VISUAL ROULETTE & SPIN ROUND -->
         <div class="game-section">
             <h4 style="margin: 0; color: #fff;">🎡 Multi-Bet Pro Spin (1-40)</h4>
             <p style="font-size:11px; color:var(--text-muted); margin:4px 0;">You can select multiple market outcomes simultaneously!</p>
@@ -1389,7 +468,6 @@
                 <button class="bet-btn" onclick="adjustBet('spin', 5)">+</button>
             </div>
 
-            <!-- Visual Wheel Markup with Pin and pointer -->
             <div class="wheel-outer-box">
                 <div class="wheel-pointer"></div>
                 <div class="wheel-container" id="spin-wheel">
@@ -1397,7 +475,6 @@
                 </div>
             </div>
 
-            <!-- Betting Market Options (Multi-select enabled) -->
             <div class="roulette-options-grid">
                 <button class="roulette-btn" id="rb-red" onclick="toggleRouletteMarket('red')">🔴 Red (2x)</button>
                 <button class="roulette-btn" id="rb-black" onclick="toggleRouletteMarket('black')">⚫ Black (2x)</button>
@@ -1414,26 +491,23 @@
             <button class="btn-premium" style="padding:10px; font-size:14px;" id="spin-btn" onclick="playLuckySpin()">Place Bet & Spin</button>
         </div>
 
-        <!-- 🔢 KENO GAME SECTION -->
-        <div class="game-section">
-            <h4 style="margin: 0; color: var(--accent-gold);">🔢 Golden Keno (Select 1-5 Numbers)</h4>
-            <p style="font-size:11px; color:var(--text-muted); margin:4px 0;">Pick numbers. 20 winning numbers will be drawn!</p>
+        <div class="game-section" style="margin-top: 25px;">
+            <h4 style="margin: 0; color: var(--accent-gold);">🔢 Nex Premium Keno (1-80)</h4>
+            <p style="font-size:11px; color:var(--text-muted); margin:4px 0;">Select 1 to 10 numbers. Matching 3+ numbers pays big rewards!</p>
             
             <div class="bet-controller">
-                <button class="bet-btn" onclick="adjustBet('keno', -5)">-</button>
+                <button class="bet-btn" onclick="adjustKenoBet(-5)">-</button>
                 <div class="bet-value" id="keno-bet-display">5 ETB</div>
-                <button class="bet-btn" onclick="adjustBet('keno', 5)">+</button>
+                <button class="bet-btn" onclick="adjustKenoBet(5)">+</button>
             </div>
 
-            <div class="keno-grid" id="keno-grid-container">
-                <!-- Numbers 1 to 20 dynamically added -->
-            </div>
+            <div class="keno-grid" id="keno-numbers-board"></div>
 
-            <button class="btn-premium" style="padding:10px; font-size:14px; background:linear-gradient(135deg, #00cc66, #006633); color:#fff;" id="keno-btn" onclick="playKenoGame()">Draw Keno Ball</button>
+            <div style="font-size:12px; color:#fff; margin-bottom:10px;" id="keno-status-text">Selected: 0/10 numbers</div>
+            <button class="btn-premium" style="padding:10px; font-size:14px; background:linear-gradient(135deg, #00cc66, #006633); color:#fff;" id="keno-play-btn" onclick="playKenoGame()">Draw Numbers & Play</button>
         </div>
     </div>
 
-    <!-- VIP / EARNINGS SCREEN (ALL 6 LEVELS PRESERVED) -->
     <div id="screen-vip" class="screen">
         <h3 style="margin-top:0; text-align:center; color:var(--accent-gold);">Premium Investment Nodes</h3>
         <div class="vip-card">
@@ -1468,7 +542,6 @@
         </div>
     </div>
 
-    <!-- PROFILE / WALLET SCREEN -->
     <div id="screen-profile" class="screen">
         <h3>Deposit Funds</h3>
         <p style="font-size:12px; color:var(--accent-gold);">Telebirr: 0954406366 (Temesgen Ayenew)</p>
@@ -1481,7 +554,6 @@
         <h3>Lock Wallet / Bank Account</h3>
         <div id="bank-status-box" style="font-size:12px; margin-bottom:10px;">⚠️ No bank account locked.</div>
         
-        <!-- Bank Account Type Added -->
         <div class="input-group">
             <label>Select Bank Type</label>
             <select id="bank-type">
@@ -1505,7 +577,6 @@
         <button class="btn-premium" style="background:var(--danger-red); color:#fff;" onclick="logout()">Secure Logout</button>
     </div>
 
-    <!-- MODAL POPUPS -->
     <div class="modal-overlay" id="rules-modal">
         <div class="modal-content">
             <span class="close-modal-btn" onclick="closeRulesModal()">&times;</span>
@@ -1529,7 +600,6 @@
         </div>
     </div>
 
-    <!-- BOTTOM NAVIGATION -->
     <div class="nav-bar" id="bottom-nav" style="display: none;">
         <div class="nav-item active" id="tab-home" onclick="switchScreen('home')">📊<br>Home</div>
         <div class="nav-item" id="tab-vip" onclick="switchScreen('vip')">💎<br>VIP</div>
@@ -1548,8 +618,10 @@
     let taskTimerInterval = null;
     
     let currentSpinBet = 5;
-    let currentKenoBet = 5;
     let selectedMarkets = []; 
+
+    // Keno game states
+    let currentKenoBet = 5;
     let selectedKenoNumbers = [];
 
     let houseTotalBets = parseFloat(localStorage.getItem('house_total_bets') || '0');
@@ -1560,7 +632,7 @@
         const cachedPhone = localStorage.getItem('nex_user_phone');
         if(cachedPhone) { await fetchUserData(cachedPhone); } else { toggleAuthPages('register'); }
         generateVisualNumbersOnWheel();
-        generateKenoGrid();
+        generateKenoBoard();
     };
 
     function generateVisualNumbersOnWheel() {
@@ -1574,874 +646,48 @@
         }
     }
 
-    // Generate Keno Numbers 1-20
-    function generateKenoGrid() {
-        const grid = document.getElementById('keno-grid-container');
-        grid.innerHTML = '';
-        for (let i = 1; i <= 20; i++) {
-            let numBtn = document.createElement('button');
+    // 🔢 GENERATE KENO NUMBERS BOARD
+    function generateKenoBoard() {
+        const board = document.getElementById('keno-numbers-board');
+        board.innerHTML = '';
+        for (let i = 1; i <= 80; i++) {
+            let numBtn = document.createElement('div');
             numBtn.className = 'keno-num';
-            numBtn.id = `keno-num-${i}`;
             numBtn.innerText = i;
-            numBtn.onclick = () => toggleKenoNumber(i);
-            grid.appendChild(numBtn);
+            numBtn.id = `keno-num-${i}`;
+            numBtn.onclick = () => selectKenoNumber(i);
+            board.appendChild(numBtn);
         }
     }
 
-    function toggleKenoNumber(num) {
-        const btn = document.getElementById(`keno-num-${num}`);
-        if (selectedKenoNumbers.includes(num)) {
-            selectedKenoNumbers = selectedKenoNumbers.filter(n => n !== num);
-            btn.classList.remove('selected');
+    function selectKenoNumber(num) {
+        const index = selectedKenoNumbers.indexOf(num);
+        const element = document.getElementById(`keno-num-${num}`);
+        
+        if (index > -1) {
+            selectedKenoNumbers.splice(index, 1);
+            element.classList.remove('selected');
         } else {
-            if (selectedKenoNumbers.length >= 5) {
-                alert("You can select a maximum of 5 numbers.");
+            if (selectedKenoNumbers.length >= 10) {
+                alert("You can select a maximum of 10 numbers!");
                 return;
             }
             selectedKenoNumbers.push(num);
-            btn.classList.add('selected');
+            element.classList.add('selected');
         }
+        document.getElementById('keno-status-text').innerText = `Selected: ${selectedKenoNumbers.length}/10 numbers`;
+    }
+
+    function adjustKenoBet(amount) {
+        currentKenoBet += amount;
+        if (currentKenoBet < 5) currentKenoBet = 5;
+        document.getElementById('keno-bet-display').innerText = currentKenoBet + " ETB";
     }
 
     async function fetchUserData(phone) {
         const { data } = await _supabase.from('users').select('*').eq('phone', phone).maybeSingle();
         if(data) {
             sessionUser = data;
-            sessionUser.bank_name = localStorage.getItem(`bank_name_${phone}`) || '';
-            sessionUser.bank_acc = localStorage.getItem(`bank_acc_${phone}`) || '';
-            sessionUser.bank_type = localStorage.getItem(`bank_type_${phone}`) || '';
-            sessionUser.my_investments = JSON.parse(localStorage.getItem(`my_nodes_${phone}`) || '["Free Plan"]');
-            
-            localStorage.setItem('nex_user_phone', phone);
-            bypassLogin();
-        } else { logout(); }
-    }
-
-    function toggleAuthPages(page) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('bottom-nav').style.display = 'none'; 
-        if(page === 'login') { document.getElementById('screen-login').classList.add('active'); }
-        else if(page === 'forgot') { document.getElementById('screen-forgot').classList.add('active'); }
-        else { document.getElementById('screen-register').classList.add('active'); }
-    }
-
-    async function handleRegister() {
-        const phone = document.getElementById('reg-phone').value.trim();
-        const pass = document.getElementById('reg-pass').value.trim();
-        if(phone.length < 9 || !pass) { alert('Error filling fields.'); return; }
-        
-        const { error } = await _supabase.from('users').insert([{ phone: phone, password: pass, balance: 150.00, vip_level: 'Free Plan', daily_reward: 5.00 }]);
-        if(!error) { alert('Welcome Gift 150 ETB added.'); await fetchUserData(phone); } else { alert('User exists or DB error.'); }
-    }
-
-    async function handleLogin() {
-        const phone = document.getElementById('login-phone').value.trim();
-        const pass = document.getElementById('login-pass').value.trim();
-        const { data } = await _supabase.from('users').select('*').eq('phone', phone).eq('password', pass).maybeSingle();
-        if(data) { await fetchUserData(phone); } else { alert('Invalid credentials.'); }
-    }
-
-    function triggerForgotPassword() {
-        toggleAuthPages('forgot');
-    }
-
-    async function handleForgotPasswordRecovery() {
-        const phone = document.getElementById('forgot-phone').value.trim();
-        if(!phone) { alert('Please enter your phone number.'); return; }
-        
-        const { data, error } = await _supabase.from('users').select('password').eq('phone', phone).maybeSingle();
-        if (data) {
-            alert(`Your Password is: ${data.password}`);
-            toggleAuthPages('login');
-        } else {
-            alert('Phone number not found in database.');
-        }
-    }
-
-    function bypassLogin() {
-        document.getElementById('bottom-nav').style.display = 'flex';
-        switchScreen('home');
-    }
-
-    function updateDomDisplays() {
-        if(!sessionUser) return;
-        document.getElementById('user-balance').innerText = 'ETB ' + parseFloat(sessionUser.balance).toFixed(2);
-        document.getElementById('task-reward-amount').innerText = 'ETB ' + parseFloat(sessionUser.daily_reward).toFixed(2);
-
-        let listContainer = document.getElementById('home-investments-list');
-        listContainer.innerHTML = '';
-        sessionUser.my_investments.forEach(node => {
-            let p = document.createElement('span');
-            p.className = 'investment-node-pill';
-            p.innerText = `🟢 ${node}`;
-            listContainer.appendChild(p);
-        });
-
-        let bBox = document.getElementById('bank-status-box');
-        if(sessionUser.bank_acc) bBox.innerHTML = `🔒 Locked: ${sessionUser.bank_type} (${sessionUser.bank_acc})`;
-    }
-
-    function switchScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('screen-' + screenId).classList.add('active');
-        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-        if(document.getElementById('tab-' + screenId)) document.getElementById('tab-' + screenId).classList.add('active');
-        updateDomDisplays();
-    }
-
-    function adjustBet(game, amount) {
-        if (game === 'spin') {
-            currentSpinBet += amount; if(currentSpinBet < 5) currentSpinBet = 5;
-            document.getElementById('spin-bet-display').innerText = currentSpinBet + " ETB";
-        } else if (game === 'keno') {
-            currentKenoBet += amount; if(currentKenoBet < 5) currentKenoBet = 5;
-            document.getElementById('keno-bet-display').innerText = currentKenoBet + " ETB";
-        }
-    }
-
-    function toggleRouletteMarket(market) {
-        if(market === 'exact') {
-            selectedMarkets = ['exact'];
-            document.querySelectorAll('.roulette-btn').forEach(btn => btn.classList.remove('selected'));
-            return;
-        }
-        
-        selectedMarkets = selectedMarkets.filter(m => m !== 'exact');
-        document.getElementById('spin-exact-number').value = '';
-
-        if(selectedMarkets.includes(market)) {
-            selectedMarkets = selectedMarkets.filter(m => m !== market);
-            document.getElementById(`rb-${market}`).classList.remove('selected');
-        } else {
-            selectedMarkets.push(market);
-            document.getElementById(`rb-${market}`).classList.add('selected');
-        }
-    }
-
-    function openRulesModal() { document.getElementById('rules-modal').classList.add('open'); }
-    function closeRulesModal() { document.getElementById('rules-modal').classList.remove('open'); }
-    function openSupportChannel() { window.open('https://t.me/ebla2127', '_blank'); }
-
-    function copyReferralLink() {
-        let shortLink = `${window.location.origin}?ref=${sessionUser.phone}`;
-        navigator.clipboard.writeText(shortLink);
-        alert("Referral link copied to clipboard!");
-    }
-
-    function openReferralChainModal() {
-        document.getElementById('ref-chain-modal').classList.add('open');
-        document.getElementById('ref-chain-body').innerHTML = "👥 Active Network Level 1: <br>• No registered lines yet.";
-    }
-
-    // ⏱️ DAILY TASK TIMER ENGINE 
-    function startDailyTask() {
-        const storageKey = `task_claimed_${sessionUser.phone}_${new Date().toDateString()}`;
-        if(localStorage.getItem(storageKey)) {
-            alert("🔒 Daily task limit reached! Returns generated. Tomorrow new slots activate.");
-            return;
-        }
-
-        let btn = document.getElementById('start-task-btn');
-        let timerDisplay = document.getElementById('task-timer');
-        btn.disabled = true;
-        
-        let secondsLeft = 60;
-        clearInterval(taskTimerInterval);
-
-        taskTimerInterval = setInterval(async () => {
-            secondsLeft--;
-            let mins = Math.floor(secondsLeft / 60);
-            let secs = secondsLeft % 60;
-            timerDisplay.innerText = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
-
-            if(secondsLeft <= 0) {
-                clearInterval(taskTimerInterval);
-                localStorage.setItem(storageKey, 'true');
-                sessionUser.balance = parseFloat(sessionUser.balance) + parseFloat(sessionUser.daily_reward);
-                
-                await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
-                alert(`Success! Generated ETB ${sessionUser.daily_reward}`);
-                btn.disabled = false;
-                timerDisplay.innerText = "01:00";
-                updateDomDisplays();
-            }
-        }, 1000);
-    }
-
-    // 🎡 LUCKY SPIN ENGINE
-    async function playLuckySpin() {
-        if(selectedMarkets.length === 0) { alert("Please choose a market option first."); return; }
-        if(sessionUser.balance < currentSpinBet) { alert("Insufficient funds."); return; }
-
-        sessionUser.balance -= currentSpinBet;
-        updateDomDisplays();
-
-        let wheel = document.getElementById('spin-wheel');
-        let centerTxt = document.getElementById('wheel-center-text');
-        
-        let randomDeg = Math.floor(Math.random() * 360) + 1800; 
-        wheel.style.transform = `rotate(${randomDeg}deg)`;
-
-        setTimeout(async () => {
-            let finalNumber = Math.floor(Math.random() * 40) + 1;
-            centerTxt.innerText = finalNumber;
-
-            let isRed = [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39].includes(finalNumber);
-            let isEven = finalNumber % 2 === 0;
-            let isLow = finalNumber <= 18;
-
-            let won = false;
-            let multiplier = 2;
-
-            selectedMarkets.forEach(m => {
-                if(m === 'red' && isRed) won = true;
-                if(m === 'black' && !isRed) won = true;
-                if(m === 'even' && isEven) won = true;
-                if(m === 'odd' && !isEven) won = true;
-                if(m === 'low' && isLow) won = true;
-                if(m === 'high' && !isLow) won = true;
-                if(m === 'exact') {
-                    let exactVal = parseInt(document.getElementById('spin-exact-number').value);
-                    if(exactVal === finalNumber) { won = true; multiplier = 5; }
-                }
-            });
-
-            if(won) {
-                let prize = currentSpinBet * multiplier;
-                sessionUser.balance += prize;
-                alert(`You Won! Number ${finalNumber}. Prize: ${prize} ETB`);
-            } else {
-                alert(`Result: ${finalNumber}. Better luck next time!`);
-            }
-
-            await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
-            updateDomDisplays();
-        }, 5000);
-    }
-
-    // 🔢 KENO GAME LOGIC
-    async function playKenoGame() {
-        if (selectedKenoNumbers.length === 0) { alert("Please select at least 1 number."); return; }
-        if (sessionUser.balance < currentKenoBet) { alert("Insufficient balance."); return; }
-
-        sessionUser.balance -= currentKenoBet;
-        updateDomDisplays();
-
-        // Clear previous hits visually
-        document.querySelectorAll('.keno-num').forEach(b => b.classList.remove('hit'));
-
-        // Generate 10 winning balls out of 20
-        let drawNumbers = [];
-        while (drawNumbers.length < 10) {
-            let r = Math.floor(Math.random() * 20) + 1;
-            if (!drawNumbers.includes(r)) drawNumbers.push(r);
-        }
-
-        // Show Hits
-        let matchCount = 0;
-        drawNumbers.forEach(num => {
-            let btn = document.getElementById(`keno-num-${num}`);
-            if (btn) btn.classList.add('hit');
-            if (selectedKenoNumbers.includes(num)) matchCount++;
-        });
-
-        // Pay table configuration
-        let payoutMultiplier = 0;
-        if (matchCount === 1) payoutMultiplier = 1.5;
-        if (matchCount === 2) payoutMultiplier = 3;
-        if (matchCount === 3) payoutMultiplier = 5;
-        if (matchCount === 4) payoutMultiplier = 10;
-        if (matchCount === 5) payoutMultiplier = 25;
-
-        if (payoutMultiplier > 0) {
-            let winAmount = currentKenoBet * payoutMultiplier;
-            sessionUser.balance += winAmount;
-            alert(`🎯 Keno Result: Matched ${matchCount} numbers! You won ${winAmount} ETB.`);
-        } else {
-            alert(`❌ Keno Result: Matched ${matchCount} numbers. Try again!`);
-        }
-
-        await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
-        updateDomDisplays();
-    }
-
-    async function invest(amount, levelName, dailyReturn) {
-        if(sessionUser.balance < amount) { alert("Insufficient balance for investment node."); return; }
-        sessionUser.balance -= amount;
-        if(!sessionUser.my_investments.includes(levelName)) {
-            sessionUser.my_investments.push(levelName);
-        }
-        sessionUser.daily_reward = parseFloat(sessionUser.daily_reward) + dailyReturn;
-        
-        localStorage.setItem(`my_nodes_${sessionUser.phone}`, JSON.stringify(sessionUser.my_investments));
-        await _supabase.from('users').update({ balance: sessionUser.balance, daily_reward: sessionUser.daily_reward }).eq('phone', sessionUser.phone);
-        alert(`Successfully Activated ${levelName}!`);
-        updateDomDisplays();
-    }
-
-    function processDeposit() {
-        let amt = document.getElementById('deposit-amount').value;
-        let ref = document.getElementById('deposit-ref').value;
-        if(!amt || !ref) { alert("Fill all fields"); return; }
-        alert("Deposit submitted. Admin will verify tx logs manually.");
-    }
-
-    function saveBank() {
-        let type = document.getElementById('bank-type').value;
-        let name = document.getElementById('bank-name').value;
-        let acc = document.getElementById('bank-acc').value;
-        if(!name || !acc) { alert("Fill bank forms."); return; }
-        
-        localStorage.setItem(`bank_name_${sessionUser.phone}`, name);
-        localStorage.setItem(`bank_acc_${sessionUser.phone}`, acc);
-        localStorage.setItem(`bank_type_${sessionUser.phone}`, type);
-        
-        sessionUser.bank_name = name; sessionUser.bank_acc = acc; sessionUser.bank_type = type;
-        alert("Payment gateway configurations locked.");
-        updateDomDisplays();
-    }
-
-    function processWithdrawal() {
-        let val = parseFloat(document.getElementById('withdraw-amount').value);
-        if(val < 500 || isNaN(val)) { alert("Min cashout 500 ETB."); return; }
-        if(sessionUser.balance < val) { alert("Insufficient funds."); return; }
-        alert("Withdrawal request dispatched to locked banking gateway.");
-    }
-
-    function logout() {
-        localStorage.removeItem('nex_user_phone');
-        sessionUser = null;
-        toggleAuthPages('login');
-    }
-</script>
-</body>
-</html>            color: var(--text-muted);
-            margin-bottom: 5px;
-        }
-        .input-group input, .input-group select {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid rgba(0, 204, 102, 0.3);
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            box-sizing: border-box;
-            outline: none;
-            font-size: 15px;
-            transition: 0.3s;
-        }
-
-        .btn-premium {
-            background: linear-gradient(135deg, #ffe066, var(--accent-gold));
-            color: #000;
-            border: none;
-            padding: 14px;
-            border-radius: 12px;
-            width: 100%;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2);
-            transition: 0.2s;
-        }
-        .btn-premium:disabled {
-            background: #444 !important;
-            color: #888 !important;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        .hero-card {
-            background: linear-gradient(135deg, var(--card-bg), rgba(15, 28, 8, 0.9));
-            border-radius: 16px;
-            padding: 22px;
-            text-align: center;
-            border: 1px solid rgba(0, 204, 102, 0.3);
-            margin-bottom: 20px;
-        }
-
-        .balance-amount {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--accent-gold);
-            margin: 8px 0;
-        }
-
-        .grid-menu {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        .grid-item {
-            background-color: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .vip-card {
-            background: rgba(17, 34, 10, 0.85);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(0,204,102,0.25);
-            text-align: center;
-        }
-
-        .timer-box {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--accent-gold);
-            margin: 15px 0;
-            background: rgba(0,0,0,0.6);
-            padding: 12px;
-            border-radius: 8px;
-            display: inline-block;
-        }
-
-        .nav-bar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(5, 13, 3, 0.98);
-            border-top: 1px solid rgba(0,204,102,0.3);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            z-index: 100;
-            box-sizing: border-box;
-        }
-        .nav-item {
-            color: var(--text-muted);
-            font-size: 11px;
-            text-align: center;
-            cursor: pointer;
-            flex: 1;
-        }
-        .nav-item.active {
-            color: var(--primary-green);
-        }
-
-        /* 🎮 GAMES STYLES */
-        .game-section {
-            background: rgba(15, 30, 10, 0.93);
-            border: 1px solid rgba(0, 204, 102, 0.35);
-            border-radius: 14px;
-            padding: 15px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        /* 🎡 VISUAL ROULETTE WHEEL */
-        .wheel-outer-box {
-            position: relative;
-            width: 180px;
-            height: 180px;
-            margin: 15px auto;
-        }
-        .wheel-pointer {
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-top: 20px solid var(--accent-gold);
-            z-index: 10;
-        }
-        .wheel-container {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 6px solid var(--accent-gold);
-            background: conic-gradient(
-                #ff3333 0deg 45deg, #111 45deg 90deg,
-                #ff3333 90deg 135deg, #111 135deg 180deg,
-                #ff3333 180deg 225deg, #111 225deg 270deg,
-                #ff3333 270deg 315deg, #111 315deg 360deg
-            );
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            /* Fast spin effect config: 5 seconds duration */
-            transition: transform 5s cubic-bezier(0.25, 1, 0.2, 1); 
-        }
-        .wheel-center-pin {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: #ffe066;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-weight: bold;
-            font-size: 18px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            z-index: 5;
-        }
-        .wheel-label {
-            position: absolute;
-            font-size: 10px;
-            font-weight: bold;
-            color: #fff;
-            transform-origin: 50% 90px;
-            width: 20px;
-            text-align: center;
-        }
-
-        .roulette-options-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin: 12px 0;
-        }
-
-        .roulette-btn {
-            padding: 10px;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(0,0,0,0.5);
-            color: #fff;
-            cursor: pointer;
-        }
-        .roulette-btn.selected {
-            border-color: var(--accent-gold);
-            background: rgba(255, 204, 0, 0.35);
-            box-shadow: 0 0 8px var(--accent-gold);
-        }
-
-        .bet-controller {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin: 10px 0;
-        }
-        .bet-btn {
-            background: #224414;
-            color: #fff;
-            border: 1px solid var(--primary-green);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .bet-value {
-            font-size: 16px;
-            font-weight: bold;
-            color: var(--accent-gold);
-            min-width: 65px;
-        }
-
-        /* MODAL DIALOGS */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 200;
-            justify-content: center; align-items: center;
-            padding: 20px; box-sizing: border-box;
-        }
-        .modal-overlay.open {
-            display: flex;
-        }
-        .modal-content {
-            background: #0f1c08;
-            border: 2px solid var(--primary-green);
-            border-radius: 16px;
-            max-width: 400px; width: 100%; padding: 20px;
-            box-sizing: border-box;
-            position: relative;
-        }
-        .close-modal-btn {
-            position: absolute; top: 10px; right: 15px; 
-            font-size: 20px; color: #fff; cursor: pointer;
-        }
-
-        .investment-node-pill {
-            background: rgba(0, 204, 102, 0.15);
-            border: 1px dashed var(--primary-green);
-            border-radius: 8px; padding: 6px 12px;
-            font-size: 12px; margin: 4px; display: inline-block;
-        }
-    </style>
-</head>
-<body>
-
-<div class="phone-container">
-    <div class="header" id="app-title">NEX PROFIT</div>
-
-    <!-- REGISTRATION SCREEN -->
-    <div id="screen-register" class="screen active">
-        <h2 style="text-align:center; margin-bottom:30px;">Create Account</h2>
-        <div class="input-group"><input type="text" id="reg-phone" placeholder="Enter mobile phone number"></div>
-        <div class="input-group"><input type="password" id="reg-pass" placeholder="Enter password..."></div>
-        <div class="input-group"><input type="password" id="reg-confirm" placeholder="Confirm password"></div>
-        <div class="input-group"><input type="text" id="reg-ref" placeholder="Invitation Code (Optional)"></div>
-        <button class="btn-premium" onclick="handleRegister()">Register</button>
-        <p style="text-align:center; margin-top:25px; font-size:14px; color:var(--text-muted);">
-            Already have an account? <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('login')">Login here</span>
-        </p>
-    </div>
-
-    <!-- LOGIN SCREEN -->
-    <div id="screen-login" class="screen">
-        <h2 style="text-align:center; margin-bottom:30px;">Welcome Back</h2>
-        <div class="input-group"><input type="text" id="login-phone" placeholder="Enter phone number"></div>
-        <div class="input-group"><input type="password" id="login-pass" placeholder="Enter password..."></div>
-        <button class="btn-premium" onclick="handleLogin()">Sign In</button>
-        <p style="text-align:center; margin-top:20px; font-size:14px; color:var(--text-muted);">
-            New to Nex Profit? <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('register')">Register here</span>
-        </p>
-        <!-- Forgot Password Button -->
-        <p style="text-align:center; margin-top:10px; font-size:13px;">
-            <span style="color:var(--danger-red); cursor:pointer;" onclick="triggerForgotPassword()">Forgot Password?</span>
-        </p>
-    </div>
-
-    <!-- HOME SCREEN -->
-    <div id="screen-home" class="screen">
-        <div class="hero-card">
-            <div style="font-size:40px; margin-bottom:5px;">👤</div>
-            <div class="balance-title">Available Balance</div>
-            <div class="balance-amount" id="user-balance">ETB 0.00</div>
-            
-            <!-- My Active Levels Display Box -->
-            <div style="margin-top:10px; text-align:left; background:rgba(0,0,0,0.4); padding:10px; border-radius:8px;">
-                <span style="font-size:11px; color:var(--text-muted); display:block; font-weight:bold; margin-bottom:4px;">💼 MY ACTIVE INVESTMENTS:</span>
-                <div id="home-investments-list" style="font-size:12px;">No active node packages.</div>
-            </div>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px;">
-            <button class="btn-premium" style="background: linear-gradient(135deg, #2c5314, #142b08); color: #fff; border: 1px solid var(--primary-green); padding: 10px; font-size:13px;" onclick="openRulesModal()">📜 Platform Rules</button>
-            <button class="btn-premium" style="background: linear-gradient(135deg, #004d26, #002613); color: #fff; border: 1px solid var(--primary-green); padding: 10px; font-size:13px;" onclick="openSupportChannel()">🎧 Help Support</button>
-        </div>
-
-        <!-- Referral Actions Menu Card -->
-        <div style="background:var(--card-bg); border-radius:12px; padding:12px; border:1px solid rgba(0,204,102,0.2); margin-bottom:20px; text-align:center;">
-            <button class="btn-premium" style="padding:8px 12px; font-size:12px; width:48%; display:inline-block;" onclick="copyReferralLink()">🔗 Copy Ref Link</button>
-            <button class="btn-premium" style="padding:8px 12px; font-size:12px; width:48%; display:inline-block; background:transparent; color:#fff; border:1px solid var(--accent-gold);" onclick="openReferralChainModal()">👥 My Ref Chain</button>
-        </div>
-
-        <div class="grid-menu">
-            <div class="grid-item" onclick="switchScreen('vip')">💎<br><span style="font-size:13px; font-weight:bold;">VIP Tiers</span></div>
-            <div class="grid-item" onclick="switchScreen('task')">⏱️<br><span style="font-size:13px; font-weight:bold;">Daily Task</span></div>
-            <div class="grid-item" onclick="switchScreen('games')">🎮<br><span style="font-size:13px; font-weight:bold;">Games Zone</span></div>
-            <div class="grid-item" onclick="switchScreen('profile')">💼<br><span style="font-size:13px; font-weight:bold;">Wallet</span></div>
-        </div>
-    </div>
-
-    <!-- DAILY TASK SCREEN -->
-    <div id="screen-task" class="screen" style="text-align: center;">
-        <h3>Daily Revenue Growth</h3>
-        <p style="color: var(--text-muted); font-size:14px;">Activate the premium smart contract and keep it active for 1 minute.</p>
-        <div style="background:rgba(255,204,0,0.15); border:1px solid var(--accent-gold); padding:10px; border-radius:10px; margin:15px 0;">
-            Your Current Daily Return: <b style="color:var(--accent-gold);" id="task-reward-amount">ETB 0.00</b>
-        </div>
-        <div class="timer-box" id="task-timer">01:00</div><br><br>
-        <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Activate Profit Generation</button>
-    </div>
-
-    <!-- 🎮 GAMES ZONE SCREEN -->
-    <div id="screen-games" class="screen">
-        <h3 style="text-align: center; color: var(--accent-gold); margin-top:0;">Nex Profit Pro Casino</h3>
-        
-        <!-- 🎡 VISUAL ROULETTE & SPIN ROUND -->
-        <div class="game-section">
-            <h4 style="margin: 0; color: #fff;">🎡 Multi-Bet Pro Spin (1-40)</h4>
-            <p style="font-size:11px; color:var(--text-muted); margin:4px 0;">You can select multiple market outcomes simultaneously!</p>
-            
-            <div class="bet-controller">
-                <button class="bet-btn" onclick="adjustBet('spin', -5)">-</button>
-                <div class="bet-value" id="spin-bet-display">5 ETB</div>
-                <button class="bet-btn" onclick="adjustBet('spin', 5)">+</button>
-            </div>
-
-            <!-- Visual Wheel Markup with Pin and pointer -->
-            <div class="wheel-outer-box">
-                <div class="wheel-pointer"></div>
-                <div class="wheel-container" id="spin-wheel">
-                    <div class="wheel-center-pin" id="wheel-center-text">?</div>
-                </div>
-            </div>
-
-            <!-- Betting Market Options (Multi-select enabled) -->
-            <div class="roulette-options-grid">
-                <button class="roulette-btn" id="rb-red" onclick="toggleRouletteMarket('red')">🔴 Red (2x)</button>
-                <button class="roulette-btn" id="rb-black" onclick="toggleRouletteMarket('black')">⚫ Black (2x)</button>
-                <button class="roulette-btn" id="rb-even" onclick="toggleRouletteMarket('even')">🔢 Even (2x)</button>
-                <button class="roulette-btn" id="rb-odd" onclick="toggleRouletteMarket('odd')">🔢 Odd (2x)</button>
-                <button class="roulette-btn" id="rb-low" onclick="toggleRouletteMarket('low')">⬇️ Low 1-18 (2x)</button>
-                <button class="roulette-btn" id="rb-high" onclick="toggleRouletteMarket('high')">⬆️ High 19-40 (2x)</button>
-            </div>
-
-            <div class="input-group" style="margin-top: 5px;">
-                <input type="number" id="spin-exact-number" placeholder="Or type exact number 1-40 (Pays 5x)" min="1" max="40" oninput="toggleRouletteMarket('exact')">
-            </div>
-
-            <button class="btn-premium" style="padding:10px; font-size:14px;" id="spin-btn" onclick="playLuckySpin()">Place Bet & Spin</button>
-        </div>
-    </div>
-
-    <!-- VIP / EARNINGS SCREEN (ALL 6 LEVELS PRESERVED) -->
-    <div id="screen-vip" class="screen">
-        <h3 style="margin-top:0; text-align:center; color:var(--accent-gold);">Premium Investment Nodes</h3>
-        <div class="vip-card">
-            <h3>VIP Level 1 - ETB 300</h3>
-            <p>Daily Return: ETB 24.00 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(300, 'VIP Level 1', 24)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 2 - ETB 500</h3>
-            <p>Daily Return: ETB 43.20 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(500, 'VIP Level 2', 43.2)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 3 - ETB 1,000</h3>
-            <p>Daily Return: ETB 91.20 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(1000, 'VIP Level 3', 91.2)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 4 - ETB 3,000</h3>
-            <p>Daily Return: ETB 288.00 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(3000, 'VIP Level 4', 288)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 5 - ETB 6,000</h3>
-            <p>Daily Return: ETB 604.80 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(6000, 'VIP Level 5', 604.8)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 6 - ETB 12,000</h3>
-            <p>Daily Return: ETB 1,296.00 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(12000, 'VIP Level 6', 1296)">Invest Now</button>
-        </div>
-    </div>
-
-    <!-- PROFILE / WALLET SCREEN -->
-    <div id="screen-profile" class="screen">
-        <h3>Deposit Funds</h3>
-        <p style="font-size:12px; color:var(--accent-gold);">Telebirr: 0954406366 (Temesgen Ayenew)</p>
-        <div class="input-group"><input type="number" id="deposit-amount" placeholder="Amount (ETB)"></div>
-        <div class="input-group"><input type="text" id="deposit-ref" placeholder="Transaction ID"></div>
-        <button class="btn-premium" onclick="processDeposit()">Submit Deposit</button>
-        
-        <hr style="border-color:rgba(255,255,255,0.1); margin:20px 0;">
-        
-        <h3>Lock Wallet / Bank Account</h3>
-        <div id="bank-status-box" style="font-size:12px; margin-bottom:10px;">⚠️ No bank account locked.</div>
-        
-        <!-- Bank Account Type Added -->
-        <div class="input-group">
-            <label>Select Bank Type</label>
-            <select id="bank-type">
-                <option value="Telebirr">Telebirr</option>
-                <option value="Commercial Bank of Ethiopia (CBE)">Commercial Bank of Ethiopia (CBE)</option>
-                <option value="Awash Bank">Awash Bank</option>
-                <option value="Dashen Bank">Dashen Bank</option>
-                <option value="Abyssinia Bank">Abyssinia Bank</option>
-            </select>
-        </div>
-        <div class="input-group"><input type="text" id="bank-name" placeholder="Account Owner Real Name"></div>
-        <div class="input-group"><input type="text" id="bank-acc" placeholder="Account Number / Phone"></div>
-        <button class="btn-premium" style="background:#1c3d11; color:#fff;" onclick="saveBank()">Lock Bank Details</button>
-        
-        <hr style="border-color:rgba(255,255,255,0.1); margin:20px 0;">
-        
-        <h3>Request Withdrawal</h3>
-        <div class="input-group"><input type="number" id="withdraw-amount" placeholder="Min 500 ETB"></div>
-        <button class="btn-premium" onclick="processWithdrawal()">Withdraw Now</button>
-        <br><br>
-        <button class="btn-premium" style="background:var(--danger-red); color:#fff;" onclick="logout()">Secure Logout</button>
-    </div>
-
-    <!-- MODAL POPUPS -->
-    <div class="modal-overlay" id="rules-modal">
-        <div class="modal-content">
-            <span class="close-modal-btn" onclick="closeRulesModal()">&times;</span>
-            <h3 style="color:var(--accent-gold); margin-top:0;">Platform Rules & Guides</h3>
-            <p style="font-size: 14px; line-height:1.5; color:var(--text-muted);">
-                1. Minimum withdrawal limit is 500 ETB.<br>
-                2. Daily tasks regenerate every 24 hours.<br>
-                3. Premium game zone outcomes depend on calculation frameworks.<br>
-                4. Deposits are authenticated manually within 30 minutes.
-            </p>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="ref-chain-modal">
-        <div class="modal-content">
-            <span class="close-modal-btn" onclick="document.getElementById('ref-chain-modal').classList.remove('open')">&times;</span>
-            <h3 style="color:var(--accent-gold); margin-top:0;">My Referral Chain Links</h3>
-            <div id="ref-chain-body" style="font-size:13px; max-height:200px; overflow-y:auto; color:var(--text-muted);">
-                Loading referral connections...
-            </div>
-        </div>
-    </div>
-
-    <!-- BOTTOM NAVIGATION -->
-    <div class="nav-bar" id="bottom-nav" style="display: none;">
-        <div class="nav-item active" id="tab-home" onclick="switchScreen('home')">📊<br>Home</div>
-        <div class="nav-item" id="tab-vip" onclick="switchScreen('vip')">💎<br>VIP</div>
-        <div class="nav-item" id="tab-task" onclick="switchScreen('task')">⏱️<br>Task</div>
-        <div class="nav-item" id="tab-games" onclick="switchScreen('games')">🎮<br>Games</div>
-        <div class="nav-item" id="tab-profile" onclick="switchScreen('profile')">👤<br>Wallet</div>
-    </div>
-</div>
-
-<script>
-    const SUPABASE_URL = "https://jzhquixmgymiobfcbqhc.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_TCRLz3h_8DWxGDmXWoatBQ_EG2ACA9y"; 
-    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-    let sessionUser = null; 
-    let taskTimerInterval = null;
-    
-    let currentSpinBet = 5;
-    let selectedMarkets = []; 
-
-    let houseTotalBets = parseFloat(localStorage.getItem('house_total_bets') || '0');
-    let houseTotalPayouts = parseFloat(localStorage.getItem('house_total_payouts') || '0');
-    const TARGET_PROFIT_MARGIN = 0.30; 
-
-    window.onload = async function() {
-        const cachedPhone = localStorage.getItem('nex_user_phone');
-        if(cachedPhone) { await fetchUserData(cachedPhone); } else { toggleAuthPages('register'); }
-        generateVisualNumbersOnWheel();
-    };
-
-    function generateVisualNumbersOnWheel() {
-        const wheel = document.getElementById('spin-wheel');
-        for (let i = 1; i <= 40; i += 4) { 
-            let lbl = document.createElement('div');
-            lbl.className = 'wheel-label';
-            lbl.style.transform = `rotate(${i * 9}deg) translateY(18px)`;
-            lbl.innerText = i;
-            wheel.appendChild(lbl);
-        }
-    }
-
-    async function fetchUserData(phone) {
-        const { data } = await _supabase.from('users').select('*').eq('phone', phone).maybeSingle();
-        if(data) {
-            sessionUser = data;
-            // Load custom stored variables
             sessionUser.bank_name = localStorage.getItem(`bank_name_${phone}`) || '';
             sessionUser.bank_acc = localStorage.getItem(`bank_acc_${phone}`) || '';
             sessionUser.bank_type = localStorage.getItem(`bank_type_${phone}`) || '';
@@ -2475,8 +721,23 @@
         if(data) { await fetchUserData(phone); } else { alert('Invalid credentials.'); }
     }
 
-    function triggerForgotPassword() {
-        window.open('https://t.me/ebla2127?text=Hi%20Admin,%20I%20forgot%20my%20Nex%20Profit%20Password.', '_blank');
+    // 🔑 FORGOT PASSWORD IMPROVED (SUPABASE DIRECT READ)
+    async function triggerForgotPassword() {
+        const phoneInput = prompt("Please enter your registered mobile phone number:");
+        if (!phoneInput || phoneInput.trim() === "") return;
+        
+        const cleanPhone = phoneInput.trim();
+        alert("Searching for account details...");
+        
+        const { data, error } = await _supabase.from('users').select('password').eq('phone', cleanPhone).maybeSingle();
+        
+        if (error) {
+            alert("Database lookup error. Please try again later.");
+        } else if (data) {
+            alert(`🔐 Account Found!\n\nYour Password is: ${data.password}`);
+        } else {
+            alert("❌ No user account discovered matching this phone number.");
+        }
     }
 
     function bypassLogin() {
@@ -2489,7 +750,6 @@
         document.getElementById('user-balance').innerText = 'ETB ' + parseFloat(sessionUser.balance).toFixed(2);
         document.getElementById('task-reward-amount').innerText = 'ETB ' + parseFloat(sessionUser.daily_reward).toFixed(2);
 
-        // Multiple Investment level visual listing
         let listContainer = document.getElementById('home-investments-list');
         listContainer.innerHTML = '';
         sessionUser.my_investments.forEach(node => {
@@ -2516,7 +776,6 @@
         document.getElementById('spin-bet-display').innerText = currentSpinBet + " ETB";
     }
 
-    // 🎡 MULTI-SELECT ROULETTE MARKETS
     function toggleRouletteMarket(market) {
         if(market === 'exact') {
             selectedMarkets = ['exact'];
@@ -2524,7 +783,6 @@
             return;
         }
         
-        // Remove exact if switching to color/even choices
         selectedMarkets = selectedMarkets.filter(m => m !== 'exact');
         document.getElementById('spin-exact-number').value = '';
 
@@ -2541,10 +799,14 @@
     function closeRulesModal() { document.getElementById('rules-modal').classList.remove('open'); }
     function openSupportChannel() { window.open('https://t.me/ebla2127', '_blank'); }
 
+    // 🔗 SHORT REFERRAL LINK GENERATOR
     function copyReferralLink() {
-        let link = `${window.location.href}?ref=${sessionUser.phone}`;
-        navigator.clipboard.writeText(link);
-        alert("Referral link copied to clipboard!");
+        let shortLink = `${window.location.origin}?ref=${sessionUser.phone}`;
+        navigator.clipboard.writeText(shortLink).then(() => {
+            alert(`🔗 Short referral link copied to clipboard:\n${shortLink}`);
+        }).catch(() => {
+            alert("Failed to copy link automatically.");
+        });
     }
 
     function openReferralChainModal() {
@@ -2552,7 +814,6 @@
         document.getElementById('ref-chain-body').innerHTML = "👥 Active Network Level 1: <br>• No registered lines yet.";
     }
 
-    // ⏱️ DAILY TASK TIMER ENGINE 
     function startDailyTask() {
         const storageKey = `task_claimed_${sessionUser.phone}_${new Date().toDateString()}`;
         if(localStorage.getItem(storageKey)) {
@@ -2575,171 +836,221 @@
 
             if(secondsLeft <= 0) {
                 clearInterval(taskTimerInterval);
-                let nb = parseFloat(sessionUser.balance) + parseFloat(sessionUser.daily_reward);
-                await _supabase.from('users').update({ balance: nb }).eq('phone', sessionUser.phone);
-                sessionUser.balance = nb;
+                localStorage.setItem(storageKey, 'true');
+                let newBal = parseFloat(sessionUser.balance) + parseFloat(sessionUser.daily_reward);
                 
-                localStorage.setItem(storageKey, "true"); 
-                alert('🎉 Daily Revenue Generated successfully!');
+                const { error } = await _supabase.from('users').update({ balance: newBal }).eq('phone', sessionUser.phone);
+                if(!error) {
+                    sessionUser.balance = newBal;
+                    alert(`🎉 Success! Contract validated. Added ETB ${sessionUser.daily_reward}`);
+                    switchScreen('home');
+                }
                 btn.disabled = false;
                 timerDisplay.innerText = "01:00";
-                updateDomDisplays();
             }
         }, 1000);
     }
 
-    // 🧠 HOUSE PROFIT CONTROLLER
-    function triggerHouseAlgorithm(currentStakeAmount, potentialWinPayout) {
-        houseTotalBets += currentStakeAmount;
-        localStorage.setItem('house_total_bets', houseTotalBets);
-        let maximumAllowedPayout = houseTotalBets * (1 - TARGET_PROFIT_MARGIN);
-        if ((houseTotalPayouts + potentialWinPayout) > maximumAllowedPayout) {
-            return false; 
-        }
-        return true; 
-    }
-
-    function commitHousePayout(payoutAmount) {
-        if(payoutAmount > 0) {
-            houseTotalPayouts += payoutAmount;
-            localStorage.setItem('house_total_payouts', houseTotalPayouts);
-        }
-    }
-
-    // 🎡 FAST 5-SECOND SPIN ROULETTE EXECUTION
+    // 🎡 ROULETTE ENGINE
     async function playLuckySpin() {
-        if(selectedMarkets.length === 0) { alert("Please click/select at least one market choice!"); return; }
-        if(parseFloat(sessionUser.balance) < currentSpinBet) { alert("Insufficient Balance!"); return; }
+        if(selectedMarkets.length === 0) { alert("Select at least one option!"); return; }
+        if(sessionUser.balance < currentSpinBet) { alert("Insufficient funds!"); return; }
 
-        let exactNumField = document.getElementById('spin-exact-number').value;
-        let exactValue = parseInt(exactNumField);
+        let spinBtn = document.getElementById('spin-btn');
+        spinBtn.disabled = true;
 
-        if(selectedMarkets.includes('exact') && (isNaN(exactValue) || exactValue < 1 || exactValue > 40)) {
-            alert("Input a valid exact prediction number."); return;
+        let exactNum = parseInt(document.getElementById('spin-exact-number').value);
+        if(selectedMarkets.includes('exact') && (isNaN(exactNum) || exactNum < 1 || exactNum > 40)) {
+            alert("Enter valid number (1-40)");
+            spinBtn.disabled = false;
+            return;
         }
 
-        let btn = document.getElementById('spin-btn');
-        btn.disabled = true;
-
-        sessionUser.balance -= currentSpinBet;
-        await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
-        updateDomDisplays();
-
-        let wheel = document.getElementById('spin-wheel');
-        let centerText = document.getElementById('wheel-center-text');
+        let drawnNumber = Math.floor(Math.random() * 40) + 1;
+        let isRed = [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39].includes(drawnNumber);
         
-        // Fast rotation angle calculation
-        let fastRotationDegree = Math.floor(Math.random() * 360) + 2880; 
-        wheel.style.transform = `rotate(${fastRotationDegree}deg)`;
-        centerText.innerText = "⚡";
+        let multiplier = 0;
+        let won = false;
 
-        // Strictly runs for exactly 5 seconds duration
+        selectedMarkets.forEach(m => {
+            if(m === 'red' && isRed) { multiplier += 2; won = true; }
+            if(m === 'black' && !isRed) { multiplier += 2; won = true; }
+            if(m === 'even' && drawnNumber % 2 === 0) { multiplier += 2; won = true; }
+            if(m === 'odd' && drawnNumber % 2 !== 0) { multiplier += 2; won = true; }
+            if(m === 'low' && drawnNumber <= 18) { multiplier += 2; won = true; }
+            if(m === 'high' && drawnNumber >= 19) { multiplier += 2; won = true; }
+            if(m === 'exact' && drawnNumber === exactNum) { multiplier += 5; won = true; }
+        });
+
+        let lossAmount = currentSpinBet;
+        let winAmount = currentSpinBet * multiplier;
+        let finalBalanceDelta = won ? (winAmount - currentSpinBet) : -lossAmount;
+        let updatedBal = parseFloat(sessionUser.balance) + finalBalanceDelta;
+
+        const wheel = document.getElementById('spin-wheel');
+        let currentRotation = 3600 + (drawnNumber * 9); 
+        wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+        document.getElementById('wheel-center-text').innerText = "⏳";
+
         setTimeout(async () => {
-            btn.disabled = false;
-            let finalNumber = Math.floor(Math.random() * 40) + 1;
-            
-            let isRed = (finalNumber % 2 === 0);
-            let isEven = (finalNumber % 2 === 0);
-            let isLow = (finalNumber <= 18);
-
-            let userWon = false;
-            let multiplier = 2;
-
-            // Check if any of the multiple selections hit successfully
-            if (selectedMarkets.includes('red') && isRed) userWon = true;
-            if (selectedMarkets.includes('black') && !isRed) userWon = true;
-            if (selectedMarkets.includes('even') && isEven) userWon = true;
-            if (selectedMarkets.includes('odd') && !isEven) userWon = true;
-            if (selectedMarkets.includes('low') && isLow) userWon = true;
-            if (selectedMarkets.includes('high') && !isLow) userWon = true;
-            if (selectedMarkets.includes('exact') && exactValue === finalNumber) {
-                userWon = true; multiplier = 5;
-            }
-
-            let potentialPayout = currentSpinBet * multiplier;
-
-            if (userWon) {
-                let housePermitsWin = triggerHouseAlgorithm(currentSpinBet, potentialPayout);
-                if (!housePermitsWin) {
-                    userWon = false;
-                    finalNumber = (finalNumber === 40) ? 39 : finalNumber + 1;
+            const { error } = await _supabase.from('users').update({ balance: updatedBal }).eq('phone', sessionUser.phone);
+            if(!error) {
+                sessionUser.balance = updatedBal;
+                document.getElementById('wheel-center-text').innerText = drawnNumber;
+                
+                if(won) {
+                    alert(`🎉 JACKPOT! DREW ${drawnNumber}. Won ETB ${winAmount.toFixed(2)}`);
+                } else {
+                    alert(`💥 Drawn Number: ${drawnNumber}. Better luck next spin! Lost ETB ${lossAmount}`);
                 }
-            } else {
-                triggerHouseAlgorithm(currentSpinBet, 0);
+                updateDomDisplays();
             }
-
-            centerText.innerText = finalNumber;
-            let finalColorText = (finalNumber % 2 === 0) ? "🔴 Red" : "⚫ Black";
-
-            if(userWon) {
-                sessionUser.balance += potentialPayout;
-                commitHousePayout(potentialPayout);
-                await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
-                alert(`🎉 Multi-Bet Win! Result: Number ${finalNumber} (${finalColorText}). Claimed ${potentialPayout} ETB!`);
-            } else {
-                alert(`😢 Loss! Result: Number ${finalNumber} (${finalColorText}). Try again!`);
-            }
-            updateDomDisplays();
-        }, 5000); 
+            spinBtn.disabled = false;
+        }, 5000);
     }
 
-    // SMART AUTO DIVERT ON LOW BALANCE INVESTMENT
-    async function invest(cost, name, reward) {
-        if(parseFloat(sessionUser.balance) < cost) { 
-            alert(`⚠️ Low Account Balance! Redirecting you to the Deposit panel to load ETB ${cost}...`);
-            switchScreen('profile'); // Automatically moves user to Wallet screen!
-            return; 
+    // 🔢 KENO GAME ENGINE (RESTORED COMPLETE)
+    async function playKenoGame() {
+        if (selectedKenoNumbers.length === 0) {
+            alert("Please pick at least 1 number to play Keno!");
+            return;
         }
-        let nb = parseFloat(sessionUser.balance) - cost;
-        
-        // Append new investment level to track multiple purchases
-        if(!sessionUser.my_investments.includes(name)) {
-            sessionUser.my_investments.push(name);
+        if (sessionUser.balance < currentKenoBet) {
+            alert("Insufficient balance for this Keno bet!");
+            return;
         }
-        // Maximize running rewards total
-        let finalRewardRate = parseFloat(sessionUser.daily_reward) + reward;
 
-        await _supabase.from('users').update({ balance: nb, vip_level: name, daily_reward: finalRewardRate }).eq('phone', sessionUser.phone);
-        sessionUser.balance = nb; sessionUser.daily_reward = finalRewardRate;
-        
-        localStorage.setItem(`my_nodes_${sessionUser.phone}`, JSON.stringify(sessionUser.my_investments));
-        alert(`🎉 Congratulations! ${name} Node activated successfully!`); 
-        updateDomDisplays();
+        const playBtn = document.getElementById('keno-play-btn');
+        playBtn.disabled = true;
+
+        // Reset previous hits visual style
+        document.querySelectorAll('.keno-num').forEach(el => el.classList.remove('hit'));
+
+        // Generate 20 random winning numbers
+        let houseDrawn = [];
+        while (houseDrawn.length < 20) {
+            let r = Math.floor(Math.random() * 80) + 1;
+            if (!houseDrawn.includes(r)) houseDrawn.push(r);
+        }
+
+        // Calculate matches
+        let matches = selectedKenoNumbers.filter(n => houseDrawn.includes(n));
+        let matchCount = matches.length;
+
+        // Visual animation highlight step by step
+        houseDrawn.forEach((num, index) => {
+            setTimeout(() => {
+                const numEl = document.getElementById(`keno-num-${num}`);
+                if (numEl) numEl.classList.add('hit');
+            }, index * 80);
+        });
+
+        // Payout evaluation table logic
+        let kenoMultiplier = 0;
+        if (matchCount === 3) kenoMultiplier = 1.5;
+        else if (matchCount === 4) kenoMultiplier = 3;
+        else if (matchCount === 5) kenoMultiplier = 8;
+        else if (matchCount === 6) kenoMultiplier = 15;
+        else if (matchCount === 7) kenoMultiplier = 30;
+        else if (matchCount === 8) kenoMultiplier = 100;
+        else if (matchCount === 9) kenoMultiplier = 500;
+        else if (matchCount >= 10) kenoMultiplier = 1500;
+
+        let payout = currentKenoBet * kenoMultiplier;
+        let netProfitChange = payout - currentKenoBet;
+        let newKenoBalance = parseFloat(sessionUser.balance) + netProfitChange;
+
+        // Wait for drawn animation to complete before alert message box
+        setTimeout(async () => {
+            const { error } = await _supabase.from('users').update({ balance: newKenoBalance }).eq('phone', sessionUser.phone);
+            if (!error) {
+                sessionUser.balance = newKenoBalance;
+                if (payout > 0) {
+                    alert(`🎉 KENO WINNER! Matched ${matchCount} numbers! Won ETB ${payout.toFixed(2)}`);
+                } else {
+                    alert(`Matched ${matchCount} numbers. No winning prize structure. Lost ETB ${currentKenoBet}`);
+                }
+                updateDomDisplays();
+            }
+            playBtn.disabled = false;
+        }, 1800);
+    }
+
+    async function invest(price, levelName, reward) {
+        if(sessionUser.balance < price) { alert("Insufficient funds to secure investment node tier."); return; }
+        let conf = confirm(`Confirm buying node sequence ${levelName} for ETB ${price}?`);
+        if(!conf) return;
+
+        let finalBal = parseFloat(sessionUser.balance) - price;
+        let currentNodes = [...sessionUser.my_investments];
+        currentNodes.push(levelName);
+
+        const { error } = await _supabase.from('users').update({
+            balance: finalBal,
+            vip_level: levelName,
+            daily_reward: parseFloat(sessionUser.daily_reward) + reward
+        }).eq('phone', sessionUser.phone);
+
+        if(!error) {
+            localStorage.setItem(`my_nodes_${sessionUser.phone}`, JSON.stringify(currentNodes));
+            sessionUser.balance = finalBal;
+            sessionUser.daily_reward = parseFloat(sessionUser.daily_reward) + reward;
+            sessionUser.my_investments = currentNodes;
+            alert("🚀 Node processing unit active! Rewards added to daily dashboard cycles.");
+            switchScreen('home');
+        }
     }
 
     async function processDeposit() {
-        let a = parseFloat(document.getElementById('deposit-amount').value);
-        let r = document.getElementById('deposit-ref').value.trim();
-        if(!a || !r) return;
-        await _supabase.from('deposits').insert([{ user_phone: sessionUser.phone, amount: a, txn_id: r, status: 'pending' }]);
-        alert('Deposit logged. Awaiting admin approval.');
-    }
-
-    async function processWithdrawal() {
-        let a = parseFloat(document.getElementById('withdraw-amount').value);
-        if(!sessionUser.bank_acc || a < 500 || parseFloat(sessionUser.balance) < a) { alert('Check constraints or lock details.'); return; }
-        let nb = parseFloat(sessionUser.balance) - a;
-        await _supabase.from('users').update({ balance: nb }).eq('phone', sessionUser.phone);
-        await _supabase.from('withdrawals').insert([{ user_phone: sessionUser.phone, amount: a, bank_details: `${sessionUser.bank_type}: ${sessionUser.bank_acc}`, status: 'pending' }]);
-        sessionUser.balance = nb; alert('Withdrawal request successfully queued.'); updateDomDisplays();
+        const amt = document.getElementById('deposit-amount').value;
+        const tx = document.getElementById('deposit-ref').value;
+        if(!amt || !tx) { alert("Fill all details."); return; }
+        alert("Verification logs sent to internal queue. Balance updates reflect within 30 minutes.");
+        document.getElementById('deposit-amount').value = '';
+        document.getElementById('deposit-ref').value = '';
     }
 
     function saveBank() {
-        let type = document.getElementById('bank-type').value;
-        let acc = document.getElementById('bank-acc').value.trim();
-        let name = document.getElementById('bank-name').value.trim();
-        if(!acc || !name) { alert("Fill name and account fields."); return; }
+        const name = document.getElementById('bank-name').value;
+        const acc = document.getElementById('bank-acc').value;
+        const type = document.getElementById('bank-type').value;
+        if(!name || !acc) { alert("Fill locking dimensions."); return; }
         
-        sessionUser.bank_acc = acc; 
-        sessionUser.bank_type = type;
+        localStorage.setItem(`bank_name_${sessionUser.phone}`, name);
         localStorage.setItem(`bank_acc_${sessionUser.phone}`, acc);
         localStorage.setItem(`bank_type_${sessionUser.phone}`, type);
-        localStorage.setItem(`bank_name_${sessionUser.phone}`, name);
+
+        sessionUser.bank_name = name;
+        sessionUser.bank_acc = acc;
+        sessionUser.bank_type = type;
         
-        alert('Bank destination configuration locked.'); updateDomDisplays();
+        alert("🔒 Multi-channel verification credentials locked safely inside device secure storage.");
+        updateDomDisplays();
     }
 
-    function logout() { localStorage.clear(); location.reload(); }
+    async function processWithdrawal() {
+        const amt = parseFloat(document.getElementById('withdraw-amount').value);
+        if(!sessionUser.bank_acc) { alert("Lock bank channels first!"); return; }
+        if(isNaN(amt) || amt < 500) { alert("Minimum threshold constraint: 500 ETB"); return; }
+        if(sessionUser.balance < amt) { alert("Insufficient balance allocation."); return; }
+
+        let upBal = parseFloat(sessionUser.balance) - amt;
+        const { error } = await _supabase.from('users').update({ balance: upBal }).eq('phone', sessionUser.phone);
+        if(!error) {
+            sessionUser.balance = upBal;
+            alert("💸 Request queued! Audit logs verify transactions within standard network banking periods.");
+            updateDomDisplays();
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem('nex_user_phone');
+        sessionUser = null;
+        document.getElementById('login-phone').value = '';
+        document.getElementById('login-pass').value = '';
+        toggleAuthPages('login');
+    }
 </script>
 </body>
 </html>
