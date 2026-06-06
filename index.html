@@ -3,387 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nex Profit - Premium Multi-Tier Investment & Gaming</title>
-    <!-- Supabase SDK Library -->
+    <title>Nex Profit - Premium Enterprise Network</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --bg-dark: #0a1103;
-            --card-bg: rgba(28, 46, 17, 0.88); 
+            --card-bg: rgba(28, 46, 17, 0.92); 
             --primary-green: #00cc66;
             --accent-gold: #ffcc00;
             --text-main: #ffffff;
             --text-muted: #b3c6b3;
             --danger-red: #ff3333;
-            --warning-orange: #ff9900;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #000;
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            -webkit-user-select: none;
-            user-select: none;
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: #000; color: var(--text-main);
+            display: flex; justify-content: center;
+            user-select: none; -webkit-user-select: none;
         }
 
         .phone-container {
-            width: 100%;
-            max-width: 450px;
-            height: 100vh;
-            background: linear-gradient(rgba(10, 17, 3, 0.75), rgba(0, 0, 0, 0.85)), 
+            width: 100%; max-width: 450px; height: 100vh;
+            background: linear-gradient(rgba(10, 17, 3, 0.8), rgba(0, 0, 0, 0.9)), 
                         url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            box-sizing: border-box;
-            overflow: hidden;
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; position: relative;
+            box-sizing: border-box; overflow: hidden;
         }
 
         .header {
             background: linear-gradient(180deg, rgba(22, 53, 12, 0.95), rgba(10, 23, 5, 0.98));
-            padding: 18px;
-            text-align: center;
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: 1px;
+            padding: 15px; text-align: center; font-size: 18px; font-weight: 700;
             border-bottom: 1px solid rgba(0, 204, 102, 0.3);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px); 
         }
 
         .screen {
-            display: none; 
-            flex: 1;
-            width: 100%;
-            height: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow-y: auto;
-            animation: fadeIn 0.3s ease-in-out;
-            padding-bottom: 90px;
+            display: none; flex: 1; width: 100%; height: 100%;
+            padding: 15px; box-sizing: border-box; overflow-y: auto;
+            padding-bottom: 90px; animation: fadeIn 0.25s ease-in-out;
         }
 
-        .screen.active {
-            display: block; 
-        }
+        .screen.active { display: block; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .input-group {
-            margin-bottom: 15px;
-        }
-        .input-group label {
-            display: block;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 5px;
-        }
+        .input-group { margin-bottom: 12px; }
+        .input-group label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
         .input-group input, .input-group select {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid rgba(0, 204, 102, 0.3);
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            box-sizing: border-box;
-            outline: none;
-            font-size: 15px;
-            transition: 0.3s;
+            width: 100%; padding: 12px; border-radius: 10px;
+            border: 1px solid rgba(0, 204, 102, 0.3); background-color: rgba(0, 0, 0, 0.75);
+            color: white; box-sizing: border-box; outline: none; font-size: 14px;
         }
 
         .btn-premium {
             background: linear-gradient(135deg, #ffe066, var(--accent-gold));
-            color: #000;
-            border: none;
-            padding: 14px;
-            border-radius: 12px;
-            width: 100%;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2);
-            transition: 0.2s;
+            color: #000; border: none; padding: 12px; border-radius: 10px;
+            width: 100%; font-size: 15px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 204, 0, 0.15); transition: 0.2s;
         }
-        .btn-premium:disabled {
-            background: #444 !important;
-            color: #888 !important;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
+        .btn-premium:disabled { background: #444 !important; color: #888 !important; box-shadow: none; }
 
         .hero-card {
-            background: linear-gradient(135deg, var(--card-bg), rgba(15, 28, 8, 0.9));
-            border-radius: 16px;
-            padding: 22px;
-            text-align: center;
-            border: 1px solid rgba(0, 204, 102, 0.3);
-            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--card-bg), rgba(15, 28, 8, 0.95));
+            border-radius: 14px; padding: 18px; text-align: center;
+            border: 1px solid rgba(0, 204, 102, 0.25); margin-bottom: 15px;
         }
 
-        .balance-amount {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--accent-gold);
-            margin: 8px 0;
-        }
+        .balance-amount { font-size: 30px; font-weight: 700; color: var(--accent-gold); margin: 5px 0; }
 
         .grid-menu {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px;
         }
         .grid-item {
-            background-color: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
+            background-color: var(--card-bg); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px; padding: 12px; text-align: center; cursor: pointer;
         }
 
-        .vip-card {
-            background: rgba(17, 34, 10, 0.85);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(0,204,102,0.25);
-            text-align: center;
+        .game-card {
+            background: rgba(15, 30, 10, 0.95); border: 1px solid rgba(0, 204, 102, 0.3);
+            border-radius: 12px; padding: 14px; margin-bottom: 18px; text-align: center;
         }
 
-        .timer-box {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--accent-gold);
-            margin: 15px 0;
-            background: rgba(0,0,0,0.6);
-            padding: 12px;
-            border-radius: 8px;
-            display: inline-block;
+        /* 🎡 WHEEL */
+        .wheel-box { position: relative; width: 140px; height: 140px; margin: 10px auto; }
+        .wheel-element {
+            width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--accent-gold);
+            background: conic-gradient(#ff3333 0deg 90deg, #111 90deg 180deg, #ff3333 180deg 270deg, #111 270deg 360deg);
+            transition: transform 4s cubic-bezier(0.25, 1, 0.2, 1);
         }
+
+        /* 🎴 CARDS */
+        .card-display {
+            width: 70px; height: 100px; background: #fff; color: #000;
+            border-radius: 8px; font-size: 28px; font-weight: bold;
+            display: flex; align-items: center; justify-content: center; margin: 10px auto;
+            box-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+
+        /* 📦 BOXES */
+        .box-container { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
+        .mystery-box {
+            width: 65px; height: 65px; background: #224414; border: 2px solid var(--primary-green);
+            border-radius: 8px; display: flex; align-items: center; justify-content: center;
+            font-size: 24px; cursor: pointer; transition: 0.2s;
+        }
+
+        /* 🎰 SLOTS */
+        .slot-machine { display: flex; justify-content: center; gap: 8px; margin: 12px 0; }
+        .slot-reel {
+            width: 55px; height: 65px; background: #000; border: 2px solid var(--accent-gold);
+            border-radius: 6px; font-size: 26px; display: flex; align-items: center;
+            justify-content: center; overflow: hidden;
+        }
+
+        /* 🔢 KENO */
+        .keno-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin: 10px 0; }
+        .keno-btn { background: #111; border: 1px solid #333; color: #fff; padding: 6px; font-size: 11px; border-radius: 4px; cursor: pointer; }
+        .keno-btn.selected { background: var(--primary-green); color: #000; }
+        .keno-btn.hit { background: var(--accent-gold); color: #000; }
 
         .nav-bar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(5, 13, 3, 0.98);
-            border-top: 1px solid rgba(0,204,102,0.3);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            z-index: 100;
-            box-sizing: border-box;
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: rgba(5, 13, 3, 0.98); border-top: 1px solid rgba(0,204,102,0.3);
+            display: flex; justify-content: space-around; padding: 10px 0; z-index: 100;
         }
-        .nav-item {
-            color: var(--text-muted);
-            font-size: 11px;
-            text-align: center;
-            cursor: pointer;
-            flex: 1;
-        }
-        .nav-item.active {
-            color: var(--primary-green);
-        }
+        .nav-item { color: var(--text-muted); font-size: 11px; text-align: center; cursor: pointer; flex: 1; }
+        .nav-item.active { color: var(--primary-green); }
 
-        /* 🎮 GAMES STYLES */
-        .game-section {
-            background: rgba(15, 30, 10, 0.93);
-            border: 1px solid rgba(0, 204, 102, 0.35);
-            border-radius: 14px;
-            padding: 15px;
-            margin-bottom: 20px;
-            text-align: center;
+        .admin-badge {
+            background: var(--danger-red); color: white; padding: 3px 8px;
+            border-radius: 4px; font-size: 11px; font-weight: bold; display: inline-block; margin-top: 5px;
         }
-        
-        /* 🎡 VISUAL ROULETTE WHEEL */
-        .wheel-outer-box {
-            position: relative;
-            width: 180px;
-            height: 180px;
-            margin: 15px auto;
-        }
-        .wheel-pointer {
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-top: 20px solid var(--accent-gold);
-            z-index: 10;
-        }
-        .wheel-container {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 6px solid var(--accent-gold);
-            background: conic-gradient(
-                #ff3333 0deg 45deg, #111 45deg 90deg,
-                #ff3333 90deg 135deg, #111 135deg 180deg,
-                #ff3333 180deg 225deg, #111 225deg 270deg,
-                #ff3333 270deg 315deg, #111 315deg 360deg
-            );
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            transition: transform 5s cubic-bezier(0.25, 1, 0.2, 1); 
-        }
-        .wheel-center-pin {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: #ffe066;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-weight: bold;
-            font-size: 18px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            z-index: 5;
-        }
-        .wheel-label {
-            position: absolute;
-            font-size: 10px;
-            font-weight: bold;
-            color: #fff;
-            transform-origin: 50% 90px;
-            width: 20px;
-            text-align: center;
-        }
-
-        .roulette-options-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin: 12px 0;
-        }
-
-        .roulette-btn {
-            padding: 10px;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(0,0,0,0.5);
-            color: #fff;
-            cursor: pointer;
-        }
-        .roulette-btn.selected {
-            border-color: var(--accent-gold);
-            background: rgba(255, 204, 0, 0.35);
-            box-shadow: 0 0 8px var(--accent-gold);
-        }
-
-        .bet-controller {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin: 10px 0;
-        }
-        .bet-btn {
-            background: #224414;
-            color: #fff;
-            border: 1px solid var(--primary-green);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .bet-value {
-            font-size: 16px;
-            font-weight: bold;
-            color: var(--accent-gold);
-            min-width: 65px;
-        }
-
-        /* 🔢 KENO GAME STYLES */
-        .keno-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 4px;
-            margin: 15px 0;
-            background: rgba(0,0,0,0.4);
-            padding: 8px;
-            border-radius: 8px;
-        }
-        .keno-num {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            color: #fff;
-            padding: 8px 0;
-            font-size: 11px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s;
-        }
-        .keno-num.selected {
-            background: var(--primary-green);
-            color: #000;
-            border-color: #fff;
-        }
-        .keno-num.hit {
-            background: var(--accent-gold) !important;
-            color: #000 !important;
-            animation: pulse 0.5s infinite alternate;
-        }
-        @keyframes pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.05); }
-        }
-
-        /* MODAL DIALOGS */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 200;
-            justify-content: center; align-items: center;
-            padding: 20px; box-sizing: border-box;
-        }
-        .modal-overlay.open {
-            display: flex;
-        }
-        .modal-content {
-            background: #0f1c08;
-            border: 2px solid var(--primary-green);
-            border-radius: 16px;
-            max-width: 400px; width: 100%; padding: 20px;
-            box-sizing: border-box;
-            position: relative;
-        }
-        .close-modal-btn {
-            position: absolute; top: 10px; right: 15px; 
-            font-size: 20px; color: #fff; cursor: pointer;
-        }
-
-        .investment-node-pill {
-            background: rgba(0, 204, 102, 0.15);
-            border: 1px dashed var(--primary-green);
-            border-radius: 8px; padding: 6px 12px;
-            font-size: 12px; margin: 4px; display: inline-block;
-        }
+        .table-log { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; }
+        .table-log th, .table-log td { border: 1px solid #333; padding: 6px; text-align: left; }
+        .table-log th { background: #14280b; }
     </style>
 </head>
 <body>
@@ -391,691 +149,532 @@
 <div class="phone-container">
     <div class="header" id="app-title">NEX PROFIT</div>
 
-    <!-- REGISTRATION SCREEN -->
+    <!-- REGISTRATION -->
     <div id="screen-register" class="screen active">
-        <h2 style="text-align:center; margin-bottom:30px;">Create Account</h2>
-        <div class="input-group"><input type="text" id="reg-phone" placeholder="Enter mobile phone number"></div>
-        <div class="input-group"><input type="password" id="reg-pass" placeholder="Enter password..."></div>
-        <div class="input-group"><input type="password" id="reg-confirm" placeholder="Confirm password"></div>
+        <h2 style="text-align:center;">Create Account</h2>
+        <div class="input-group"><input type="text" id="reg-phone" placeholder="Phone Number"></div>
+        <div class="input-group"><input type="password" id="reg-pass" placeholder="Password"></div>
         <div class="input-group"><input type="text" id="reg-ref" placeholder="Invitation Code (Optional)"></div>
         <button class="btn-premium" onclick="handleRegister()">Register</button>
-        <p style="text-align:center; margin-top:25px; font-size:14px; color:var(--text-muted);">
-            Already have an account? <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('login')">Login here</span>
+        <p style="text-align:center; font-size:13px; color:var(--text-muted);">
+            Already have an account? <span style="color:var(--primary-green); cursor:pointer;" onclick="toggleAuthPages('login')">Login</span>
         </p>
     </div>
 
-    <!-- LOGIN SCREEN -->
+    <!-- LOGIN -->
     <div id="screen-login" class="screen">
-        <h2 style="text-align:center; margin-bottom:30px;">Welcome Back</h2>
-        <div class="input-group"><input type="text" id="login-phone" placeholder="Enter phone number"></div>
-        <div class="input-group"><input type="password" id="login-pass" placeholder="Enter password..."></div>
+        <h2 style="text-align:center;">Sign In</h2>
+        <div class="input-group"><input type="text" id="login-phone" placeholder="Phone Number"></div>
+        <div class="input-group"><input type="password" id="login-pass" placeholder="Password"></div>
         <button class="btn-premium" onclick="handleLogin()">Sign In</button>
-        <p style="text-align:center; margin-top:20px; font-size:14px; color:var(--text-muted);">
-            New to Nex Profit? <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('register')">Register here</span>
-        </p>
-        <!-- Forgot Password Button -->
-        <p style="text-align:center; margin-top:10px; font-size:13px;">
-            <span style="color:var(--danger-red); cursor:pointer;" onclick="triggerForgotPassword()">Forgot Password?</span>
+        <p style="text-align:center; font-size:13px; color:var(--text-muted);">
+            New account? <span style="color:var(--primary-green); cursor:pointer;" onclick="toggleAuthPages('register')">Register</span>
         </p>
     </div>
 
     <!-- HOME SCREEN -->
     <div id="screen-home" class="screen">
         <div class="hero-card">
-            <div style="font-size:40px; margin-bottom:5px;">👤</div>
-            <div class="balance-title">Available Balance</div>
+            <div id="admin-indicator"></div>
+            <div style="font-size:13px; color:var(--text-muted);">Available Allocation</div>
             <div class="balance-amount" id="user-balance">ETB 0.00</div>
-            
-            <!-- My Active Levels Display Box -->
-            <div style="margin-top:10px; text-align:left; background:rgba(0,0,0,0.4); padding:10px; border-radius:8px;">
-                <span style="font-size:11px; color:var(--text-muted); display:block; font-weight:bold; margin-bottom:4px;">💼 MY ACTIVE INVESTMENTS:</span>
-                <div id="home-investments-list" style="font-size:12px;">No active node packages.</div>
-            </div>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px;">
-            <button class="btn-premium" style="background: linear-gradient(135deg, #2c5314, #142b08); color: #fff; border: 1px solid var(--primary-green); padding: 10px; font-size:13px;" onclick="openRulesModal()">📜 Platform Rules</button>
-            <button class="btn-premium" style="background: linear-gradient(135deg, #004d26, #002613); color: #fff; border: 1px solid var(--primary-green); padding: 10px; font-size:13px;" onclick="openSupportChannel()">🎧 Help Support</button>
-        </div>
-
-        <!-- Referral Actions Menu Card -->
-        <div style="background:var(--card-bg); border-radius:12px; padding:12px; border:1px solid rgba(0,204,102,0.2); margin-bottom:20px; text-align:center;">
-            <button class="btn-premium" style="padding:8px 12px; font-size:12px; width:48%; display:inline-block;" onclick="copyReferralLink()">🔗 Copy Ref Link</button>
-            <button class="btn-premium" style="padding:8px 12px; font-size:12px; width:48%; display:inline-block; background:transparent; color:#fff; border:1px solid var(--accent-gold);" onclick="openReferralChainModal()">👥 My Ref Chain</button>
+            <button class="btn-premium" style="padding:6px; font-size:11px; width:120px; margin-top:5px;" onclick="copyReferralLink()">🔗 Invite Link</button>
         </div>
 
         <div class="grid-menu">
-            <div class="grid-item" onclick="switchScreen('vip')">💎<br><span style="font-size:13px; font-weight:bold;">VIP Tiers</span></div>
-            <div class="grid-item" onclick="switchScreen('task')">⏱️<br><span style="font-size:13px; font-weight:bold;">Daily Task</span></div>
-            <div class="grid-item" onclick="switchScreen('games')">🎮<br><span style="font-size:13px; font-weight:bold;">Games Zone</span></div>
-            <div class="grid-item" onclick="switchScreen('profile')">💼<br><span style="font-size:13px; font-weight:bold;">Wallet</span></div>
+            <div class="grid-item" onclick="switchScreen('vip')">💎<br><b>Nodes Tiers</b></div>
+            <div class="grid-item" onclick="switchScreen('task')">⏱️<br><b>Daily Optimization</b></div>
+            <div class="grid-item" onclick="switchScreen('games')">🎮<br><b>Matrix Gaming</b></div>
+            <div class="grid-item" onclick="switchScreen('profile')">💼<br><b>Banking Hub</b></div>
         </div>
     </div>
 
-    <!-- DAILY TASK SCREEN -->
-    <div id="screen-task" class="screen" style="text-align: center;">
-        <h3>Daily Revenue Growth</h3>
-        <p style="color: var(--text-muted); font-size:14px;">Activate the premium smart contract and keep it active for 1 minute.</p>
-        <div style="background:rgba(255,204,0,0.15); border:1px solid var(--accent-gold); padding:10px; border-radius:10px; margin:15px 0;">
-            Your Current Daily Return: <b style="color:var(--accent-gold);" id="task-reward-amount">ETB 0.00</b>
-        </div>
-        <div class="timer-box" id="task-timer">01:00</div><br><br>
-        <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Activate Profit Generation</button>
-    </div>
-
-    <!-- 🎮 GAMES ZONE SCREEN -->
+    <!-- 🎮 FIVE CONTROLLED GAMES ZONE -->
     <div id="screen-games" class="screen">
-        <h3 style="text-align: center; color: var(--accent-gold); margin-top:0;">Nex Profit Pro Casino</h3>
-        
-        <!-- 🎡 ROULETTE GAME -->
-        <div class="game-section">
-            <h4 style="margin: 0; color: #fff;">🎡 Multi-Bet Pro Spin (1-40)</h4>
-            <p style="font-size:11px; color:var(--text-muted); margin:4px 0;">You can select multiple market outcomes simultaneously!</p>
-            
-            <div class="bet-controller">
-                <button class="bet-btn" onclick="adjustBet('spin', -5)">-</button>
-                <div class="bet-value" id="spin-bet-display">5 ETB</div>
-                <button class="bet-btn" onclick="adjustBet('spin', 5)">+</button>
-            </div>
+        <h3 style="text-align:center; color:var(--accent-gold); margin-top:0;">Premium Matrix Zone</h3>
 
-            <div class="wheel-outer-box">
-                <div class="wheel-pointer"></div>
-                <div class="wheel-container" id="spin-wheel">
-                    <div class="wheel-center-pin" id="wheel-center-text">?</div>
-                </div>
+        <!-- GAME 1: WHEEL SPIN -->
+        <div class="game-card">
+            <h4>🎡 1. Dual Color Rotation</h4>
+            <div class="wheel-box"><div class="wheel-element" id="wheel-obj"></div></div>
+            <div style="margin:8px 0;">
+                <button class="btn-premium" style="width:45%; display:inline-block; padding:6px;" id="wb-red" onclick="setWheelMarket('red')">🔴 Red (2x)</button>
+                <button class="btn-premium" style="width:45%; display:inline-block; padding:6px; background:#222; color:#fff;" id="wb-black" onclick="setWheelMarket('black')">⚫ Black (2x)</button>
             </div>
-
-            <div class="roulette-options-grid">
-                <button class="roulette-btn" id="rb-red" onclick="toggleRouletteMarket('red')">🔴 Red (2x)</button>
-                <button class="roulette-btn" id="rb-black" onclick="toggleRouletteMarket('black')">⚫ Black (2x)</button>
-                <button class="roulette-btn" id="rb-even" onclick="toggleRouletteMarket('even')">🔢 Even (2x)</button>
-                <button class="roulette-btn" id="rb-odd" onclick="toggleRouletteMarket('odd')">🔢 Odd (2x)</button>
-                <button class="roulette-btn" id="rb-low" onclick="toggleRouletteMarket('low')">⬇️ Low 1-18 (2x)</button>
-                <button class="roulette-btn" id="rb-high" onclick="toggleRouletteMarket('high')">⬆️ High 19-40 (2x)</button>
-            </div>
-
-            <div class="input-group" style="margin-top: 5px;">
-                <input type="number" id="spin-exact-number" placeholder="Or type exact number 1-40 (Pays 5x)" min="1" max="40" oninput="toggleRouletteMarket('exact')">
-            </div>
-
-            <button class="btn-premium" style="padding:10px; font-size:14px;" id="spin-btn" onclick="playLuckySpin()">Place Bet & Spin</button>
+            <button class="btn-premium" onclick="playWheelGame()">Spin (10 ETB)</button>
         </div>
 
-        <!-- 🔢 KENO GAME SECTION -->
-        <div class="game-section" style="margin-top: 25px;">
-            <h4 style="margin: 0; color: var(--accent-gold);">🔢 Nex Premium Keno (1-80)</h4>
-            <p style="font-size:11px; color:var(--text-muted); margin:4px 0;">Select 1 to 10 numbers. Matching 3+ numbers pays big rewards!</p>
-            
-            <div class="bet-controller">
-                <button class="bet-btn" onclick="adjustKenoBet(-5)">-</button>
-                <div class="bet-value" id="keno-bet-display">5 ETB</div>
-                <button class="bet-btn" onclick="adjustKenoBet(5)">+</button>
+        <!-- GAME 2: HIGHER OR LOWER -->
+        <div class="game-card">
+            <h4>🎴 2. Binary Logic (High/Low)</h4>
+            <p style="font-size:11px; color:var(--text-muted);">Is next card higher or lower than current card?</p>
+            <div class="card-display" id="card-num-box">7</div>
+            <div style="margin:8px 0;">
+                <button class="btn-premium" style="width:45%; display:inline-block; padding:6px;" onclick="playHighLow('high')">⬆️ Higher (2x)</button>
+                <button class="btn-premium" style="width:45%; display:inline-block; padding:6px;" onclick="playHighLow('low')">⬇️ Lower (2x)</button>
             </div>
+        </div>
 
-            <!-- Keno Grid Containers -->
-            <div class="keno-grid" id="keno-numbers-board"></div>
+        <!-- GAME 3: MYSTERY BOX -->
+        <div class="game-card">
+            <h4>📦 3. Matrix Node Decryption</h4>
+            <p style="font-size:11px; color:var(--text-muted);">Pick a secure container box to unlock treasures.</p>
+            <div class="box-container">
+                <div class="mystery-box" onclick="openMysteryBox(1)">📦</div>
+                <div class="mystery-box" onclick="openMysteryBox(2)">📦</div>
+                <div class="mystery-box" onclick="openMysteryBox(3)">📦</div>
+            </div>
+            <span style="font-size:12px; color:var(--accent-gold);">Cost: 20 ETB | Wins up to 3x</span>
+        </div>
 
-            <div style="font-size:12px; color:#fff; margin-bottom:10px;" id="keno-status-text">Selected: 0/10 numbers</div>
-            <button class="btn-premium" style="padding:10px; font-size:14px; background:linear-gradient(135deg, #00cc66, #006633); color:#fff;" id="keno-play-btn" onclick="playKenoGame()">Draw Numbers & Play</button>
+        <!-- GAME 4: LUCKY SLOTS -->
+        <div class="game-card">
+            <h4>🎰 4. Vector Line Matcher</h4>
+            <div class="slot-machine">
+                <div class="slot-reel" id="reel-1">💎</div>
+                <div class="slot-reel" id="reel-2">💎</div>
+                <div class="slot-reel" id="reel-3">💎</div>
+            </div>
+            <button class="btn-premium" onclick="playSlotsGame()">Pull Vector Link (15 ETB)</button>
+        </div>
+
+        <!-- GAME 5: KENO (REDUCED MATRIX) -->
+        <div class="game-card">
+            <h4>🔢 5. Micro Keno System</h4>
+            <div class="keno-grid" id="keno-board"></div>
+            <div id="keno-msg" style="font-size:11px; margin-bottom:5px;">Select 2 numbers. Cost: 10 ETB</div>
+            <button class="btn-premium" onclick="playMicroKeno()">Trigger Draw</button>
         </div>
     </div>
 
-    <!-- VIP / EARNINGS SCREEN (ALL 6 LEVELS PRESERVED) -->
+    <!-- VIP TIERS -->
     <div id="screen-vip" class="screen">
-        <h3 style="margin-top:0; text-align:center; color:var(--accent-gold);">Premium Investment Nodes</h3>
-        <div class="vip-card">
-            <h3>VIP Level 1 - ETB 300</h3>
-            <p>Daily Return: ETB 24.00 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(300, 'VIP Level 1', 24)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 2 - ETB 500</h3>
-            <p>Daily Return: ETB 43.20 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(500, 'VIP Level 2', 43.2)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 3 - ETB 1,000</h3>
-            <p>Daily Return: ETB 91.20 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(1000, 'VIP Level 3', 91.2)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 4 - ETB 3,000</h3>
-            <p>Daily Return: ETB 288.00 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(3000, 'VIP Level 4', 288)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 5 - ETB 6,000</h3>
-            <p>Daily Return: ETB 604.80 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(6000, 'VIP Level 5', 604.8)">Invest Now</button>
-        </div>
-        <div class="vip-card">
-            <h3>VIP Level 6 - ETB 12,000</h3>
-            <p>Daily Return: ETB 1,296.00 (45 Days)</p>
-            <button class="btn-premium" onclick="invest(12000, 'VIP Level 6', 1296)">Invest Now</button>
-        </div>
+        <h3 style="text-align:center;">Investment Clusters</h3>
+        <div class="hero-card"><h4>VIP 1 - Cost: 300 ETB</h4><p>Returns 24 ETB Daily</p><button class="btn-premium" onclick="buyVip(300, 'VIP 1', 24)">Activate</button></div>
+        <div class="hero-card"><h4>VIP 2 - Cost: 500 ETB</h4><p>Returns 43.20 ETB Daily</p><button class="btn-premium" onclick="buyVip(500, 'VIP 2', 43.2)">Activate</button></div>
+        <div class="hero-card"><h4>VIP 3 - Cost: 1000 ETB</h4><p>Returns 91.20 ETB Daily</p><button class="btn-premium" onclick="buyVip(1000, 'VIP 3', 91.2)">Activate</button></div>
     </div>
 
-    <!-- PROFILE / WALLET SCREEN -->
+    <!-- DAILY TASK -->
+    <div id="screen-task" class="screen" style="text-align:center;">
+        <h3>Compute Optimization Matrix</h3>
+        <p>Keep connection secure for 60 seconds to pull dividends.</p>
+        <div style="font-size:32px; font-weight:bold; color:var(--accent-gold); margin:20px 0;" id="timer-label">01:00</div>
+        <button class="btn-premium" id="task-trigger" onclick="executeTask()">Initiate Node Sync</button>
+    </div>
+
+    <!-- PROFILE / WALLET -->
     <div id="screen-profile" class="screen">
-        <h3>Deposit Funds</h3>
+        <h3>Deposit Channel</h3>
         <p style="font-size:12px; color:var(--accent-gold);">Telebirr: 0954406366 (Temesgen Ayenew)</p>
-        <div class="input-group"><input type="number" id="deposit-amount" placeholder="Amount (ETB)"></div>
-        <div class="input-group"><input type="text" id="deposit-ref" placeholder="Transaction ID"></div>
-        <button class="btn-premium" onclick="processDeposit()">Submit Deposit</button>
-        
-        <hr style="border-color:rgba(255,255,255,0.1); margin:20px 0;">
-        
-        <h3>Lock Wallet / Bank Account</h3>
-        <div id="bank-status-box" style="font-size:12px; margin-bottom:10px;">⚠️ No bank account locked.</div>
-        
-        <!-- Bank Account Type Added -->
+        <div class="input-group"><input type="number" id="dep-amt" placeholder="Amount (ETB)"></div>
+        <div class="input-group"><input type="text" id="dep-tx" placeholder="Transaction Reference ID"></div>
+        <button class="btn-premium" onclick="submitDepositRequest()">Upload Manifest</button>
+
+        <hr style="border-color:#333; margin:15px 0;">
+        <h3>Withdrawal Channel</h3>
         <div class="input-group">
-            <label>Select Bank Type</label>
-            <select id="bank-type">
+            <select id="w-bank">
                 <option value="Telebirr">Telebirr</option>
-                <option value="Commercial Bank of Ethiopia (CBE)">Commercial Bank of Ethiopia (CBE)</option>
-                <option value="Awash Bank">Awash Bank</option>
-                <option value="Dashen Bank">Dashen Bank</option>
-                <option value="Abyssinia Bank">Abyssinia Bank</option>
+                <option value="CBE">CBE</option>
             </select>
         </div>
-        <div class="input-group"><input type="text" id="bank-name" placeholder="Account Owner Real Name"></div>
-        <div class="input-group"><input type="text" id="bank-acc" placeholder="Account Number / Phone"></div>
-        <button class="btn-premium" style="background:#1c3d11; color:#fff;" onclick="saveBank()">Lock Bank Details</button>
-        
-        <hr style="border-color:rgba(255,255,255,0.1); margin:20px 0;">
-        
-        <h3>Request Withdrawal</h3>
-        <div class="input-group"><input type="number" id="withdraw-amount" placeholder="Min 500 ETB"></div>
-        <button class="btn-premium" onclick="processWithdrawal()">Withdraw Now</button>
+        <div class="input-group"><input type="text" id="w-acc" placeholder="Account Number"></div>
+        <div class="input-group"><input type="number" id="w-amt" placeholder="Minimum 500"></div>
+        <button class="btn-premium" onclick="submitWithdrawalRequest()">Request Cashout</button>
         <br><br>
-        <button class="btn-premium" style="background:var(--danger-red); color:#fff;" onclick="logout()">Secure Logout</button>
+        <button class="btn-premium" style="background:var(--danger-red); color:white;" onclick="logout()">Logout</button>
     </div>
 
-    <!-- MODAL POPUPS -->
-    <div class="modal-overlay" id="rules-modal">
-        <div class="modal-content">
-            <span class="close-modal-btn" onclick="closeRulesModal()">&times;</span>
-            <h3 style="color:var(--accent-gold); margin-top:0;">Platform Rules & Guides</h3>
-            <p style="font-size: 14px; line-height:1.5; color:var(--text-muted);">
-                1. Minimum withdrawal limit is 500 ETB.<br>
-                2. Daily tasks regenerate every 24 hours.<br>
-                3. Premium game zone outcomes depend on calculation frameworks.<br>
-                4. Deposits are authenticated manually within 30 minutes.
-            </p>
+    <!-- 👑 ADMIN PANEL SCREEN -->
+    <div id="screen-admin" class="screen">
+        <h3 style="color:var(--accent-gold); margin-top:0;">🛡️ System Control Center</h3>
+        <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:8px; margin-bottom:15px; font-size:12px;">
+            <div>💰 <b>Total Deposits:</b> ETB <span id="adm-total-dep">0</span></div>
+            <div>📉 <b>Allowed Return Pot (70%):</b> ETB <span id="adm-allow-payout">0</span></div>
+            <div>📈 <b>Platform Secured Profit (30%):</b> ETB <span id="adm-net-profit">0</span></div>
+            <div style="color:var(--primary-green);">🎮 <b>Actual Total Disbursed:</b> ETB <span id="adm-actual-paid">0</span></div>
         </div>
+
+        <h4>Pending Deposit Approvals</h4>
+        <div style="overflow-x:auto;"><table class="table-log"><thead><tr><th>User</th><th>Amt</th><th>TxID</th><th>Action</th></tr></thead><tbody id="tbl-deposits"></tbody></table></div>
+
+        <h4>Pending Withdrawal Approvals</h4>
+        <div style="overflow-x:auto;"><table class="table-log"><thead><tr><th>User</th><th>Amt</th><th>Bank/Acc</th><th>Action</th></tr></thead><tbody id="tbl-withdrawals"></tbody></table></div>
     </div>
 
-    <div class="modal-overlay" id="ref-chain-modal">
-        <div class="modal-content">
-            <span class="close-modal-btn" onclick="document.getElementById('ref-chain-modal').classList.remove('open')">&times;</span>
-            <h3 style="color:var(--accent-gold); margin-top:0;">My Referral Chain Links</h3>
-            <div id="ref-chain-body" style="font-size:13px; max-height:200px; overflow-y:auto; color:var(--text-muted);">
-                Loading referral connections...
-            </div>
-        </div>
-    </div>
-
-    <!-- BOTTOM NAVIGATION -->
-    <div class="nav-bar" id="bottom-nav" style="display: none;">
-        <div class="nav-item active" id="tab-home" onclick="switchScreen('home')">📊<br>Home</div>
-        <div class="nav-item" id="tab-vip" onclick="switchScreen('vip')">💎<br>VIP</div>
-        <div class="nav-item" id="tab-task" onclick="switchScreen('task')">⏱️<br>Task</div>
-        <div class="nav-item" id="tab-games" onclick="switchScreen('games')">🎮<br>Games</div>
-        <div class="nav-item" id="tab-profile" onclick="switchScreen('profile')">👤<br>Wallet</div>
+    <!-- NAV BAR -->
+    <div class="nav-bar" id="bottom-nav" style="display:none;">
+        <div class="nav-item" onclick="switchScreen('home')">📊<br>Home</div>
+        <div class="nav-item" onclick="switchScreen('vip')">💎<br>Nodes</div>
+        <div class="nav-item" onclick="switchScreen('games')">🎮<br>Matrix</div>
+        <div class="nav-item" onclick="switchScreen('profile')">💼<br>Wallet</div>
+        <div class="nav-item" id="nav-admin-btn" style="display:none; color:var(--danger-red);" onclick="switchScreen('admin')">🛡️<br>Admin</div>
     </div>
 </div>
 
 <script>
-    const SUPABASE_URL = "https://jzhquixmgymiobfcbqhc.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_TCRLz3h_8DWxGDmXWoatBQ_EG2ACA9y"; 
-    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    // Supabase Initialization
+    const DB_URL = "https://jzhquixmgymiobfcbqhc.supabase.co";
+    const DB_KEY = "sb_publishable_TCRLz3h_8DWxGDmXWoatBQ_EG2ACA9y"; 
+    const _supabase = supabase.createClient(DB_URL, DB_KEY);
 
-    let sessionUser = null; 
-    let taskTimerInterval = null;
-    
-    let currentSpinBet = 5;
-    let selectedMarkets = []; 
-
-    // Keno game states
-    let currentKenoBet = 5;
+    const ADMIN_PHONE = "0954406366"; // ያንተ ስልክ ቁጥር ማረጋገጫ
+    let userSession = null;
+    let selectedWheelColor = 'red';
+    let currentCardValue = 7;
     let selectedKenoNumbers = [];
 
-    let houseTotalBets = parseFloat(localStorage.getItem('house_total_bets') || '0');
-    let houseTotalPayouts = parseFloat(localStorage.getItem('house_total_payouts') || '0');
-    const TARGET_PROFIT_MARGIN = 0.30; 
-
-    window.onload = async function() {
-        const cachedPhone = localStorage.getItem('nex_user_phone');
-        if(cachedPhone) { await fetchUserData(cachedPhone); } else { toggleAuthPages('register'); }
-        generateVisualNumbersOnWheel();
-        generateKenoBoard();
-
-        // Check if user clicked a registration link with referral code
-        const urlParams = new URLSearchParams(window.location.search);
-        const refCode = urlParams.get('ref');
-        if (refCode && document.getElementById('reg-ref')) {
-            document.getElementById('reg-ref').value = refCode;
-        }
+    window.onload = function() {
+        buildKenoBoard();
+        const cached = localStorage.getItem('nex_cached_phone');
+        if(cached) { loadAccountData(cached); } else { toggleAuthPages('register'); }
     };
 
-    function generateVisualNumbersOnWheel() {
-        const wheel = document.getElementById('spin-wheel');
-        for (let i = 1; i <= 40; i += 4) { 
-            let lbl = document.createElement('div');
-            lbl.className = 'wheel-label';
-            lbl.style.transform = `rotate(${i * 9}deg) translateY(18px)`;
-            lbl.innerText = i;
-            wheel.appendChild(lbl);
-        }
-    }
-
-    // 🔢 GENERATE KENO NUMBERS BOARD
-    function generateKenoBoard() {
-        const board = document.getElementById('keno-numbers-board');
-        board.innerHTML = '';
-        for (let i = 1; i <= 80; i++) {
-            let numBtn = document.createElement('div');
-            numBtn.className = 'keno-num';
-            numBtn.innerText = i;
-            numBtn.id = `keno-num-${i}`;
-            numBtn.onclick = () => selectKenoNumber(i);
-            board.appendChild(numBtn);
-        }
-    }
-
-    function selectKenoNumber(num) {
-        const index = selectedKenoNumbers.indexOf(num);
-        const element = document.getElementById(`keno-num-${num}`);
-        
-        if (index > -1) {
-            selectedKenoNumbers.splice(index, 1);
-            element.classList.remove('selected');
-        } else {
-            if (selectedKenoNumbers.length >= 10) {
-                alert("You can select a maximum of 10 numbers!");
-                return;
-            }
-            selectedKenoNumbers.push(num);
-            element.classList.add('selected');
-        }
-        document.getElementById('keno-status-text').innerText = `Selected: ${selectedKenoNumbers.length}/10 numbers`;
-    }
-
-    function adjustKenoBet(amount) {
-        currentKenoBet += amount;
-        if (currentKenoBet < 5) currentKenoBet = 5;
-        document.getElementById('keno-bet-display').innerText = currentKenoBet + " ETB";
-    }
-
-    async function fetchUserData(phone) {
+    async function loadAccountData(phone) {
         const { data } = await _supabase.from('users').select('*').eq('phone', phone).maybeSingle();
         if(data) {
-            sessionUser = data;
-            sessionUser.bank_name = localStorage.getItem(`bank_name_${phone}`) || '';
-            sessionUser.bank_acc = localStorage.getItem(`bank_acc_${phone}`) || '';
-            sessionUser.bank_type = localStorage.getItem(`bank_type_${phone}`) || '';
-            sessionUser.my_investments = JSON.parse(localStorage.getItem(`my_nodes_${phone}`) || '["Free Plan"]');
+            userSession = data;
+            localStorage.setItem('nex_cached_phone', phone);
+            document.getElementById('bottom-nav').style.display = 'flex';
             
-            localStorage.setItem('nex_user_phone', phone);
-            bypassLogin();
+            if(userSession.phone === ADMIN_PHONE) {
+                document.getElementById('nav-admin-btn').style.display = 'block';
+                document.getElementById('admin-indicator').innerHTML = `<span class="admin-badge">SYSTEM OWNER ADMIN</span>`;
+                loadAdminDashboardData();
+            }
+            switchScreen('home');
         } else { logout(); }
     }
 
-    function toggleAuthPages(page) {
+    function toggleAuthPages(p) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('bottom-nav').style.display = 'none'; 
-        if(page === 'login') { document.getElementById('screen-login').classList.add('active'); }
-        else { document.getElementById('screen-register').classList.add('active'); }
+        document.getElementById('bottom-nav').style.display = 'none';
+        if(p === 'login') document.getElementById('screen-login').classList.add('active');
+        else document.getElementById('screen-register').classList.add('active');
     }
 
     async function handleRegister() {
-        const phone = document.getElementById('reg-phone').value.trim();
-        const pass = document.getElementById('reg-pass').value.trim();
-        const ref = document.getElementById('reg-ref').value.trim();
-        if(phone.length < 9 || !pass) { alert('Error filling fields.'); return; }
-        
-        const { error } = await _supabase.from('users').insert([{ phone: phone, password: pass, balance: 150.00, vip_level: 'Free Plan', daily_reward: 5.00 }]);
-        if(!error) { alert('Welcome Gift 150 ETB added.'); await fetchUserData(phone); } else { alert('User exists or DB error.'); }
+        const ph = document.getElementById('reg-phone').value.trim();
+        const ps = document.getElementById('reg-pass').value.trim();
+        if(!ph || !ps) return alert('Invalid fields');
+        const { error } = await _supabase.from('users').insert([{ phone: ph, password: ps, balance: 150.00, vip_level: 'Free Node', daily_reward: 5.00 }]);
+        if(!error) { alert('Account active! 150 ETB gift injected.'); loadAccountData(ph); } else alert('Registration failed.');
     }
 
     async function handleLogin() {
-        const phone = document.getElementById('login-phone').value.trim();
-        const pass = document.getElementById('login-pass').value.trim();
-        const { data } = await _supabase.from('users').select('*').eq('phone', phone).eq('password', pass).maybeSingle();
-        if(data) { await fetchUserData(phone); } else { alert('Invalid credentials.'); }
+        const ph = document.getElementById('login-phone').value.trim();
+        const ps = document.getElementById('login-pass').value.trim();
+        const { data } = await _supabase.from('users').select('*').eq('phone', ph).eq('password', ps).maybeSingle();
+        if(data) loadAccountData(ph); else alert('Invalid account details');
     }
 
-    // 🔑 FORGOT PASSWORD IMPROVED (SUPABASE DIRECT READ)
-    async function triggerForgotPassword() {
-        const phoneInput = prompt("Please enter your registered mobile phone number:");
-        if (!phoneInput || phoneInput.trim() === "") return;
+    function switchScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('screen-' + id).classList.add('active');
+        document.getElementById('user-balance').innerText = 'ETB ' + parseFloat(userSession.balance).toFixed(2);
+        if(id === 'admin') loadAdminDashboardData();
+    }
+
+    // 💰 30% / 70% MATHEMATICAL ENGINE RISK CONTROL CONTROL 
+    async function evaluateWinPermission(potentialPayout) {
+        // ከቤዝመንት አውቶማቲክ ተቀማጭ እና ወጪ ሂሳብን ከዲቢ መሰብሰብ
+        const { data: depData } = await _supabase.from('deposits').select('amount').eq('status', 'approved');
+        const { data: logsData } = await _supabase.from('game_payouts').select('amount'); // የክፍያ ታሪኮች
+
+        let totalDeposits = depData ? depData.reduce((acc, current) => acc + parseFloat(current.amount), 0) : 0;
+        let totalPaidOut = logsData ? logsData.reduce((acc, current) => acc + parseFloat(current.amount), 0) : 0;
+
+        // የ 70% ጣራ ህግን ማስላት
+        let maxAllowedPayoutPool = totalDeposits * 0.70;
+
+        if ((totalPaidOut + potentialPayout) > maxAllowedPayoutPool) {
+            return false; // ትርፍ ለማስጠበቅ ተጫዋቹ የግድ መሸነፍ አለበት!
+        }
+        return true; // ማሸነፍ ይችላል።
+    }
+
+    async function logGamePayout(amount) {
+        if(amount <= 0) return;
+        await _supabase.from('game_payouts').insert([{ user_phone: userSession.phone, amount: amount }]);
+    }
+
+    // 🎡 GAME 1: WHEEL SPIN
+    function setWheelMarket(c) { selectedWheelColor = c; }
+    async function playWheelGame() {
+        if(userSession.balance < 10) return alert("Low balance");
+        userSession.balance -= 10; switchScreen('games');
+
+        let permitted = await evaluateWinPermission(20);
+        let win = false;
+        let roll = Math.floor(Math.random() * 100);
+
+        if (permitted) { win = roll > 50; } else { win = false; } // Force loss mode
+
+        let deg = win ? (selectedWheelColor === 'red' ? 45 : 135) : (selectedWheelColor === 'red' ? 135 : 45);
+        document.getElementById('wheel-obj').style.transform = `rotate(${3600 + deg}deg)`;
+
+        setTimeout(async () => {
+            let reward = win ? 20 : 0;
+            userSession.balance += reward;
+            await _supabase.from('users').update({ balance: userSession.balance }).eq('phone', userSession.phone);
+            if(win) { await logGamePayout(20); alert("🎉 Win 20 ETB!"); } else { alert("💥 Lost!"); }
+            switchScreen('games');
+        }, 4000);
+    }
+
+    // 🎴 GAME 2: HIGHER OR LOWER
+    async function playHighLow(guess) {
+        if(userSession.balance < 10) return alert("Low balance");
+        let nextCard = Math.floor(Math.random() * 13) + 1;
+        let isHigher = nextCard >= currentCardValue;
         
-        const cleanPhone = phoneInput.trim();
-        alert("Searching for account details...");
+        let win = (guess === 'high' && isHigher) || (guess === 'low' && !isHigher);
+        if(win) {
+            let permitted = await evaluateWinPermission(20);
+            if(!permitted) { win = false; nextCard = guess === 'high' ? currentCardValue - 2 : currentCardValue + 2; }
+        }
+
+        userSession.balance -= 10;
+        let reward = win ? 20 : 0;
+        userSession.balance += reward;
         
-        const { data, error } = await _supabase.from('users').select('password').eq('phone', cleanPhone).maybeSingle();
-        
-        if (error) {
-            alert("Database lookup error. Please try again later.");
-        } else if (data) {
-            alert(`🔐 Account Found!\n\nYour Password is: ${data.password}`);
-        } else {
-            alert("❌ No user account discovered matching this phone number.");
+        await _supabase.from('users').update({ balance: userSession.balance }).eq('phone', userSession.phone);
+        if(win) await logGamePayout(20);
+
+        document.getElementById('card-num-box').innerText = nextCard;
+        currentCardValue = nextCard;
+        alert(win ? `🎉 Won! Next card was ${nextCard}` : `💥 Lost! Next card was ${nextCard}`);
+        switchScreen('games');
+    }
+
+    // 📦 GAME 3: MYSTERY BOX
+    async function openMysteryBox(boxId) {
+        if(userSession.balance < 20) return alert("Low balance");
+        userSession.balance -= 20;
+
+        let permitted = await evaluateWinPermission(60);
+        let win = permitted ? (Math.random() > 0.65) : false;
+
+        let reward = win ? 60 : 0;
+        userSession.balance += reward;
+
+        await _supabase.from('users').update({ balance: userSession.balance }).eq('phone', userSession.phone);
+        if(win) await logGamePayout(60);
+
+        alert(win ? "🎁 Matrix match! Decrypted 60 ETB!" : "💨 Box was empty or corrupted!");
+        switchScreen('games');
+    }
+
+    // 🎰 GAME 4: LUCKY SLOTS
+    async function playSlotsGame() {
+        if(userSession.balance < 15) return alert("Low balance");
+        userSession.balance -= 15;
+
+        let permitted = await evaluateWinPermission(45);
+        let win = permitted ? (Math.random() > 0.75) : false;
+
+        const items = ["💎", "🍉", "🍒", "🌟"];
+        let r1 = items[Math.floor(Math.random() * 4)];
+        let r2 = items[Math.floor(Math.random() * 4)];
+        let r3 = items[Math.floor(Math.random() * 4)];
+
+        if(win) { r1 = "💎"; r2 = "💎"; r3 = "💎"; } 
+        else { while(r1===r2 && r2===r3) { r2 = items[Math.floor(Math.random() * 4)]; } }
+
+        document.getElementById('reel-1').innerText = r1;
+        document.getElementById('reel-2').innerText = r2;
+        document.getElementById('reel-3').innerText = r3;
+
+        let reward = win ? 45 : 0;
+        userSession.balance += reward;
+
+        await _supabase.from('users').update({ balance: userSession.balance }).eq('phone', userSession.phone);
+        if(win) await logGamePayout(45);
+
+        alert(win ? "🎰 VECTOR JACKPOT! Won 45 ETB" : "💥 No matching combinations.");
+        switchScreen('games');
+    }
+
+    // 🔢 GAME 5: MICRO KENO SYSTEM
+    function buildKenoBoard() {
+        const board = document.getElementById('keno-board'); board.innerHTML = '';
+        for(let i=1; i<=10; i++) {
+            let b = document.createElement('button'); b.className = 'keno-btn'; b.innerText = i;
+            b.onclick = () => {
+                if(selectedKenoNumbers.includes(i)) {
+                    selectedKenoNumbers = selectedKenoNumbers.filter(n => n!==i); b.classList.remove('selected');
+                } else {
+                    if(selectedKenoNumbers.length >= 2) return;
+                    selectedKenoNumbers.push(i); b.classList.add('selected');
+                }
+            };
+            board.appendChild(b);
         }
     }
 
-    function bypassLogin() {
-        document.getElementById('bottom-nav').style.display = 'flex';
+    async function playMicroKeno() {
+        if(selectedKenoNumbers.length < 2) return alert("Pick 2 digits");
+        if(userSession.balance < 10) return alert("Low balance");
+        userSession.balance -= 10;
+
+        let permitted = await evaluateWinPermission(30);
+        let d1 = Math.floor(Math.random() * 10) + 1;
+        let d2 = Math.floor(Math.random() * 10) + 1;
+        while(d1 === d2) d2 = Math.floor(Math.random() * 10) + 1;
+
+        let matches = selectedKenoNumbers.filter(n => n === d1 || n === d2).length;
+        let win = matches === 2;
+
+        if(win && !permitted) { win = false; d1 = 11; d2 = 12; } // Trigger loss override
+
+        document.querySelectorAll('.keno-btn').forEach(btn => {
+            let val = parseInt(btn.innerText);
+            if(val === d1 || val === d2) btn.classList.add('hit');
+        });
+
+        let reward = win ? 30 : 0;
+        userSession.balance += reward;
+
+        setTimeout(async () => {
+            await _supabase.from('users').update({ balance: userSession.balance }).eq('phone', userSession.phone);
+            if(win) await logGamePayout(30);
+            alert(win ? "🎉 KENO MAX MATCH! Won 30 ETB" : `Draw items: [${d1}, ${d2}]. Missed!`);
+            document.querySelectorAll('.keno-btn').forEach(btn => btn.classList.remove('hit','selected'));
+            selectedKenoNumbers = [];
+            switchScreen('games');
+        }, 1200);
+    }
+
+    // 💎 NODE PURCHASES & CHECKS
+    async function buyVip(cost, name, reward) {
+        if(userSession.balance < cost) return alert("Insufficient core tokens");
+        let conf = confirm(`Activate ${name}?`); if(!conf) return;
+
+        userSession.balance -= cost;
+        userSession.daily_reward = parseFloat(userSession.daily_reward) + reward;
+        userSession.vip_level = name;
+
+        await _supabase.from('users').update({ balance: userSession.balance, vip_level: name, daily_reward: userSession.daily_reward }).eq('phone', userSession.phone);
+        alert("Node cluster added to account core successfully.");
         switchScreen('home');
     }
 
-    function updateDomDisplays() {
-        if(!sessionUser) return;
-        document.getElementById('user-balance').innerText = 'ETB ' + parseFloat(sessionUser.balance).toFixed(2);
-        document.getElementById('task-reward-amount').innerText = 'ETB ' + parseFloat(sessionUser.daily_reward).toFixed(2);
-
-        let listContainer = document.getElementById('home-investments-list');
-        listContainer.innerHTML = '';
-        sessionUser.my_investments.forEach(node => {
-            let p = document.createElement('span');
-            p.className = 'investment-node-pill';
-            p.innerText = `🟢 ${node}`;
-            listContainer.appendChild(p);
-        });
-
-        let bBox = document.getElementById('bank-status-box');
-        if(sessionUser.bank_acc) bBox.innerHTML = `🔒 Locked: ${sessionUser.bank_type} (${sessionUser.bank_acc})`;
-    }
-
-    function switchScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('screen-' + screenId).classList.add('active');
-        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-        if(document.getElementById('tab-' + screenId)) document.getElementById('tab-' + screenId).classList.add('active');
-        updateDomDisplays();
-    }
-
-    function adjustBet(game, amount) {
-        currentSpinBet += amount; if(currentSpinBet < 5) currentSpinBet = 5;
-        document.getElementById('spin-bet-display').innerText = currentSpinBet + " ETB";
-    }
-
-    function toggleRouletteMarket(market) {
-        if(market === 'exact') {
-            selectedMarkets = ['exact'];
-            document.querySelectorAll('.roulette-btn').forEach(btn => btn.classList.remove('selected'));
-            return;
-        }
-        
-        selectedMarkets = selectedMarkets.filter(m => m !== 'exact');
-        document.getElementById('spin-exact-number').value = '';
-
-        if(selectedMarkets.includes(market)) {
-            selectedMarkets = selectedMarkets.filter(m => m !== market);
-            document.getElementById(`rb-${market}`).classList.remove('selected');
-        } else {
-            selectedMarkets.push(market);
-            document.getElementById(`rb-${market}`).classList.add('selected');
-        }
-    }
-
-    function openRulesModal() { document.getElementById('rules-modal').classList.add('open'); }
-    function closeRulesModal() { document.getElementById('rules-modal').classList.remove('open'); }
-    function openSupportChannel() { window.open('https://t.me/ebla2127', '_blank'); }
-
-    // 🔗 FIX REFERRAL LINK FOR GITHUB PAGES
-    function copyReferralLink() {
-        let cleanUrl = window.location.href.split('?')[0]; 
-        let shortLink = `${cleanUrl}?ref=${sessionUser.phone}`;
-        navigator.clipboard.writeText(shortLink).then(() => {
-            alert(`🔗 Referral link copied successfully:\n${shortLink}`);
-        }).catch(() => {
-            alert("Failed to copy link automatically.");
-        });
-    }
-
-    function openReferralChainModal() {
-        document.getElementById('ref-chain-modal').classList.add('open');
-        document.getElementById('ref-chain-body').innerHTML = "👥 Active Network Level 1: <br>• No registered lines yet.";
-    }
-
-    function startDailyTask() {
-        const storageKey = `task_claimed_${sessionUser.phone}_${new Date().toDateString()}`;
-        if(localStorage.getItem(storageKey)) {
-            alert("🔒 Daily task limit reached! Returns generated. Tomorrow new slots activate.");
-            return;
-        }
-
-        let btn = document.getElementById('start-task-btn');
-        let timerDisplay = document.getElementById('task-timer');
-        btn.disabled = true;
-        
-        let secondsLeft = 60;
-        clearInterval(taskTimerInterval);
-
-        taskTimerInterval = setInterval(async () => {
-            secondsLeft--;
-            let mins = Math.floor(secondsLeft / 60).toString().padStart(2, '0');
-            let secs = (secondsLeft % 60).toString().padStart(2, '0');
-            timerDisplay.innerText = `${mins}:${secs}`;
-
-            if(secondsLeft <= 0) {
-                clearInterval(taskTimerInterval);
-                localStorage.setItem(storageKey, 'true');
-                let newBal = parseFloat(sessionUser.balance) + parseFloat(sessionUser.daily_reward);
-                
-                const { error } = await _supabase.from('users').update({ balance: newBal }).eq('phone', sessionUser.phone);
-                if(!error) {
-                    sessionUser.balance = newBal;
-                    alert(`🎉 Success! Contract validated. Added ETB ${sessionUser.daily_reward}`);
-                    switchScreen('home');
-                }
-                btn.disabled = false;
-                timerDisplay.innerText = "01:00";
+    // ⏱️ TIMER
+    function executeTask() {
+        let b = document.getElementById('task-trigger'); b.disabled = true;
+        let s = 60;
+        let iv = setInterval(() => {
+            s--;
+            let m = Math.floor(s/60).toString().padStart(2,'0');
+            let sec = (s%60).toString().padStart(2,'0');
+            document.getElementById('timer-label').innerText = `${m}:${sec}`;
+            if(s <= 0) {
+                clearInterval(iv);
+                document.getElementById('timer-label').innerText = "01:00";
+                b.disabled = false;
+                completeTaskPayout();
             }
         }, 1000);
     }
 
-    // 🎡 ROULETTE ENGINE
-    async function playLuckySpin() {
-        if(selectedMarkets.length === 0) { alert("Select at least one option!"); return; }
-        if(sessionUser.balance < currentSpinBet) { alert("Insufficient funds!"); return; }
-
-        let spinBtn = document.getElementById('spin-btn');
-        spinBtn.disabled = true;
-
-        let exactNum = parseInt(document.getElementById('spin-exact-number').value);
-        if(selectedMarkets.includes('exact') && (isNaN(exactNum) || exactNum < 1 || exactNum > 40)) {
-            alert("Enter valid number (1-40)");
-            spinBtn.disabled = false;
-            return;
-        }
-
-        let drawnNumber = Math.floor(Math.random() * 40) + 1;
-        let isRed = [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39].includes(drawnNumber);
-        
-        let multiplier = 0;
-        let won = false;
-
-        selectedMarkets.forEach(m => {
-            if(m === 'red' && isRed) { multiplier += 2; won = true; }
-            if(m === 'black' && !isRed) { multiplier += 2; won = true; }
-            if(m === 'even' && drawnNumber % 2 === 0) { multiplier += 2; won = true; }
-            if(m === 'odd' && drawnNumber % 2 !== 0) { multiplier += 2; won = true; }
-            if(m === 'low' && drawnNumber <= 18) { multiplier += 2; won = true; }
-            if(m === 'high' && drawnNumber >= 19) { multiplier += 2; won = true; }
-            if(m === 'exact' && drawnNumber === exactNum) { multiplier += 5; won = true; }
-        });
-
-        let lossAmount = currentSpinBet;
-        let winAmount = currentSpinBet * multiplier;
-        let finalBalanceDelta = won ? (winAmount - currentSpinBet) : -lossAmount;
-        let updatedBal = parseFloat(sessionUser.balance) + finalBalanceDelta;
-
-        const wheel = document.getElementById('spin-wheel');
-        let currentRotation = 3600 + (drawnNumber * 9); 
-        wheel.style.transform = `rotate(${currentRotation}deg)`;
-
-        document.getElementById('wheel-center-text').innerText = "⏳";
-
-        setTimeout(async () => {
-            const { error } = await _supabase.from('users').update({ balance: updatedBal }).eq('phone', sessionUser.phone);
-            if(!error) {
-                sessionUser.balance = updatedBal;
-                document.getElementById('wheel-center-text').innerText = drawnNumber;
-                
-                if(won) {
-                    alert(`🎉 JACKPOT! DREW ${drawnNumber}. Won ETB ${winAmount.toFixed(2)}`);
-                } else {
-                    alert(`💥 Drawn Number: ${drawnNumber}. Better luck next spin! Lost ETB ${lossAmount}`);
-                }
-                updateDomDisplays();
-            }
-            spinBtn.disabled = false;
-        }, 5000);
+    async function completeTaskPayout() {
+        userSession.balance = parseFloat(userSession.balance) + parseFloat(userSession.daily_reward);
+        await _supabase.from('users').update({ balance: userSession.balance }).eq('phone', userSession.phone);
+        alert(`Optimization clear. Revenue added: ETB ${userSession.daily_reward}`);
+        switchScreen('home');
     }
 
-    // 🔢 KENO GAME ENGINE (RESTORED COMPLETE)
-    async function playKenoGame() {
-        if (selectedKenoNumbers.length === 0) {
-            alert("Please pick at least 1 number to play Keno!");
-            return;
-        }
-        if (sessionUser.balance < currentKenoBet) {
-            alert("Insufficient balance for this Keno bet!");
-            return;
-        }
-
-        const playBtn = document.getElementById('keno-play-btn');
-        playBtn.disabled = true;
-
-        // Reset previous hits visual style
-        document.querySelectorAll('.keno-num').forEach(el => el.classList.remove('hit'));
-
-        // Generate 20 random winning numbers
-        let houseDrawn = [];
-        while (houseDrawn.length < 20) {
-            let r = Math.floor(Math.random() * 80) + 1;
-            if (!houseDrawn.includes(r)) houseDrawn.push(r);
-        }
-
-        // Calculate matches
-        let matches = selectedKenoNumbers.filter(n => houseDrawn.includes(n));
-        let matchCount = matches.length;
-
-        // Visual animation highlight step by step
-        houseDrawn.forEach((num, index) => {
-            setTimeout(() => {
-                const numEl = document.getElementById(`keno-num-${num}`);
-                if (numEl) numEl.classList.add('hit');
-            }, index * 80);
-        });
-
-        // Payout evaluation table logic
-        let kenoMultiplier = 0;
-        if (matchCount === 3) kenoMultiplier = 1.5;
-        else if (matchCount === 4) kenoMultiplier = 3;
-        else if (matchCount === 5) kenoMultiplier = 8;
-        else if (matchCount === 6) kenoMultiplier = 15;
-        else if (matchCount === 7) kenoMultiplier = 30;
-        else if (matchCount === 8) kenoMultiplier = 100;
-        else if (matchCount === 9) kenoMultiplier = 500;
-        else if (matchCount >= 10) kenoMultiplier = 1500;
-
-        let payout = currentKenoBet * kenoMultiplier;
-        let netProfitChange = payout - currentKenoBet;
-        let newKenoBalance = parseFloat(sessionUser.balance) + netProfitChange;
-
-        // Wait for drawn animation to complete before alert message box
-        setTimeout(async () => {
-            const { error } = await _supabase.from('users').update({ balance: newKenoBalance }).eq('phone', sessionUser.phone);
-            if (!error) {
-                sessionUser.balance = newKenoBalance;
-                if (payout > 0) {
-                    alert(`🎉 KENO WINNER! Matched ${matchCount} numbers! Won ETB ${payout.toFixed(2)}`);
-                } else {
-                    alert(`Matched ${matchCount} numbers. No winning prize structure. Lost ETB ${currentKenoBet}`);
-                }
-                updateDomDisplays();
-            }
-            playBtn.disabled = false;
-        }, 1800);
+    // 💼 WALLET REQUEST HANDLERS
+    async function submitDepositRequest() {
+        const amt = document.getElementById('dep-amt').value;
+        const tx = document.getElementById('dep-tx').value;
+        if(!amt || !tx) return alert("Fill data logs");
+        await _supabase.from('deposits').insert([{ user_phone: userSession.phone, amount: parseFloat(amt), transaction_id: tx, status: 'pending' }]);
+        alert("Receipt uploaded into system main validation queue.");
+        document.getElementById('dep-amt').value = ''; document.getElementById('dep-tx').value = '';
     }
 
-    async function invest(price, levelName, reward) {
-        if(sessionUser.balance < price) { alert("Insufficient funds to secure investment node tier."); return; }
-        let conf = confirm(`Confirm buying node sequence ${levelName} for ETB ${price}?`);
-        if(!conf) return;
+    async function submitWithdrawalRequest() {
+        const amt = document.getElementById('w-amt').value;
+        const acc = document.getElementById('w-acc').value;
+        const bnk = document.getElementById('w-bank').value;
+        if(!amt || !acc) return alert("Missing records");
+        if(parseFloat(amt) < 500) return alert("Minimum payload limit is 500 ETB");
+        if(userSession.balance < parseFloat(amt)) return alert("Low funds");
 
-        let finalBal = parseFloat(sessionUser.balance) - price;
-        let currentNodes = [...sessionUser.my_investments];
-        currentNodes.push(levelName);
+        userSession.balance -= parseFloat(amt);
+        await _supabase.from('users').update({ balance: userSession.balance }).eq('phone', userSession.phone);
+        await _supabase.from('withdrawals').insert([{ user_phone: userSession.phone, amount: parseFloat(amt), bank_details: `${bnk} (${acc})`, status: 'pending' }]);
+        alert("Withdrawal lock established. Awaiting Admin clearance.");
+        switchScreen('profile');
+    }
 
-        const { error } = await _supabase.from('users').update({
-            balance: finalBal,
-            vip_level: levelName,
-            daily_reward: parseFloat(sessionUser.daily_reward) + reward
-        }).eq('phone', sessionUser.phone);
+    function copyReferralLink() {
+        let link = window.location.href.split('?')[0] + "?ref=" + userSession.phone;
+        navigator.clipboard.writeText(link); alert("Link copied: " + link);
+    }
 
-        if(!error) {
-            localStorage.setItem(`my_nodes_${sessionUser.phone}`, JSON.stringify(currentNodes));
-            sessionUser.balance = finalBal;
-            sessionUser.daily_reward = parseFloat(sessionUser.daily_reward) + reward;
-            sessionUser.my_investments = currentNodes;
-            alert("🚀 Node processing unit active! Rewards added to daily dashboard cycles.");
-            switchScreen('home');
+    // 🛡️ ADMIN MANAGEMENT PANEL LOGIC
+    async function loadAdminDashboardData() {
+        // Calculate system financials
+        const { data: dData } = await _supabase.from('deposits').select('amount').eq('status', 'approved');
+        const { data: pData } = await _supabase.from('game_payouts').select('amount');
+
+        let totalDep = dData ? dData.reduce((a, c) => a + parseFloat(c.amount), 0) : 0;
+        let totalPaid = pData ? pData.reduce((a, c) => a + parseFloat(c.amount), 0) : 0;
+
+        document.getElementById('adm-total-dep').innerText = totalDep.toFixed(2);
+        document.getElementById('adm-allow-payout').innerText = (totalDep * 0.70).toFixed(2);
+        document.getElementById('adm-net-profit').innerText = (totalDep * 0.30).toFixed(2);
+        document.getElementById('adm-actual-paid').innerText = totalPaid.toFixed(2);
+
+        // Fetch pending requests
+        const { data: pendingDeps } = await _supabase.from('deposits').select('*').eq('status', 'pending');
+        let depTbl = document.getElementById('tbl-deposits'); depTbl.innerHTML = '';
+        if(pendingDeps) {
+            pendingDeps.forEach(r => {
+                depTbl.innerHTML += `<tr>
+                    <td>${r.user_phone}</td>
+                    <td>${r.amount}</td>
+                    <td>${r.transaction_id}</td>
+                    <td><button style="background:green;color:white;border:none;padding:4px;border-radius:4px;cursor:pointer;" onclick="approveDeposit(${r.id}, '${r.user_phone}', ${r.amount})">Approve</button></td>
+                </tr>`;
+            });
+        }
+
+        const { data: pendingWiths } = await _supabase.from('withdrawals').select('*').eq('status', 'pending');
+        let withTbl = document.getElementById('tbl-withdrawals'); withTbl.innerHTML = '';
+        if(pendingWiths) {
+            pendingWiths.forEach(w => {
+                withTbl.innerHTML += `<tr>
+                    <td>${w.user_phone}</td>
+                    <td>${w.amount}</td>
+                    <td>${w.bank_details}</td>
+                    <td><button style="background:green;color:white;border:none;padding:4px;border-radius:4px;cursor:pointer;" onclick="approveWithdrawal(${w.id})">Clear</button></td>
+                </tr>`;
+            });
         }
     }
 
-    async function processDeposit() {
-        const amt = document.getElementById('deposit-amount').value;
-        const tx = document.getElementById('deposit-ref').value;
-        if(!amt || !tx) { alert("Fill all details."); return; }
-        alert("Verification logs sent to internal queue. Balance updates reflect within 30 minutes.");
-        document.getElementById('deposit-amount').value = '';
-        document.getElementById('deposit-ref').value = '';
-    }
-
-    function saveBank() {
-        const name = document.getElementById('bank-name').value;
-        const acc = document.getElementById('bank-acc').value;
-        const type = document.getElementById('bank-type').value;
-        if(!name || !acc) { alert("Fill locking dimensions."); return; }
-        
-        localStorage.setItem(`bank_name_${sessionUser.phone}`, name);
-        localStorage.setItem(`bank_acc_${sessionUser.phone}`, acc);
-        localStorage.setItem(`bank_type_${sessionUser.phone}`, type);
-
-        sessionUser.bank_name = name;
-        sessionUser.bank_acc = acc;
-        sessionUser.bank_type = type;
-        
-        alert("🔒 Multi-channel verification credentials locked safely inside device secure storage.");
-        updateDomDisplays();
-    }
-
-    async function processWithdrawal() {
-        const amt = parseFloat(document.getElementById('withdraw-amount').value);
-        if(!sessionUser.bank_acc) { alert("Lock bank channels first!"); return; }
-        if(isNaN(amt) || amt < 500) { alert("Minimum threshold constraint: 500 ETB"); return; }
-        if(sessionUser.balance < amt) { alert("Insufficient balance allocation."); return; }
-
-        let upBal = parseFloat(sessionUser.balance) - amt;
-        const { error } = await _supabase.from('users').update({ balance: upBal }).eq('phone', sessionUser.phone);
-        if(!error) {
-            sessionUser.balance = upBal;
-            alert("💸 Request queued! Audit logs verify transactions within standard network banking periods.");
-            updateDomDisplays();
+    async function approveDeposit(id, userPhone, amount) {
+        await _supabase.from('deposits').update({ status: 'approved' }).eq('id', id);
+        const { data } = await _supabase.from('users').select('balance').eq('phone', userPhone).maybeSingle();
+        if(data) {
+            let currentBal = data.balance ? parseFloat(data.balance) : 0;
+            let updatedBal = currentBal + parseFloat(amount);
+            await _supabase.from('users').update({ balance: updatedBal }).eq('phone', userPhone);
         }
+        alert("Deposit injection verified!"); loadAdminDashboardData();
+    }
+
+    async function approveWithdrawal(id) {
+        await _supabase.from('withdrawals').update({ status: 'approved' }).eq('id', id);
+        alert("Cashout sequence fully processed!"); loadAdminDashboardData();
     }
 
     function logout() {
-        localStorage.removeItem('nex_user_phone');
-        sessionUser = null;
-        document.getElementById('login-phone').value = '';
-        document.getElementById('login-pass').value = '';
-        toggleAuthPages('login');
+        localStorage.removeItem('nex_cached_phone'); userSession = null; toggleAuthPages('login');
     }
 </script>
 </body>
