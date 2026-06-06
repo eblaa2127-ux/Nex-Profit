@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nex Profit - Premium Multi-Tier Investment & Gaming</title>
+    <!-- Supabase SDK Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
@@ -390,6 +391,7 @@
 <div class="phone-container">
     <div class="header" id="app-title">NEX PROFIT</div>
 
+    <!-- REGISTRATION SCREEN -->
     <div id="screen-register" class="screen active">
         <h2 style="text-align:center; margin-bottom:30px;">Create Account</h2>
         <div class="input-group"><input type="text" id="reg-phone" placeholder="Enter mobile phone number"></div>
@@ -402,6 +404,7 @@
         </p>
     </div>
 
+    <!-- LOGIN SCREEN -->
     <div id="screen-login" class="screen">
         <h2 style="text-align:center; margin-bottom:30px;">Welcome Back</h2>
         <div class="input-group"><input type="text" id="login-phone" placeholder="Enter phone number"></div>
@@ -410,17 +413,20 @@
         <p style="text-align:center; margin-top:20px; font-size:14px; color:var(--text-muted);">
             New to Nex Profit? <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('register')">Register here</span>
         </p>
+        <!-- Forgot Password Button -->
         <p style="text-align:center; margin-top:10px; font-size:13px;">
             <span style="color:var(--danger-red); cursor:pointer;" onclick="triggerForgotPassword()">Forgot Password?</span>
         </p>
     </div>
 
+    <!-- HOME SCREEN -->
     <div id="screen-home" class="screen">
         <div class="hero-card">
             <div style="font-size:40px; margin-bottom:5px;">👤</div>
             <div class="balance-title">Available Balance</div>
             <div class="balance-amount" id="user-balance">ETB 0.00</div>
             
+            <!-- My Active Levels Display Box -->
             <div style="margin-top:10px; text-align:left; background:rgba(0,0,0,0.4); padding:10px; border-radius:8px;">
                 <span style="font-size:11px; color:var(--text-muted); display:block; font-weight:bold; margin-bottom:4px;">💼 MY ACTIVE INVESTMENTS:</span>
                 <div id="home-investments-list" style="font-size:12px;">No active node packages.</div>
@@ -432,6 +438,7 @@
             <button class="btn-premium" style="background: linear-gradient(135deg, #004d26, #002613); color: #fff; border: 1px solid var(--primary-green); padding: 10px; font-size:13px;" onclick="openSupportChannel()">🎧 Help Support</button>
         </div>
 
+        <!-- Referral Actions Menu Card -->
         <div style="background:var(--card-bg); border-radius:12px; padding:12px; border:1px solid rgba(0,204,102,0.2); margin-bottom:20px; text-align:center;">
             <button class="btn-premium" style="padding:8px 12px; font-size:12px; width:48%; display:inline-block;" onclick="copyReferralLink()">🔗 Copy Ref Link</button>
             <button class="btn-premium" style="padding:8px 12px; font-size:12px; width:48%; display:inline-block; background:transparent; color:#fff; border:1px solid var(--accent-gold);" onclick="openReferralChainModal()">👥 My Ref Chain</button>
@@ -445,6 +452,7 @@
         </div>
     </div>
 
+    <!-- DAILY TASK SCREEN -->
     <div id="screen-task" class="screen" style="text-align: center;">
         <h3>Daily Revenue Growth</h3>
         <p style="color: var(--text-muted); font-size:14px;">Activate the premium smart contract and keep it active for 1 minute.</p>
@@ -455,9 +463,11 @@
         <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Activate Profit Generation</button>
     </div>
 
+    <!-- 🎮 GAMES ZONE SCREEN -->
     <div id="screen-games" class="screen">
         <h3 style="text-align: center; color: var(--accent-gold); margin-top:0;">Nex Profit Pro Casino</h3>
         
+        <!-- 🎡 ROULETTE GAME -->
         <div class="game-section">
             <h4 style="margin: 0; color: #fff;">🎡 Multi-Bet Pro Spin (1-40)</h4>
             <p style="font-size:11px; color:var(--text-muted); margin:4px 0;">You can select multiple market outcomes simultaneously!</p>
@@ -491,6 +501,7 @@
             <button class="btn-premium" style="padding:10px; font-size:14px;" id="spin-btn" onclick="playLuckySpin()">Place Bet & Spin</button>
         </div>
 
+        <!-- 🔢 KENO GAME SECTION -->
         <div class="game-section" style="margin-top: 25px;">
             <h4 style="margin: 0; color: var(--accent-gold);">🔢 Nex Premium Keno (1-80)</h4>
             <p style="font-size:11px; color:var(--text-muted); margin:4px 0;">Select 1 to 10 numbers. Matching 3+ numbers pays big rewards!</p>
@@ -501,6 +512,7 @@
                 <button class="bet-btn" onclick="adjustKenoBet(5)">+</button>
             </div>
 
+            <!-- Keno Grid Containers -->
             <div class="keno-grid" id="keno-numbers-board"></div>
 
             <div style="font-size:12px; color:#fff; margin-bottom:10px;" id="keno-status-text">Selected: 0/10 numbers</div>
@@ -508,6 +520,7 @@
         </div>
     </div>
 
+    <!-- VIP / EARNINGS SCREEN (ALL 6 LEVELS PRESERVED) -->
     <div id="screen-vip" class="screen">
         <h3 style="margin-top:0; text-align:center; color:var(--accent-gold);">Premium Investment Nodes</h3>
         <div class="vip-card">
@@ -542,6 +555,7 @@
         </div>
     </div>
 
+    <!-- PROFILE / WALLET SCREEN -->
     <div id="screen-profile" class="screen">
         <h3>Deposit Funds</h3>
         <p style="font-size:12px; color:var(--accent-gold);">Telebirr: 0954406366 (Temesgen Ayenew)</p>
@@ -554,6 +568,7 @@
         <h3>Lock Wallet / Bank Account</h3>
         <div id="bank-status-box" style="font-size:12px; margin-bottom:10px;">⚠️ No bank account locked.</div>
         
+        <!-- Bank Account Type Added -->
         <div class="input-group">
             <label>Select Bank Type</label>
             <select id="bank-type">
@@ -577,6 +592,7 @@
         <button class="btn-premium" style="background:var(--danger-red); color:#fff;" onclick="logout()">Secure Logout</button>
     </div>
 
+    <!-- MODAL POPUPS -->
     <div class="modal-overlay" id="rules-modal">
         <div class="modal-content">
             <span class="close-modal-btn" onclick="closeRulesModal()">&times;</span>
@@ -600,6 +616,7 @@
         </div>
     </div>
 
+    <!-- BOTTOM NAVIGATION -->
     <div class="nav-bar" id="bottom-nav" style="display: none;">
         <div class="nav-item active" id="tab-home" onclick="switchScreen('home')">📊<br>Home</div>
         <div class="nav-item" id="tab-vip" onclick="switchScreen('vip')">💎<br>VIP</div>
@@ -633,6 +650,13 @@
         if(cachedPhone) { await fetchUserData(cachedPhone); } else { toggleAuthPages('register'); }
         generateVisualNumbersOnWheel();
         generateKenoBoard();
+
+        // Check if user clicked a registration link with referral code
+        const urlParams = new URLSearchParams(window.location.search);
+        const refCode = urlParams.get('ref');
+        if (refCode && document.getElementById('reg-ref')) {
+            document.getElementById('reg-ref').value = refCode;
+        }
     };
 
     function generateVisualNumbersOnWheel() {
@@ -708,6 +732,7 @@
     async function handleRegister() {
         const phone = document.getElementById('reg-phone').value.trim();
         const pass = document.getElementById('reg-pass').value.trim();
+        const ref = document.getElementById('reg-ref').value.trim();
         if(phone.length < 9 || !pass) { alert('Error filling fields.'); return; }
         
         const { error } = await _supabase.from('users').insert([{ phone: phone, password: pass, balance: 150.00, vip_level: 'Free Plan', daily_reward: 5.00 }]);
@@ -799,11 +824,12 @@
     function closeRulesModal() { document.getElementById('rules-modal').classList.remove('open'); }
     function openSupportChannel() { window.open('https://t.me/ebla2127', '_blank'); }
 
-    // 🔗 SHORT REFERRAL LINK GENERATOR
+    // 🔗 FIX REFERRAL LINK FOR GITHUB PAGES
     function copyReferralLink() {
-        let shortLink = `${window.location.origin}?ref=${sessionUser.phone}`;
+        let cleanUrl = window.location.href.split('?')[0]; 
+        let shortLink = `${cleanUrl}?ref=${sessionUser.phone}`;
         navigator.clipboard.writeText(shortLink).then(() => {
-            alert(`🔗 Short referral link copied to clipboard:\n${shortLink}`);
+            alert(`🔗 Referral link copied successfully:\n${shortLink}`);
         }).catch(() => {
             alert("Failed to copy link automatically.");
         });
