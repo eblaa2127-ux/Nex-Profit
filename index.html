@@ -8,7 +8,7 @@
     <style>
         :root {
             --bg-dark: #0a1103;
-            --card-bg: rgba(28, 46, 17, 0.75); 
+            --card-bg: rgba(28, 46, 17, 0.85); 
             --primary-green: #00cc66;
             --accent-gold: #ffcc00;
             --text-main: #ffffff;
@@ -33,8 +33,9 @@
             width: 100%;
             max-width: 450px;
             height: 100vh;
-            background: linear-gradient(rgba(10, 17, 3, 0.88), rgba(0, 0, 0, 0.96)), 
-                        url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000');
+            /* BACKGROUND IMAGE FIX - visible and vibrant */
+            background: linear-gradient(rgba(10, 17, 3, 0.75), rgba(0, 0, 0, 0.85)), 
+                        url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -45,13 +46,13 @@
         }
 
         .header {
-            background: linear-gradient(180deg, rgba(22, 53, 12, 0.9), rgba(10, 23, 5, 0.95));
+            background: linear-gradient(180deg, rgba(22, 53, 12, 0.95), rgba(10, 23, 5, 0.98));
             padding: 18px;
             text-align: center;
             font-size: 18px;
             font-weight: 700;
             letter-spacing: 1px;
-            border-bottom: 1px solid rgba(0, 204, 102, 0.2);
+            border-bottom: 1px solid rgba(0, 204, 102, 0.3);
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
             backdrop-filter: blur(5px); 
         }
@@ -91,7 +92,7 @@
             padding: 14px;
             border-radius: 12px;
             border: 1px solid rgba(0, 204, 102, 0.3);
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.7);
             color: white;
             box-sizing: border-box;
             outline: none;
@@ -135,11 +136,11 @@
         }
 
         .hero-card {
-            background: linear-gradient(135deg, var(--card-bg), rgba(15, 28, 8, 0.8));
+            background: linear-gradient(135deg, var(--card-bg), rgba(15, 28, 8, 0.9));
             border-radius: 16px;
             padding: 22px;
             text-align: center;
-            border: 1px solid rgba(0, 204, 102, 0.25);
+            border: 1px solid rgba(0, 204, 102, 0.3);
             margin-bottom: 20px;
             backdrop-filter: blur(5px);
         }
@@ -166,7 +167,7 @@
         }
         .grid-item {
             background-color: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px;
             padding: 15px;
             text-align: center;
@@ -183,11 +184,11 @@
         }
 
         .vip-card {
-            background: rgba(17, 34, 10, 0.8);
+            background: rgba(17, 34, 10, 0.85);
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 20px;
-            border: 1px solid rgba(0,204,102,0.2);
+            border: 1px solid rgba(0,204,102,0.25);
             text-align: center;
             backdrop-filter: blur(4px);
         }
@@ -210,8 +211,8 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: rgba(5, 13, 3, 0.95);
-            border-top: 1px solid rgba(0,204,102,0.25);
+            background: rgba(5, 13, 3, 0.98);
+            border-top: 1px solid rgba(0,204,102,0.3);
             display: flex;
             justify-content: space-around;
             padding: 12px 0;
@@ -235,10 +236,10 @@
             margin-bottom: 2px;
         }
 
-        /* 🎮 GAMES PAGE STYLES */
+        /* 🎮 GAMES STYLES */
         .game-section {
-            background: rgba(20, 35, 15, 0.8);
-            border: 1px solid rgba(0, 204, 102, 0.3);
+            background: rgba(15, 30, 10, 0.9);
+            border: 1px solid rgba(0, 204, 102, 0.35);
             border-radius: 14px;
             padding: 15px;
             margin-bottom: 20px;
@@ -270,25 +271,54 @@
             margin: 15px auto;
             border-radius: 50%;
             border: 5px solid var(--accent-gold);
-            background: conic-gradient(#11220a 0deg 60deg, #224414 60deg 120deg, #11220a 120deg 180deg, #224414 180deg 240deg, #11220a 240deg 300deg, #224414 300deg 360deg);
+            background: conic-gradient(#11220a 0deg 60deg, #ff3333 60deg 120deg, #11220a 120deg 180deg, #ff3333 180deg 240deg, #11220a 240deg 300deg, #ff3333 300deg 360deg);
             transition: transform 3s cubic-bezier(0.1, 0.8, 0.1, 1);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 16px;
+            text-shadow: 0 2px 4px #000;
         }
         .wheel-pointer {
             width: 0; 
             height: 0; 
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
-            border-top: 15px solid var(--danger-red);
+            border-top: 15px solid var(--accent-gold);
             position: absolute;
-            top: 5px;
+            top: 40px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
+        }
+        .bet-controller {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 10px 0 15px 0;
+        }
+        .bet-btn {
+            background: #224414;
+            color: #fff;
+            border: 1px solid var(--primary-green);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .bet-btn:active {
+            background: var(--primary-green);
+            color: #000;
+        }
+        .bet-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent-gold);
+            min-width: 70px;
         }
         .keno-grid {
             display: grid;
@@ -297,14 +327,15 @@
             margin: 15px 0;
         }
         .keno-num {
-            background: rgba(0,0,0,0.5);
-            border: 1px solid rgba(0,204,102,0.2);
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(0,204,102,0.25);
             padding: 8px 0;
             font-size: 13px;
             font-weight: bold;
             border-radius: 6px;
             cursor: pointer;
             text-align: center;
+            transition: 0.2s;
         }
         .keno-num.selected {
             background: var(--accent-gold);
@@ -314,6 +345,7 @@
         .keno-num.hit {
             background: var(--primary-green) !important;
             color: #000 !important;
+            box-shadow: 0 0 8px var(--primary-green);
         }
 
         .modal-overlay {
@@ -482,15 +514,29 @@
 
         <div class="game-section" style="position: relative;">
             <h4 style="margin: 0; color: #fff;">🎡 Premium Lucky Spin</h4>
-            <p style="font-size: 11px; color: var(--text-muted); margin: 4px 0;">Cost: 1 Free Spin daily, then 10 ETB per spin</p>
+            <p style="font-size: 11px; color: var(--text-muted); margin: 4px 0;">Win 2x your bet or try again!</p>
+            
+            <div class="bet-controller">
+                <button class="bet-btn" onclick="adjustBet('spin', -5)">-</button>
+                <div class="bet-value" id="spin-bet-display">5 ETB</div>
+                <button class="bet-btn" onclick="adjustBet('spin', 5)">+</button>
+            </div>
+
             <div class="wheel-pointer"></div>
-            <div class="wheel-container" id="spin-wheel">🎁 WIN</div>
+            <div class="wheel-container" id="spin-wheel">💎 SPIN</div>
             <button class="btn-premium" style="padding: 10px; font-size: 14px;" id="spin-btn" onclick="playLuckySpin()">Spin Wheel</button>
         </div>
 
         <div class="game-section">
             <h4 style="margin: 0; color: #fff;">🔢 Nex Keno (Choose 5 Numbers)</h4>
-            <p style="font-size: 11px; color: var(--text-muted); margin: 4px 0;">Cost: 20 ETB | Match 3+ to Win Premium Cash!</p>
+            <p style="font-size: 11px; color: var(--text-muted); margin: 4px 0;">Match 3 = Get Bet Back | Match 5 = Get 2x Double Win!</p>
+            
+            <div class="bet-controller">
+                <button class="bet-btn" onclick="adjustBet('keno', -5)">-</button>
+                <div class="bet-value" id="keno-bet-display">5 ETB</div>
+                <button class="bet-btn" onclick="adjustBet('keno', 5)">+</button>
+            </div>
+
             <div class="keno-grid" id="keno-board"></div>
             <button class="btn-premium" style="padding: 10px; font-size: 14px; background: var(--primary-green);" id="keno-btn" onclick="playKeno()">Draw Keno Numbers</button>
         </div>
@@ -666,6 +712,10 @@
     let sessionUser = null; 
     let taskTimeout = null;
     let kenoSelectedNumbers = [];
+    
+    // Bet defaults
+    let currentSpinBet = 5;
+    let currentKenoBet = 5;
 
     window.onload = async function() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -816,45 +866,58 @@
         localStorage.setItem(`avatar_${sessionUser.phone}`, icon);
     }
 
-    // 🎡 LUCKY SPIN LOGIC
-    async function playLuckySpin() {
-        const todayStr = new Date().toDateString();
-        const lastSpin = localStorage.getItem(`last_spin_${sessionUser.phone}`);
-        let isFree = lastSpin !== todayStr;
+    // 🕹️ GAME BET ADJUSTER (+ and -)
+    function adjustBet(game, amount) {
+        if(game === 'spin') {
+            currentSpinBet += amount;
+            if(currentSpinBet < 5) currentSpinBet = 5;
+            document.getElementById('spin-bet-display').innerText = currentSpinBet + " ETB";
+        } else if(game === 'keno') {
+            currentKenoBet += amount;
+            if(currentKenoBet < 5) currentKenoBet = 5;
+            document.getElementById('keno-bet-display').innerText = currentKenoBet + " ETB";
+        }
+    }
 
-        if(!isFree && parseFloat(sessionUser.balance) < 10) {
-            alert("Insufficient balance! Spin costs 10 ETB.");
+    // 🎡 LUCKY SPIN LOGIC (Balanced with 35% win rate and custom stake)
+    async function playLuckySpin() {
+        if(parseFloat(sessionUser.balance) < currentSpinBet) {
+            alert(`Insufficient balance! Your current spin bet is ${currentSpinBet} ETB.`);
             return;
         }
 
         let btn = document.getElementById('spin-btn');
         btn.disabled = true;
 
-        if(!isFree) {
-            sessionUser.balance -= 10;
-            await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
-        } else {
-            localStorage.setItem(`last_spin_${sessionUser.phone}`, todayStr);
-        }
+        // Deduct current bet from wallet
+        sessionUser.balance -= currentSpinBet;
+        await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
+        updateDomDisplays();
 
         let wheel = document.getElementById('spin-wheel');
-        let randomDeg = Math.floor(Math.random() * 360) + 1440; // Spin at least 4 times
-        wheel.style.transform = `rotate(${randomDeg}deg)`;
+        
+        // 35% probability to win double, 65% to get try again
+        let isWin = Math.random() < 0.35;
+        let targetDeg = isWin ? 360 : 180; // Conic gradient matches won/loss segments
+        let finalRotation = (Math.floor(Math.random() * 3) * 360) + 1440 + targetDeg; 
+        
+        wheel.style.transform = `rotate(${finalRotation}deg)`;
 
         setTimeout(async () => {
             btn.disabled = false;
-            let prizes = [5, 15, 0, 50, 10, 100];
-            let selectedPrize = prizes[Math.floor(Math.random() * prizes.length)];
-            
-            sessionUser.balance += selectedPrize;
-            await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
-            
-            alert(`🎉 Spin Result: You won ${selectedPrize} ETB!`);
+            if(isWin) {
+                let winAmt = currentSpinBet * 2;
+                sessionUser.balance += winAmt;
+                await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
+                alert(`🎉 Lucky Win! You doubled your bet and won ${winAmt} ETB!`);
+            } else {
+                alert(`😢 Try Again! Better luck next time.`);
+            }
             updateDomDisplays();
         }, 3000);
     }
 
-    // 🔢 KENO LOGIC
+    // 🔢 KENO LOGIC (3 hits = money back, 5 hits = 2x win)
     function buildKenoBoard() {
         const board = document.getElementById('keno-board');
         board.innerHTML = '';
@@ -872,7 +935,7 @@
             kenoSelectedNumbers = kenoSelectedNumbers.filter(n => n !== num);
             el.classList.remove('selected');
         } else {
-            if(kenoSelectedNumbers.length >= 5) { alert("You can only select up to 5 numbers."); return; }
+            if(kenoSelectedNumbers.length >= 5) { alert("You can only choose exactly 5 numbers."); return; }
             kenoSelectedNumbers.push(num);
             el.classList.add('selected');
         }
@@ -880,22 +943,23 @@
 
     async function playKeno() {
         if(kenoSelectedNumbers.length < 5) { alert("Please select exactly 5 numbers first."); return; }
-        if(parseFloat(sessionUser.balance) < 20) { alert("Insufficient funds! Keno entry costs 20 ETB."); return; }
+        if(parseFloat(sessionUser.balance) < currentKenoBet) { alert(`Insufficient funds! This round costs ${currentKenoBet} ETB.`); return; }
 
         let btn = document.getElementById('keno-btn');
         btn.disabled = true;
 
-        sessionUser.balance -= 20;
+        sessionUser.balance -= currentKenoBet;
         await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
+        updateDomDisplays();
 
-        // Generate 10 winning numbers
+        // Server draws 10 completely random numbers out of 40
         let winningNums = [];
         while(winningNums.length < 10) {
             let r = Math.floor(Math.random() * 40) + 1;
             if(!winningNums.includes(r)) winningNums.push(r);
         }
 
-        // Display hits
+        // Display hit highlights across the board grid
         let hits = 0;
         document.querySelectorAll('.keno-num').forEach(el => {
             let val = parseInt(el.innerText);
@@ -907,27 +971,34 @@
 
         setTimeout(async () => {
             let winAmt = 0;
-            if(hits === 3) winAmt = 40;
-            if(hits === 4) winAmt = 150;
-            if(hits === 5) winAmt = 500;
+            let message = "";
+
+            if(hits === 3) {
+                winAmt = currentKenoBet; // Break even (get bet back)
+                message = `🎯 Matched 3 numbers! You got your bet of ${winAmt} ETB back!`;
+            } else if(hits === 5) {
+                winAmt = currentKenoBet * 2; // Double return payout
+                message = `🔥 JackPot! Matched all 5 numbers! You won 2x payout: ${winAmt} ETB!`;
+            } else {
+                message = `🎯 Matched ${hits} numbers. You need 3 or 5 hits to claim a prize.`;
+            }
 
             if(winAmt > 0) {
                 sessionUser.balance += winAmt;
                 await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
-                alert(`🎯 Keno Draw Complete! You matched ${hits} numbers and won ETB ${winAmt}!`);
-            } else {
-                alert(`🎯 Keno Draw Complete! You matched ${hits} numbers. Better luck next time!`);
             }
 
-            // Reset Board
+            alert(message);
+
+            // Flash reset game elements
             kenoSelectedNumbers = [];
             buildKenoBoard();
             btn.disabled = false;
             updateDomDisplays();
-        }, 2000);
+        }, 2500);
     }
 
-    // ADMIN PANE CODE
+    // ADMIN PANEL CODE
     async function loadAdminDeposits() {
         const container = document.getElementById('admin-deposits-list');
         container.innerHTML = '<p>Loading pending deposits...</p>';
