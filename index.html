@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nex Profit - Premium Multi-Tier Investment</title>
-    <!-- Supabase SDK Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --bg-dark: #0a1103;
-            --card-bg: rgba(28, 46, 17, 0.75); /* ካርዶቹ ከበስተጀርባው ምስል ጋር እንዲዋሃዱ ግልፅነት (Opacity) ተሰጥቷቸዋል */
+            --card-bg: rgba(28, 46, 17, 0.75); 
             --primary-green: #00cc66;
             --accent-gold: #ffcc00;
             --text-main: #ffffff;
@@ -34,7 +33,6 @@
             width: 100%;
             max-width: 450px;
             height: 100vh;
-            /* 🖼️ የጀርባ ምስል (Premium Tech Background with Dark Overlay) */
             background: linear-gradient(rgba(10, 17, 3, 0.88), rgba(0, 0, 0, 0.96)), 
                         url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000');
             background-size: cover;
@@ -55,7 +53,7 @@
             letter-spacing: 1px;
             border-bottom: 1px solid rgba(0, 204, 102, 0.2);
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px); /* ለበለጠ ውበት የበስተጀርባ ማደብዘዣ */
+            backdrop-filter: blur(5px); 
         }
 
         .screen {
@@ -67,7 +65,7 @@
             box-sizing: border-box;
             overflow-y: auto;
             animation: fadeIn 0.3s ease-in-out;
-            padding-bottom: 80px;
+            padding-bottom: 90px;
         }
 
         .screen.active {
@@ -223,20 +221,101 @@
         }
         .nav-item {
             color: var(--text-muted);
-            font-size: 12px;
+            font-size: 11px;
             text-align: center;
             cursor: pointer;
             transition: 0.2s;
+            flex: 1;
         }
         .nav-item.active {
             color: var(--primary-green);
         }
         .nav-icon {
-            font-size: 20px;
-            margin-bottom: 3px;
+            font-size: 18px;
+            margin-bottom: 2px;
         }
 
-        /* Rules Modal Overlay Styles */
+        /* 🎮 GAMES PAGE STYLES */
+        .game-section {
+            background: rgba(20, 35, 15, 0.8);
+            border: 1px solid rgba(0, 204, 102, 0.3);
+            border-radius: 14px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .avatar-box {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .avatar-option {
+            font-size: 35px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            background: rgba(0,0,0,0.4);
+            transition: 0.2s;
+        }
+        .avatar-option.selected {
+            border-color: var(--accent-gold);
+            background: rgba(255, 204, 0, 0.2);
+        }
+        .wheel-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 15px auto;
+            border-radius: 50%;
+            border: 5px solid var(--accent-gold);
+            background: conic-gradient(#11220a 0deg 60deg, #224414 60deg 120deg, #11220a 120deg 180deg, #224414 180deg 240deg, #11220a 240deg 300deg, #224414 300deg 360deg);
+            transition: transform 3s cubic-bezier(0.1, 0.8, 0.1, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .wheel-pointer {
+            width: 0; 
+            height: 0; 
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid var(--danger-red);
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        .keno-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 6px;
+            margin: 15px 0;
+        }
+        .keno-num {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(0,204,102,0.2);
+            padding: 8px 0;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .keno-num.selected {
+            background: var(--accent-gold);
+            color: #000;
+            border-color: var(--accent-gold);
+        }
+        .keno-num.hit {
+            background: var(--primary-green) !important;
+            color: #000 !important;
+        }
+
         .modal-overlay {
             display: none;
             position: fixed;
@@ -274,7 +353,6 @@
             line-height: 1.5;
         }
 
-        /* Admin Dashboard Styles */
         .admin-request-card {
             background: rgba(30, 17, 17, 0.85);
             border: 1px solid #ff4444;
@@ -313,7 +391,6 @@
 <div class="phone-container">
     <div class="header" id="app-title">NEX PROFIT</div>
 
-    <!-- REGISTRATION SCREEN -->
     <div id="screen-register" class="screen active">
         <h2 style="text-align:center; margin-bottom:30px;">Create Account</h2>
         <div class="input-group">
@@ -334,7 +411,6 @@
         </p>
     </div>
 
-    <!-- LOGIN SCREEN -->
     <div id="screen-login" class="screen">
         <h2 style="text-align:center; margin-bottom:30px;">Welcome Back</h2>
         <div class="input-group">
@@ -352,16 +428,15 @@
         </p>
     </div>
 
-    <!-- HOME SCREEN -->
     <div id="screen-home" class="screen">
         <div class="hero-card">
+            <div style="font-size:40px; margin-bottom:5px;" id="user-avatar-display">👤</div>
             <div class="balance-title">Available Balance</div>
             <div class="balance-amount" id="user-balance">ETB 0.00</div>
             <div style="font-size: 13px; color: var(--accent-gold); margin-top:10px; margin-bottom:5px;" id="home-active-vip">Active Tier: Loading...</div>
             <div style="font-size: 12px; color: var(--primary-green);">● Nex Profit Smart Server Active</div>
         </div>
         
-        <!-- DUAL ACTIONS (RULES & SUPPORT) -->
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;">
             <button class="btn-premium" style="background: linear-gradient(135deg, #2c5314, #142b08); color: #fff; border: 1px solid var(--primary-green); padding: 10px; font-size:13px;" onclick="openRulesModal()">📜 Platform Rules</button>
             <button class="btn-premium" style="background: linear-gradient(135deg, #004d26, #002613); color: #fff; border: 1px solid var(--primary-green); padding: 10px; font-size:13px;" onclick="openSupportChannel()">🎧 Help Support</button>
@@ -370,7 +445,7 @@
         <div class="grid-menu">
             <div class="grid-item" onclick="switchScreen('vip')">💎<br><span style="font-size:13px; font-weight:bold;">VIP Tiers</span></div>
             <div class="grid-item" onclick="switchScreen('task')">⏱️<br><span style="font-size:13px; font-weight:bold;">Daily Task</span></div>
-            <div class="grid-item" onclick="switchScreen('share')">🔗<br><span style="font-size:13px; font-weight:bold;">Referrals</span></div>
+            <div class="grid-item" onclick="switchScreen('games')">🎮<br><span style="font-size:13px; font-weight:bold;">Games</span></div>
             <div class="grid-item" onclick="switchScreen('profile')">💼<br><span style="font-size:13px; font-weight:bold;">Wallet</span></div>
         </div>
 
@@ -379,7 +454,6 @@
         </div>
     </div>
 
-    <!-- DAILY TASK SCREEN -->
     <div id="screen-task" class="screen" style="text-align: center;">
         <h3>Daily Revenue Growth</h3>
         <p style="color: var(--text-muted); font-size:14px; padding: 0 10px;">To claim your current daily VIP node reward, activate the premium smart contract and keep it active for 1 minute.</p>
@@ -393,11 +467,38 @@
         <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Activate Profit Generation</button>
     </div>
 
-    <!-- VIP / EARNINGS SCREEN -->
+    <div id="screen-games" class="screen">
+        <h3 style="text-align: center; color: var(--accent-gold); margin-top: 0;">Nex Profit Gaming Zone</h3>
+        
+        <div class="game-section">
+            <h4 style="margin: 0; color: #fff;">👤 Choose Your Avatar</h4>
+            <div class="avatar-box">
+                <span class="avatar-option" id="av-1" onclick="selectAvatar('👤', 'av-1')">👤</span>
+                <span class="avatar-option" id="av-2" onclick="selectAvatar('🥷', 'av-2')">🥷</span>
+                <span class="avatar-option" id="av-3" onclick="selectAvatar('🦁', 'av-3')">🦁</span>
+                <span class="avatar-option" id="av-4" onclick="selectAvatar('👑', 'av-4')">👑</span>
+            </div>
+        </div>
+
+        <div class="game-section" style="position: relative;">
+            <h4 style="margin: 0; color: #fff;">🎡 Premium Lucky Spin</h4>
+            <p style="font-size: 11px; color: var(--text-muted); margin: 4px 0;">Cost: 1 Free Spin daily, then 10 ETB per spin</p>
+            <div class="wheel-pointer"></div>
+            <div class="wheel-container" id="spin-wheel">🎁 WIN</div>
+            <button class="btn-premium" style="padding: 10px; font-size: 14px;" id="spin-btn" onclick="playLuckySpin()">Spin Wheel</button>
+        </div>
+
+        <div class="game-section">
+            <h4 style="margin: 0; color: #fff;">🔢 Nex Keno (Choose 5 Numbers)</h4>
+            <p style="font-size: 11px; color: var(--text-muted); margin: 4px 0;">Cost: 20 ETB | Match 3+ to Win Premium Cash!</p>
+            <div class="keno-grid" id="keno-board"></div>
+            <button class="btn-premium" style="padding: 10px; font-size: 14px; background: var(--primary-green);" id="keno-btn" onclick="playKeno()">Draw Keno Numbers</button>
+        </div>
+    </div>
+
     <div id="screen-vip" class="screen">
         <h3 style="margin-top: 0; text-align: center; color: var(--accent-gold);">Premium Investment Nodes</h3>
         <div class="vip-container">
-            <!-- VIP 1 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 1</span>
@@ -407,8 +508,6 @@
                 <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 1.00<br>Daily Return: ETB 24.00<br>Estimated Return: ETB 1,080</p>
                 <button class="btn-premium" onclick="invest(300, 'VIP Level 1', 24)">Invest Now</button>
             </div>
-
-            <!-- VIP 2 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 2</span>
@@ -418,8 +517,6 @@
                 <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 1.80<br>Daily Return: ETB 43.20<br>Estimated Return: ETB 1,944</p>
                 <button class="btn-premium" onclick="invest(500, 'VIP Level 2', 43.2)">Invest Now</button>
             </div>
-
-            <!-- VIP 3 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 3</span>
@@ -429,8 +526,6 @@
                 <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 3.80<br>Daily Return: ETB 91.20<br>Estimated Return: ETB 4,104</p>
                 <button class="btn-premium" onclick="invest(1000, 'VIP Level 3', 91.2)">Invest Now</button>
             </div>
-
-            <!-- VIP 4 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 4</span>
@@ -440,8 +535,6 @@
                 <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 6.00<br>Daily Return: ETB 144.00<br>Estimated Return: ETB 6,480</p>
                 <button class="btn-premium" onclick="invest(1500, 'VIP Level 4', 144)">Invest Now</button>
             </div>
-
-            <!-- VIP 5 -->
             <div class="vip-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 5</span>
@@ -451,65 +544,9 @@
                 <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 14.70<br>Daily Return: ETB 352.80<br>Estimated Return: ETB 15,876</p>
                 <button class="btn-premium" onclick="invest(3500, 'VIP Level 5', 352.8)">Invest Now</button>
             </div>
-
-            <!-- VIP 6 -->
-            <div class="vip-card">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 6</span>
-                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
-                </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 10,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 45.00<br>Daily Return: ETB 1,080.00<br>Estimated Return: ETB 48,600</p>
-                <button class="btn-premium" onclick="invest(10000, 'VIP Level 6', 1080)">Invest Now</button>
-            </div>
-
-            <!-- VIP 7 -->
-            <div class="vip-card">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 7</span>
-                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
-                </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 20,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 96.00<br>Daily Return: ETB 2,304.00<br>Estimated Return: ETB 103,680</p>
-                <button class="btn-premium" onclick="invest(20000, 'VIP Level 7', 2304)">Invest Now</button>
-            </div>
-
-            <!-- VIP 8 -->
-            <div class="vip-card">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 8</span>
-                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
-                </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 38,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 193.80<br>Daily Return: ETB 4,651.20<br>Estimated Return: ETB 209,304</p>
-                <button class="btn-premium" onclick="invest(38000, 'VIP Level 8', 4651.2)">Invest Now</button>
-            </div>
-
-            <!-- VIP 9 -->
-            <div class="vip-card">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 9</span>
-                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
-                </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 64,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 345.60<br>Daily Return: ETB 8,294.40<br>Estimated Return: ETB 373,248</p>
-                <button class="btn-premium" onclick="invest(64000, 'VIP Level 9', 8294.4)">Invest Now</button>
-            </div>
-
-            <!-- VIP 10 -->
-            <div class="vip-card">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 10</span>
-                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
-                </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 100,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 575.00<br>Daily Return: ETB 13,800.00<br>Estimated Return: ETB 621,000</p>
-                <button class="btn-premium" onclick="invest(100000, 'VIP Level 10', 13800)">Invest Now</button>
-            </div>
         </div>
     </div>
 
-    <!-- SHARE SCREEN -->
     <div id="screen-share" class="screen">
         <h3>Affiliate Program</h3>
         <p style="color:var(--text-muted); font-size:14px;">Invite partners to scale your daily investments.</p>
@@ -524,7 +561,6 @@
         </div>
     </div>
 
-    <!-- PROFILE / WALLET SCREEN -->
     <div id="screen-profile" class="screen">
         <h3 style="color:var(--primary-green); margin-top:0;">Deposit / Fund Account</h3>
         <div class="notice-box">
@@ -585,35 +621,25 @@
         <button class="btn-premium" style="background:var(--danger-red); color:#fff;" onclick="logout()">Secure Logout</button>
     </div>
 
-    <!-- ADMIN DASHBOARD SCREEN -->
     <div id="screen-admin" class="screen">
         <h3 style="color:var(--accent-gold); text-align:center; margin-top:0;">🛡️ Nex Profit Admin Panel</h3>
-        
         <h4 style="color:var(--primary-green); margin-bottom:5px;">💵 Pending Deposit Requests</h4>
-        <div id="admin-deposits-list">
-            <p style="color:var(--text-muted); font-size:12px;">Loading deposits...</p>
-        </div>
-
+        <div id="admin-deposits-list"><p style="color:var(--text-muted); font-size:12px;">Loading deposits...</p></div>
         <hr style="border-color:rgba(255,255,255,0.1); margin:20px 0;">
-
         <h4 style="color:var(--danger-red); margin-bottom:5px;">🏧 Pending Withdrawal Requests</h4>
-        <div id="admin-withdrawals-list">
-            <p style="color:var(--text-muted); font-size:12px;">Loading withdrawals...</p>
-        </div>
+        <div id="admin-withdrawals-list"><p style="color:var(--text-muted); font-size:12px;">Loading withdrawals...</p></div>
     </div>
 
-    <!-- BOTTOM NAVIGATION -->
     <div class="nav-bar" id="bottom-nav" style="display: none;">
         <div class="nav-item active" id="tab-home" onclick="switchScreen('home')"><div class="nav-icon">📊</div>Home</div>
         <div class="nav-item" id="tab-vip" onclick="switchScreen('vip')"><div class="nav-icon">💎</div>VIP</div>
         <div class="nav-item" id="tab-task" onclick="switchScreen('task')"><div class="nav-icon">⏱️</div>Task</div>
-        <div class="nav-item" id="tab-share" onclick="switchScreen('share')"><div class="nav-icon">🔗</div>Share</div>
+        <div class="nav-item" id="tab-games" onclick="switchScreen('games')"><div class="nav-icon">🎮</div>Games</div>
         <div class="nav-item" id="tab-profile" onclick="switchScreen('profile')"><div class="nav-icon">👤</div>Wallet</div>
         <div class="nav-item" id="tab-admin" onclick="switchScreen('admin')" style="display:none; color:var(--accent-gold);"><div class="nav-icon">⚙️</div>Admin</div>
     </div>
 </div>
 
-<!-- RULES AND PRIVACY MODAL POPUP -->
 <div id="rules-modal" class="modal-overlay" onclick="closeRulesModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div class="modal-header">📜 Platform Rules & Privacy Policy</div>
@@ -621,21 +647,10 @@
         <div class="modal-body">
             <h4>1. About Web App Platform</h4>
             <p>Nex Profit is a smart investment ecosystem utilizing decentralized algorithm configurations. Users fund their accounts across multi-tiered VIP configurations to receive consistent, computational hourly and daily contractual returns.</p>
-            
             <h4>2. Principal Investment Rule</h4>
-            <p style="color: var(--warning-orange); font-weight: bold;">⚠️ Critical Regulation: Once a user commits funds to any VIP Tier package, the principal investment amount cannot be withdrawn under any circumstances before the 45-day active contract cycle expires. However, accumulated daily interest/returns can be withdrawn securely at any given time.</p>
-
+            <p style="color: var(--warning-orange); font-weight: bold;">⚠️ Critical Regulation: Once a user commits funds to any VIP Tier package, the principal investment amount cannot be withdrawn under any circumstances before the 45-day active contract cycle expires.</p>
             <h4>3. Daily Tasks Configuration</h4>
             <p>To authorize and push server rewards to your main balance, users must actively initialize the profit activation task once every 24 hours. The session lasts exactly 1 minute.</p>
-
-            <h4>4. Deposit Guidelines</h4>
-            <p>All deposits must be completed via designated Telebirr routes using valid Transaction ID (Txn ID) references. The administrative team reviews and authorizes pending requests within a maximum window of 24 hours, automatically upgrading accounts based on the deposited tiers.</p>
-
-            <h4>5. Withdrawal Protocols</h4>
-            <p>The system enforces a minimum individual withdrawal limit of 500 ETB. To maintain maximum security against account takeovers, bank details are permanently locked upon initial setup. Validated payouts are dispatched within 24 hours.</p>
-
-            <h4>6. Data Privacy & Systems Security</h4>
-            <p>All sensitive credentials and payment routes are heavily locked via Supabase security vault layers. Operating multiple accounts per individual is strictly prohibited and results in immediate automated machine bans.</p>
         </div>
         <button class="btn-premium" style="margin-top: 15px;" onclick="closeRulesModal()">I Understand / Close</button>
     </div>
@@ -646,11 +661,11 @@
     const SUPABASE_KEY = "sb_publishable_TCRLz3h_8DWxGDmXWoatBQ_EG2ACA9y"; 
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // 🛡️ ADMIN CONFIGURATION LOCKED 
     const ADMIN_PHONE = "0954406366"; 
 
     let sessionUser = null; 
     let taskTimeout = null;
+    let kenoSelectedNumbers = [];
 
     window.onload = async function() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -666,12 +681,11 @@
         } else {
             toggleAuthPages('register');
         }
+        buildKenoBoard();
     };
 
-    // 🎧 SUPPORT CHANNEL REDIRECT FOR @ebla2127
     function openSupportChannel() {
-        const telegramSupportUrl = "https://t.me/ebla2127";
-        window.open(telegramSupportUrl, '_blank');
+        window.open("https://t.me/ebla2127", '_blank');
     }
 
     async function fetchUserData(phone) {
@@ -693,6 +707,10 @@
             const currentDomain = window.location.origin + window.location.pathname;
             document.getElementById('ref-link').value = `${currentDomain}?ref=${sessionUser.phone}`;
 
+            // Load saved avatar
+            let savedAv = localStorage.getItem(`avatar_${phone}`) || '👤';
+            document.getElementById('user-avatar-display').innerText = savedAv;
+
             bypassLogin();
         } else {
             logout();
@@ -702,7 +720,6 @@
     function toggleAuthPages(page) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById('bottom-nav').style.display = 'none'; 
-        
         if(page === 'login') {
             document.getElementById('screen-login').classList.add('active');
             document.getElementById('app-title').innerText = 'NEX PROFIT - LOGIN';
@@ -717,41 +734,21 @@
         const pass = document.getElementById('reg-pass').value.trim();
         const confirmPass = document.getElementById('reg-confirm').value.trim();
 
-        if(phone.length < 9) {
-            alert('Error: Please input a valid mobile number.');
-            return;
-        }
-        if(!pass || pass !== confirmPass) {
-            alert('Error: Passwords do not match.');
-            return;
-        }
+        if(phone.length < 9) { alert('Error: Please input a valid mobile number.'); return; }
+        if(!pass || pass !== confirmPass) { alert('Error: Passwords do not match.'); return; }
 
         const { data: existUser } = await _supabase.from('users').select('phone').eq('phone', phone).maybeSingle();
-        if(existUser) {
-            alert('Error: This phone number is already registered.');
-            return;
-        }
+        if(existUser) { alert('Error: This phone number is already registered.'); return; }
 
         const { error: insertError } = await _supabase.from('users').insert([{ phone: phone }]);
-
-        if(insertError) {
-            alert('Database Error: ' + insertError.message);
-            return;
-        }
+        if(insertError) { alert('Database Error: ' + insertError.message); return; }
 
         const { data: updatedData, error: updateError } = await _supabase.from('users')
-            .update({ 
-                password: pass,        
-                balance: 150.00,       
-                vip_level: 'Free Plan', 
-                daily_reward: 5.00 
-            })
-            .eq('phone', phone)
-            .select()
-            .single();
+            .update({ password: pass, balance: 150.00, vip_level: 'Free Plan', daily_reward: 5.00 })
+            .eq('phone', phone).select().single();
 
         if(updateError) {
-            alert('Sync Error: Default values override failed. ' + updateError.message);
+            alert('Sync Error: Default values override failed.');
         } else {
             alert('Registration Successful! Welcome Gift 150 ETB added.');
             await fetchUserData(phone);
@@ -761,29 +758,8 @@
     async function handleLogin() {
         const phone = document.getElementById('login-phone').value.trim();
         const pass = document.getElementById('login-pass').value.trim();
-
-        const { data, error } = await _supabase.from('users').select('*').eq('phone', phone).eq('password', pass).maybeSingle();
-
-        if(data) {
-            await fetchUserData(phone);
-        } else {
-            alert('Authentication Failed: Invalid phone or password.');
-        }
-    }
-
-    async function handleForgotPassword() {
-        const phone = prompt("Please enter your registered mobile number:");
-        if(!phone) return;
-
-        const { data, error } = await _supabase.from('users').select('password').eq('phone', phone.trim()).maybeSingle();
-
-        if(error) {
-            alert("An error occurred. Please try again.");
-        } else if(data) {
-            alert(`Your password is: ${data.password}. Keep it secure.`);
-        } else {
-            alert("This phone number was not found in our database.");
-        }
+        const { data } = await _supabase.from('users').select('*').eq('phone', phone).eq('password', pass).maybeSingle();
+        if(data) { await fetchUserData(phone); } else { alert('Authentication Failed: Invalid credentials.'); }
     }
 
     function bypassLogin() {
@@ -803,24 +779,15 @@
         const todayStr = new Date().toDateString();
         const btn = document.getElementById('start-task-btn');
         if(lastActivated === todayStr) {
-            btn.disabled = true;
-            btn.innerText = 'Already Activated Today!';
+            btn.disabled = true; btn.innerText = 'Already Activated Today!';
         } else {
-            btn.disabled = false;
-            btn.innerText = 'Activate Profit Generation';
+            btn.disabled = false; btn.innerText = 'Activate Profit Generation';
         }
 
         let bBox = document.getElementById('bank-status-box');
         if(sessionUser.bank_acc) {
-            bBox.style.background = "rgba(0,204,102,0.05)";
-            bBox.style.borderColor = "var(--primary-green)";
-            bBox.style.color = "var(--primary-green)";
+            bBox.style.background = "rgba(0,204,102,0.05)"; bBox.style.borderColor = "var(--primary-green)"; bBox.style.color = "var(--primary-green)";
             bBox.innerHTML = `🔒 Locked to: ${sessionUser.bank_type} (${sessionUser.bank_acc})<br>Name: ${sessionUser.bank_name}`;
-        } else {
-            bBox.style.background = "rgba(255,204,0,0.05)";
-            bBox.style.borderColor = "var(--accent-gold)";
-            bBox.style.color = "var(--accent-gold)";
-            bBox.innerHTML = `⚠️ No withdrawal destination locked yet.`;
         }
     }
 
@@ -835,186 +802,225 @@
         
         document.getElementById('app-title').innerText = 'NEX PROFIT - ' + screenId.toUpperCase();
         
-        if(screenId === 'admin') {
-            loadAdminDeposits();
-            loadAdminWithdrawals();
-        } else {
-            updateDomDisplays();
-        }
+        if(screenId === 'admin') { loadAdminDeposits(); loadAdminWithdrawals(); } else { updateDomDisplays(); }
     }
 
     function openRulesModal() { document.getElementById('rules-modal').style.display = 'flex'; }
     function closeRulesModal() { document.getElementById('rules-modal').style.display = 'none'; }
 
-    async function loadAdminDeposits() {
-        const container = document.getElementById('admin-deposits-list');
-        container.innerHTML = '<p style="color:var(--text-muted);">Loading pending deposits...</p>';
+    // 👤 AVATAR LOGIC
+    function selectAvatar(icon, id) {
+        document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('selected'));
+        document.getElementById(id).classList.add('selected');
+        document.getElementById('user-avatar-display').innerText = icon;
+        localStorage.setItem(`avatar_${sessionUser.phone}`, icon);
+    }
 
-        const { data, error } = await _supabase.from('deposits').select('*').eq('status', 'pending');
+    // 🎡 LUCKY SPIN LOGIC
+    async function playLuckySpin() {
+        const todayStr = new Date().toDateString();
+        const lastSpin = localStorage.getItem(`last_spin_${sessionUser.phone}`);
+        let isFree = lastSpin !== todayStr;
 
-        if(error || !data || data.length === 0) {
-            container.innerHTML = '<p style="color:var(--primary-green); font-size:13px;">🎉 No pending deposit requests.</p>';
+        if(!isFree && parseFloat(sessionUser.balance) < 10) {
+            alert("Insufficient balance! Spin costs 10 ETB.");
             return;
         }
 
+        let btn = document.getElementById('spin-btn');
+        btn.disabled = true;
+
+        if(!isFree) {
+            sessionUser.balance -= 10;
+            await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
+        } else {
+            localStorage.setItem(`last_spin_${sessionUser.phone}`, todayStr);
+        }
+
+        let wheel = document.getElementById('spin-wheel');
+        let randomDeg = Math.floor(Math.random() * 360) + 1440; // Spin at least 4 times
+        wheel.style.transform = `rotate(${randomDeg}deg)`;
+
+        setTimeout(async () => {
+            btn.disabled = false;
+            let prizes = [5, 15, 0, 50, 10, 100];
+            let selectedPrize = prizes[Math.floor(Math.random() * prizes.length)];
+            
+            sessionUser.balance += selectedPrize;
+            await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
+            
+            alert(`🎉 Spin Result: You won ${selectedPrize} ETB!`);
+            updateDomDisplays();
+        }, 3000);
+    }
+
+    // 🔢 KENO LOGIC
+    function buildKenoBoard() {
+        const board = document.getElementById('keno-board');
+        board.innerHTML = '';
+        for(let i=1; i<=40; i++) {
+            let numBox = document.createElement('div');
+            numBox.className = 'keno-num';
+            numBox.innerText = i;
+            numBox.onclick = () => toggleKenoNumber(i, numBox);
+            board.appendChild(numBox);
+        }
+    }
+
+    function toggleKenoNumber(num, el) {
+        if(kenoSelectedNumbers.includes(num)) {
+            kenoSelectedNumbers = kenoSelectedNumbers.filter(n => n !== num);
+            el.classList.remove('selected');
+        } else {
+            if(kenoSelectedNumbers.length >= 5) { alert("You can only select up to 5 numbers."); return; }
+            kenoSelectedNumbers.push(num);
+            el.classList.add('selected');
+        }
+    }
+
+    async function playKeno() {
+        if(kenoSelectedNumbers.length < 5) { alert("Please select exactly 5 numbers first."); return; }
+        if(parseFloat(sessionUser.balance) < 20) { alert("Insufficient funds! Keno entry costs 20 ETB."); return; }
+
+        let btn = document.getElementById('keno-btn');
+        btn.disabled = true;
+
+        sessionUser.balance -= 20;
+        await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
+
+        // Generate 10 winning numbers
+        let winningNums = [];
+        while(winningNums.length < 10) {
+            let r = Math.floor(Math.random() * 40) + 1;
+            if(!winningNums.includes(r)) winningNums.push(r);
+        }
+
+        // Display hits
+        let hits = 0;
+        document.querySelectorAll('.keno-num').forEach(el => {
+            let val = parseInt(el.innerText);
+            if(winningNums.includes(val)) {
+                el.classList.add('hit');
+                if(kenoSelectedNumbers.includes(val)) hits++;
+            }
+        });
+
+        setTimeout(async () => {
+            let winAmt = 0;
+            if(hits === 3) winAmt = 40;
+            if(hits === 4) winAmt = 150;
+            if(hits === 5) winAmt = 500;
+
+            if(winAmt > 0) {
+                sessionUser.balance += winAmt;
+                await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
+                alert(`🎯 Keno Draw Complete! You matched ${hits} numbers and won ETB ${winAmt}!`);
+            } else {
+                alert(`🎯 Keno Draw Complete! You matched ${hits} numbers. Better luck next time!`);
+            }
+
+            // Reset Board
+            kenoSelectedNumbers = [];
+            buildKenoBoard();
+            btn.disabled = false;
+            updateDomDisplays();
+        }, 2000);
+    }
+
+    // ADMIN PANE CODE
+    async function loadAdminDeposits() {
+        const container = document.getElementById('admin-deposits-list');
+        container.innerHTML = '<p>Loading pending deposits...</p>';
+        const { data } = await _supabase.from('deposits').select('*').eq('status', 'pending');
+        if(!data || data.length === 0) { container.innerHTML = '<p style="color:var(--primary-green);">🎉 No pending deposits.</p>'; return; }
         container.innerHTML = '';
         data.forEach(req => {
             const card = document.createElement('div');
             card.className = 'admin-request-card deposit-type';
-            card.innerHTML = `
-                <div>📱 <b>User:</b> ${req.user_phone}</div>
-                <div style="margin:4px 0;">💰 <b>Amount:</b> ${req.amount} ETB</div>
-                <div>🔑 <b>Txn ID:</b> ${req.txn_id}</div>
-                <button class="admin-btn-approve" onclick="approveDeposit(${req.id}, '${req.user_phone}', ${req.amount})">✔ Approve Deposit</button>
-            `;
+            card.innerHTML = `<div>📱 <b>User:</b> ${req.user_phone}</div><div style="margin:4px 0;">💰 <b>Amount:</b> ${req.amount} ETB</div><div>🔑 <b>Txn ID:</b> ${req.txn_id}</div><button class="admin-btn-approve" onclick="approveDeposit(${req.id}, '${req.user_phone}', ${req.amount})">✔ Approve</button>`;
             container.appendChild(card);
         });
     }
 
     async function loadAdminWithdrawals() {
         const container = document.getElementById('admin-withdrawals-list');
-        container.innerHTML = '<p style="color:var(--text-muted);">Loading pending withdrawals...</p>';
-
-        const { data, error } = await _supabase.from('withdrawals').select('*').eq('status', 'pending');
-
-        if(error || !data || data.length === 0) {
-            container.innerHTML = '<p style="color:var(--primary-green); font-size:13px;">🎉 No pending withdrawal requests.</p>';
-            return;
-        }
-
+        container.innerHTML = '<p>Loading pending withdrawals...</p>';
+        const { data } = await _supabase.from('withdrawals').select('*').eq('status', 'pending');
+        if(!data || data.length === 0) { container.innerHTML = '<p style="color:var(--primary-green);">🎉 No pending withdrawals.</p>'; return; }
         container.innerHTML = '';
         data.forEach(req => {
             const card = document.createElement('div');
             card.className = 'admin-request-card';
-            card.innerHTML = `
-                <div>📱 <b>User:</b> ${req.user_phone}</div>
-                <div style="margin:4px 0;">🔻 <b>Amount:</b> <span style="color:red; font-weight:bold;">${req.amount} ETB</span></div>
-                <div style="font-size:12px; color:var(--text-muted);">🏦 <b>Bank Details:</b> ${req.bank_details}</div>
-                <button class="admin-btn-withdraw" onclick="approveWithdrawal(${req.id}, '${req.user_phone}', ${req.amount})">✔ Approve Withdrawal</button>
-            `;
+            card.innerHTML = `<div>📱 <b>User:</b> ${req.user_phone}</div><div style="margin:4px 0;">🔻 <b>Amount:</b> ${req.amount} ETB</div><div>🏦 <b>Details:</b> ${req.bank_details}</div><button class="admin-btn-withdraw" onclick="approveWithdrawal(${req.id}, '${req.user_phone}', ${req.amount})">✔ Approve</button>`;
             container.appendChild(card);
         });
     }
 
     async function approveDeposit(id, userPhone, amount) {
-        if(!confirm(`Are you sure you want to add ${amount} ETB to user ${userPhone}?`)) return;
-
+        if(!confirm(`Approve ${amount} ETB for ${userPhone}?`)) return;
         const { data: userData } = await _supabase.from('users').select('balance').eq('phone', userPhone).maybeSingle();
-        if(!userData) {
-            alert("Error: User account not found!");
-            return;
-        }
+        if(!userData) return;
 
-        let currentBalance = parseFloat(userData.balance || 0);
-        let newBalance = currentBalance + parseFloat(amount);
-
-        let newVip = "Free Plan";
-        let newReward = 5.00;
-
-        if (newBalance >= 100000) { newVip = "VIP Level 10"; newReward = 13800.00; }
-        else if (newBalance >= 64000) { newVip = "VIP Level 9"; newReward = 8294.40; }
-        else if (newBalance >= 38000) { newVip = "VIP Level 8"; newReward = 4651.20; }
-        else if (newBalance >= 20000) { newVip = "VIP Level 7"; newReward = 2304.00; }
-        else if (newBalance >= 10000) { newVip = "VIP Level 6"; newReward = 1080.00; }
-        else if (newBalance >= 3500) { newVip = "VIP Level 5"; newReward = 352.80; }
+        let newBalance = parseFloat(userData.balance || 0) + parseFloat(amount);
+        let newVip = "Free Plan"; let newReward = 5.00;
+        if (newBalance >= 3500) { newVip = "VIP Level 5"; newReward = 352.80; }
         else if (newBalance >= 1500) { newVip = "VIP Level 4"; newReward = 144.00; }
         else if (newBalance >= 1000) { newVip = "VIP Level 3"; newReward = 91.20; }
         else if (newBalance >= 500) { newVip = "VIP Level 2"; newReward = 43.20; }
         else if (newBalance >= 300) { newVip = "VIP Level 1"; newReward = 24.00; }
 
-        const { error: userError } = await _supabase.from('users').update({ 
-            balance: newBalance,
-            vip_level: newVip,
-            daily_reward: newReward
-        }).eq('phone', userPhone);
-
-        if(userError) {
-            alert("Error updating user balance.");
-            return;
-        }
-
+        await _supabase.from('users').update({ balance: newBalance, vip_level: newVip, daily_reward: newReward }).eq('phone', userPhone);
         await _supabase.from('deposits').update({ status: 'approved' }).eq('id', id);
-        alert(`Success! +${amount} ETB credited. User tier set to ${newVip}.`);
+        alert('Deposit Approved!');
         loadAdminDeposits();
     }
 
     async function approveWithdrawal(id, userPhone, amount) {
-        if(!confirm(`Confirm that payout of ${amount} ETB has been processed to ${userPhone}?`)) return;
-
-        const { error } = await _supabase.from('withdrawals').update({ status: 'approved' }).eq('id', id);
-
-        if(error) {
-            alert("Error approving withdrawal: " + error.message);
-        } else {
-            alert("Withdrawal marked as successfully completed!");
-            loadAdminWithdrawals();
-        }
+        if(!confirm(`Confirm payout of ${amount} ETB to ${userPhone}?`)) return;
+        await _supabase.from('withdrawals').update({ status: 'approved' }).eq('id', id);
+        alert("Withdrawal marked complete!");
+        loadAdminWithdrawals();
     }
 
     function saveBank() {
         const bName = document.getElementById('bank-name').value.trim();
         const bType = document.getElementById('bank-type').value;
         const bAcc = document.getElementById('bank-acc').value.trim();
-
-        if(!bName || !bAcc) {
-            alert('Error: All bank fields must be filled.');
-            return;
-        }
-        if(sessionUser.bank_acc) {
-            alert('Error: Bank details are permanently locked.');
-            return;
-        }
-
-        sessionUser.bank_name = bName;
-        sessionUser.bank_type = bType;
-        sessionUser.bank_acc = bAcc;
-
+        if(!bName || !bAcc) { alert('Error: All fields required.'); return; }
+        if(sessionUser.bank_acc) { alert('Error: Details locked permanently.'); return; }
+        sessionUser.bank_name = bName; sessionUser.bank_type = bType; sessionUser.bank_acc = bAcc;
         localStorage.setItem(`bank_name_${sessionUser.phone}`, bName);
         localStorage.setItem(`bank_type_${sessionUser.phone}`, bType);
         localStorage.setItem(`bank_acc_${sessionUser.phone}`, bAcc);
-
-        alert('Bank settings securely locked.');
+        alert('Bank secure locked.');
         updateDomDisplays();
     }
 
     function startDailyTask() {
         const lastActivated = localStorage.getItem(`last_activated_date_${sessionUser.phone}`);
         const todayStr = new Date().toDateString();
-
-        if (lastActivated === todayStr) {
-            alert("You have already performed verification today. Come back tomorrow!");
-            return;
-        }
+        if (lastActivated === todayStr) { alert("Already verified today!"); return; }
 
         let btn = document.getElementById('start-task-btn');
         let timerDisplay = document.getElementById('task-timer');
         let timeLeft = 60;
-
-        btn.disabled = true;
-        btn.innerText = 'Session Active...';
+        btn.disabled = true; btn.innerText = 'Session Active...';
 
         taskTimeout = setInterval(async () => {
             timeLeft--;
-            let mins = Math.floor(timeLeft / 60);
-            let secs = timeLeft % 60;
+            let mins = Math.floor(timeLeft / 60); let secs = timeLeft % 60;
             timerDisplay.innerText = (mins < 10 ? "0" : "") + mins + ":" + (secs < 10 ? "0" : "") + secs;
 
             if(timeLeft <= 0) {
                 clearInterval(taskTimeout);
-                
                 let bonus = parseFloat(sessionUser.daily_reward);
                 let newBalance = parseFloat(sessionUser.balance) + bonus;
-
                 const { error } = await _supabase.from('users').update({ balance: newBalance }).eq('phone', sessionUser.phone);
-
                 if(!error) {
                     sessionUser.balance = newBalance;
                     localStorage.setItem(`last_activated_date_${sessionUser.phone}`, todayStr);
-                    alert(`Verification Complete! +ETB ${bonus} successfully added to balance.`);
-                } else {
-                    alert('Error updating balance: ' + error.message);
+                    alert(`Verification Complete! +ETB ${bonus} added.`);
                 }
-
                 timerDisplay.innerText = "01:00";
                 updateDomDisplays();
             }
@@ -1024,95 +1030,51 @@
     async function processDeposit() {
         const amt = parseFloat(document.getElementById('deposit-amount').value);
         const ref = document.getElementById('deposit-ref').value.trim();
-
-        if(!amt || amt <= 0 || !ref) {
-            alert('Please enter amount and Txn ID.');
-            return;
-        }
-
-        await _supabase.from('deposits').insert([
-            { user_phone: sessionUser.phone, amount: amt, txn_id: ref, status: 'pending' }
-        ]);
-
-        alert('Deposit request submitted! Subject to verification within 24 hours.');
-        document.getElementById('deposit-amount').value = '';
-        document.getElementById('deposit-ref').value = '';
+        if(!amt || amt <= 0 || !ref) { alert('Please enter amount and Txn ID.'); return; }
+        await _supabase.from('deposits').insert([{ user_phone: sessionUser.phone, amount: amt, txn_id: ref, status: 'pending' }]);
+        alert('Deposit request submitted!');
+        document.getElementById('deposit-amount').value = ''; document.getElementById('deposit-ref').value = '';
         switchScreen('home');
     }
 
     async function processWithdrawal() {
         const amt = parseFloat(document.getElementById('withdraw-amount').value);
-
-        if(!sessionUser.bank_acc) {
-            alert('Error: Please lock your bank account first.');
-            return;
-        }
-        if(!amt || amt < 500) {
-            alert('Error: Minimum withdrawal is 500 ETB.');
-            return;
-        }
-        if(parseFloat(sessionUser.balance) < amt) {
-            alert('Error: Insufficient balance.');
-            return;
-        }
+        if(!sessionUser.bank_acc) { alert('Error: Lock bank account first.'); return; }
+        if(!amt || amt < 500) { alert('Error: Minimum withdrawal is 500 ETB.'); return; }
+        if(parseFloat(sessionUser.balance) < amt) { alert('Error: Insufficient balance.'); return; }
 
         let newBalance = parseFloat(sessionUser.balance) - amt;
-
         const { error } = await _supabase.from('users').update({ balance: newBalance }).eq('phone', sessionUser.phone);
-
         if(!error) {
             sessionUser.balance = newBalance;
-            await _supabase.from('withdrawals').insert([
-                { user_phone: sessionUser.phone, amount: amt, bank_details: `${sessionUser.bank_type} - ${sessionUser.bank_acc} (${sessionUser.bank_name})`, status: 'pending' }
-            ]);
-            alert('Withdrawal request successfully queued! Processing completes within 24 hours.');
+            await _supabase.from('withdrawals').insert([{ user_phone: sessionUser.phone, amount: amt, bank_details: `${sessionUser.bank_type} - ${sessionUser.bank_acc}`, status: 'pending' }]);
+            alert('Withdrawal request queued!');
             document.getElementById('withdraw-amount').value = '';
             switchScreen('home');
-        } else {
-            alert('Withdrawal Error: ' + error.message);
         }
     }
 
     async function invest(cost, vipName, reward) {
-        if(parseFloat(sessionUser.balance) < cost) {
-            alert('Insufficient funds. Please deposit first.');
-            switchScreen('profile');
-            return;
-        }
-
+        if(parseFloat(sessionUser.balance) < cost) { alert('Insufficient funds.'); switchScreen('profile'); return; }
         let newBalance = parseFloat(sessionUser.balance) - cost;
-
-        const { error } = await _supabase.from('users').update({ 
-            balance: newBalance,
-            vip_level: vipName,
-            daily_reward: reward
-        }).eq('phone', sessionUser.phone);
-
+        const { error } = await _supabase.from('users').update({ balance: newBalance, vip_level: vipName, daily_reward: reward }).eq('phone', sessionUser.phone);
         if(!error) {
-            sessionUser.balance = newBalance;
-            sessionUser.vip_level = vipName;
-            sessionUser.daily_reward = reward;
-            alert(`Congratulations! ${vipName} is now active.`);
+            sessionUser.balance = newBalance; sessionUser.vip_level = vipName; sessionUser.daily_reward = reward;
+            alert(`Success! ${vipName} is now active.`);
             switchScreen('home');
-        } else {
-            alert('Investment Error: ' + error.message);
         }
     }
 
     function copyLink() {
-        let copyText = document.getElementById("ref-link");
-        copyText.select();
-        document.execCommand("copy");
-        alert("Referral link copied successfully! Share it anywhere.");
+        let copyText = document.getElementById("ref-link"); copyText.select(); document.execCommand("copy");
+        alert("Referral link copied!");
     }
 
     function logout() {
-        sessionUser = null;
-        localStorage.removeItem('nex_user_phone');
+        sessionUser = null; localStorage.removeItem('nex_user_phone');
         if(taskTimeout) clearInterval(taskTimeout);
         toggleAuthPages('login');
     }
 </script>
-
 </body>
 </html>
