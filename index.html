@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nex Profit - Premium Multi-Tier Investment</title>
+    <title>Nex Profit - Premium Multi-Tier Investment & Gaming</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --bg-dark: #0a1103;
-            --card-bg: rgba(28, 46, 17, 0.85); 
+            --card-bg: rgba(28, 46, 17, 0.88); 
             --primary-green: #00cc66;
             --accent-gold: #ffcc00;
             --text-main: #ffffff;
@@ -33,7 +33,7 @@
             width: 100%;
             max-width: 450px;
             height: 100vh;
-            /* BACKGROUND IMAGE FIX - visible and vibrant */
+            /* BACKGROUND IMAGE - Vibrant Investment Theme */
             background: linear-gradient(rgba(10, 17, 3, 0.75), rgba(0, 0, 0, 0.85)), 
                         url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000');
             background-size: cover;
@@ -99,9 +99,6 @@
             font-size: 15px;
             transition: 0.3s;
         }
-        .input-group input:focus {
-            border-color: var(--primary-green);
-        }
 
         .btn-premium {
             background: linear-gradient(135deg, #ffe066, var(--accent-gold));
@@ -132,7 +129,6 @@
             color: var(--warning-orange);
             margin-bottom: 15px;
             line-height: 1.4;
-            backdrop-filter: blur(3px);
         }
 
         .hero-card {
@@ -142,14 +138,6 @@
             text-align: center;
             border: 1px solid rgba(0, 204, 102, 0.3);
             margin-bottom: 20px;
-            backdrop-filter: blur(5px);
-        }
-
-        .balance-title {
-            font-size: 14px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .balance-amount {
@@ -172,15 +160,6 @@
             padding: 15px;
             text-align: center;
             cursor: pointer;
-            transition: 0.2s;
-            backdrop-filter: blur(4px);
-        }
-        .grid-item:active {
-            background-color: rgba(37, 61, 23, 0.9);
-        }
-
-        .vip-container {
-            padding-bottom: 40px;
         }
 
         .vip-card {
@@ -190,7 +169,6 @@
             margin-bottom: 20px;
             border: 1px solid rgba(0,204,102,0.25);
             text-align: center;
-            backdrop-filter: blur(4px);
         }
 
         .timer-box {
@@ -202,8 +180,6 @@
             padding: 12px;
             border-radius: 8px;
             display: inline-block;
-            min-width: 120px;
-            border: 1px solid rgba(0, 204, 102, 0.2);
         }
 
         .nav-bar {
@@ -218,129 +194,112 @@
             padding: 12px 0;
             z-index: 100;
             box-sizing: border-box;
-            backdrop-filter: blur(10px);
         }
         .nav-item {
             color: var(--text-muted);
             font-size: 11px;
             text-align: center;
             cursor: pointer;
-            transition: 0.2s;
             flex: 1;
         }
         .nav-item.active {
             color: var(--primary-green);
         }
-        .nav-icon {
-            font-size: 18px;
-            margin-bottom: 2px;
-        }
 
         /* 🎮 GAMES STYLES */
         .game-section {
-            background: rgba(15, 30, 10, 0.9);
+            background: rgba(15, 30, 10, 0.93);
             border: 1px solid rgba(0, 204, 102, 0.35);
             border-radius: 14px;
             padding: 15px;
             margin-bottom: 20px;
             text-align: center;
         }
-        .avatar-box {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 10px;
-        }
-        .avatar-option {
-            font-size: 35px;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            background: rgba(0,0,0,0.4);
-            transition: 0.2s;
-        }
-        .avatar-option.selected {
-            border-color: var(--accent-gold);
-            background: rgba(255, 204, 0, 0.2);
-        }
+        
         .wheel-container {
-            position: relative;
-            width: 160px;
-            height: 160px;
+            width: 130px;
+            height: 130px;
             margin: 15px auto;
             border-radius: 50%;
             border: 5px solid var(--accent-gold);
-            background: conic-gradient(#11220a 0deg 60deg, #ff3333 60deg 120deg, #11220a 120deg 180deg, #ff3333 180deg 240deg, #11220a 240deg 300deg, #ff3333 300deg 360deg);
-            transition: transform 3s cubic-bezier(0.1, 0.8, 0.1, 1);
+            background: radial-gradient(circle, #ffe066 10%, #11220a 11%);
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 16px;
-            text-shadow: 0 2px 4px #000;
+            font-size: 22px;
+            color: var(--accent-gold);
+            transition: transform 2.5s cubic-bezier(0.1, 0.8, 0.1, 1);
         }
-        .wheel-pointer {
-            width: 0; 
-            height: 0; 
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 15px solid var(--accent-gold);
-            position: absolute;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
+
+        .roulette-options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin: 12px 0;
         }
+
+        .roulette-btn {
+            padding: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            cursor: pointer;
+        }
+        .roulette-btn.selected {
+            border-color: var(--accent-gold);
+            background: rgba(255, 204, 0, 0.2);
+            box-shadow: 0 0 8px var(--accent-gold);
+        }
+
         .bet-controller {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 15px;
-            margin: 10px 0 15px 0;
+            margin: 10px 0;
         }
         .bet-btn {
             background: #224414;
             color: #fff;
             border: 1px solid var(--primary-green);
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
         }
-        .bet-btn:active {
-            background: var(--primary-green);
-            color: #000;
-        }
         .bet-value {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             color: var(--accent-gold);
-            min-width: 70px;
+            min-width: 65px;
         }
+
         .keno-grid {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
-            gap: 6px;
-            margin: 15px 0;
+            gap: 5px;
+            margin: 12px 0;
         }
         .keno-num {
             background: rgba(0,0,0,0.6);
             border: 1px solid rgba(0,204,102,0.25);
-            padding: 8px 0;
-            font-size: 13px;
+            padding: 6px 0;
+            font-size: 12px;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 5px;
             cursor: pointer;
             text-align: center;
-            transition: 0.2s;
         }
         .keno-num.selected {
             background: var(--accent-gold);
             color: #000;
-            border-color: var(--accent-gold);
         }
         .keno-num.hit {
             background: var(--primary-green) !important;
@@ -351,70 +310,28 @@
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85);
             z-index: 200;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
+            justify-content: center; align-items: center;
+            padding: 20px; box-sizing: border-box;
         }
         .modal-content {
             background: #0f1c08;
             border: 2px solid var(--primary-green);
             border-radius: 16px;
-            max-width: 400px;
-            width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
-            padding: 20px;
+            max-width: 400px; width: 100%; padding: 20px;
             box-sizing: border-box;
-        }
-        .modal-body h4 {
-            color: var(--primary-green);
-            margin: 12px 0 5px 0;
-            font-size: 14px;
-        }
-        .modal-body p {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin: 0 0 10px 0;
-            line-height: 1.5;
         }
 
         .admin-request-card {
             background: rgba(30, 17, 17, 0.85);
             border: 1px solid #ff4444;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
+            border-radius: 12px; padding: 12px; margin-bottom: 12px;
         }
         .admin-request-card.deposit-type {
             background: rgba(13, 31, 17, 0.85);
             border: 1px solid var(--primary-green);
-        }
-        .admin-btn-approve {
-            background-color: var(--primary-green);
-            color: #000;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .admin-btn-withdraw {
-            background-color: var(--danger-red);
-            color: #fff;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
         }
     </style>
 </head>
@@ -425,18 +342,10 @@
 
     <div id="screen-register" class="screen active">
         <h2 style="text-align:center; margin-bottom:30px;">Create Account</h2>
-        <div class="input-group">
-            <input type="text" id="reg-phone" placeholder="Enter mobile phone number">
-        </div>
-        <div class="input-group">
-            <input type="password" id="reg-pass" placeholder="Enter password...">
-        </div>
-        <div class="input-group">
-            <input type="password" id="reg-confirm" placeholder="Confirm password">
-        </div>
-        <div class="input-group">
-            <input type="text" id="reg-ref" placeholder="Invitation Code (Optional)">
-        </div>
+        <div class="input-group"><input type="text" id="reg-phone" placeholder="Enter mobile phone number"></div>
+        <div class="input-group"><input type="password" id="reg-pass" placeholder="Enter password..."></div>
+        <div class="input-group"><input type="password" id="reg-confirm" placeholder="Confirm password"></div>
+        <div class="input-group"><input type="text" id="reg-ref" placeholder="Invitation Code (Optional)"></div>
         <button class="btn-premium" onclick="handleRegister()">Register</button>
         <p style="text-align:center; margin-top:25px; font-size:14px; color:var(--text-muted);">
             Already have an account? <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('login')">Login here</span>
@@ -445,16 +354,9 @@
 
     <div id="screen-login" class="screen">
         <h2 style="text-align:center; margin-bottom:30px;">Welcome Back</h2>
-        <div class="input-group">
-            <input type="text" id="login-phone" placeholder="Enter phone number">
-        </div>
-        <div class="input-group">
-            <input type="password" id="login-pass" placeholder="Enter password...">
-        </div>
+        <div class="input-group"><input type="text" id="login-phone" placeholder="Enter phone number"></div>
+        <div class="input-group"><input type="password" id="login-pass" placeholder="Enter password..."></div>
         <button class="btn-premium" onclick="handleLogin()">Sign In</button>
-        <p style="text-align:center; margin-top:15px; font-size:14px; text-align: center;">
-            <span style="color:var(--warning-orange); cursor:pointer; text-decoration:underline;" onclick="handleForgotPassword()">Forgot Password?</span>
-        </p>
         <p style="text-align:center; margin-top:20px; font-size:14px; color:var(--text-muted);">
             New to Nex Profit? <span style="color:var(--primary-green); cursor:pointer; text-decoration:underline;" onclick="toggleAuthPages('register')">Register here</span>
         </p>
@@ -462,11 +364,10 @@
 
     <div id="screen-home" class="screen">
         <div class="hero-card">
-            <div style="font-size:40px; margin-bottom:5px;" id="user-avatar-display">👤</div>
+            <div style="font-size:40px; margin-bottom:5px;">👤</div>
             <div class="balance-title">Available Balance</div>
             <div class="balance-amount" id="user-balance">ETB 0.00</div>
-            <div style="font-size: 13px; color: var(--accent-gold); margin-top:10px; margin-bottom:5px;" id="home-active-vip">Active Tier: Loading...</div>
-            <div style="font-size: 12px; color: var(--primary-green);">● Nex Profit Smart Server Active</div>
+            <div style="font-size: 13px; color: var(--accent-gold); margin-top:10px;" id="home-active-vip">Active Tier: Loading...</div>
         </div>
         
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;">
@@ -477,44 +378,26 @@
         <div class="grid-menu">
             <div class="grid-item" onclick="switchScreen('vip')">💎<br><span style="font-size:13px; font-weight:bold;">VIP Tiers</span></div>
             <div class="grid-item" onclick="switchScreen('task')">⏱️<br><span style="font-size:13px; font-weight:bold;">Daily Task</span></div>
-            <div class="grid-item" onclick="switchScreen('games')">🎮<br><span style="font-size:13px; font-weight:bold;">Games</span></div>
+            <div class="grid-item" onclick="switchScreen('games')">🎮<br><span style="font-size:13px; font-weight:bold;">Games Zone</span></div>
             <div class="grid-item" onclick="switchScreen('profile')">💼<br><span style="font-size:13px; font-weight:bold;">Wallet</span></div>
-        </div>
-
-        <div style="background: rgba(0,204,102,0.12); padding: 15px; border-radius: 12px; font-size: 13px; line-height: 1.5; border: 1px solid rgba(0,204,102,0.2); backdrop-filter: blur(3px);">
-            <span style="color:var(--primary-green); font-weight:bold;">Platform Notice:</span> Welcome to Nex Profit. Ensure your withdrawal bank details are properly locked before initiating requests. Daily tasks reset every 24 hours.
         </div>
     </div>
 
     <div id="screen-task" class="screen" style="text-align: center;">
         <h3>Daily Revenue Growth</h3>
-        <p style="color: var(--text-muted); font-size:14px; padding: 0 10px;">To claim your current daily VIP node reward, activate the premium smart contract and keep it active for 1 minute.</p>
-        
-        <div style="background:rgba(255,204,0,0.15); border:1px solid var(--accent-gold); padding:10px; border-radius:10px; margin:15px 0; font-size:14px; backdrop-filter: blur(3px);">
+        <p style="color: var(--text-muted); font-size:14px;">Activate the premium smart contract and keep it active for 1 minute.</p>
+        <div style="background:rgba(255,204,0,0.15); border:1px solid var(--accent-gold); padding:10px; border-radius:10px; margin:15px 0;">
             Your Current Daily Return: <b style="color:var(--accent-gold);" id="task-reward-amount">ETB 0.00</b>
         </div>
-
-        <div class="timer-box" id="task-timer">01:00</div>
-        <br><br>
+        <div class="timer-box" id="task-timer">01:00</div><br><br>
         <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Activate Profit Generation</button>
     </div>
 
     <div id="screen-games" class="screen">
-        <h3 style="text-align: center; color: var(--accent-gold); margin-top: 0;">Nex Profit Gaming Zone</h3>
+        <h3 style="text-align: center; color: var(--accent-gold); margin-top:0;">Nex Profit Pro Casino</h3>
         
         <div class="game-section">
-            <h4 style="margin: 0; color: #fff;">👤 Choose Your Avatar</h4>
-            <div class="avatar-box">
-                <span class="avatar-option" id="av-1" onclick="selectAvatar('👤', 'av-1')">👤</span>
-                <span class="avatar-option" id="av-2" onclick="selectAvatar('🥷', 'av-2')">🥷</span>
-                <span class="avatar-option" id="av-3" onclick="selectAvatar('🦁', 'av-3')">🦁</span>
-                <span class="avatar-option" id="av-4" onclick="selectAvatar('👑', 'av-4')">👑</span>
-            </div>
-        </div>
-
-        <div class="game-section" style="position: relative;">
-            <h4 style="margin: 0; color: #fff;">🎡 Premium Lucky Spin</h4>
-            <p style="font-size: 11px; color: var(--text-muted); margin: 4px 0;">Win 2x your bet or try again!</p>
+            <h4 style="margin: 0; color: #fff;">🎡 Multi-Bet Pro Spin (1-40)</h4>
             
             <div class="bet-controller">
                 <button class="bet-btn" onclick="adjustBet('spin', -5)">-</button>
@@ -522,183 +405,101 @@
                 <button class="bet-btn" onclick="adjustBet('spin', 5)">+</button>
             </div>
 
-            <div class="wheel-pointer"></div>
-            <div class="wheel-container" id="spin-wheel">💎 SPIN</div>
-            <button class="btn-premium" style="padding: 10px; font-size: 14px;" id="spin-btn" onclick="playLuckySpin()">Spin Wheel</button>
+            <div class="wheel-container" id="spin-wheel">?</div>
+
+            <div class="roulette-options-grid">
+                <button class="roulette-btn" id="rb-red" onclick="selectRouletteMarket('red')">🔴 Red (2x)</button>
+                <button class="roulette-btn" id="rb-black" onclick="selectRouletteMarket('black')">⚫ Black (2x)</button>
+                <button class="roulette-btn" id="rb-even" onclick="selectRouletteMarket('even')">🔢 Even (2x)</button>
+                <button class="roulette-btn" id="rb-odd" onclick="selectRouletteMarket('odd')">🔢 Odd (2x)</button>
+                <button class="roulette-btn" id="rb-low" onclick="selectRouletteMarket('low')">⬇️ Low 1-18 (2x)</button>
+                <button class="roulette-btn" id="rb-high" onclick="selectRouletteMarket('high')">⬆️ High 19-40 (2x)</button>
+            </div>
+
+            <div class="input-group" style="margin-top: 5px;">
+                <input type="number" id="spin-exact-number" placeholder="Or guess exact number 1-40 (Pays 5x)" min="1" max="40" oninput="selectRouletteMarket('exact')">
+            </div>
+
+            <button class="btn-premium" style="padding:10px; font-size:14px;" id="spin-btn" onclick="playLuckySpin()">Place Bet & Spin</button>
         </div>
 
         <div class="game-section">
-            <h4 style="margin: 0; color: #fff;">🔢 Nex Keno (Choose 5 Numbers)</h4>
-            <p style="font-size: 11px; color: var(--text-muted); margin: 4px 0;">Match 3 = Get Bet Back | Match 5 = Get 2x Double Win!</p>
-            
+            <h4 style="margin: 0; color: #fff;">🔢 Nex Keno (Select 5 Numbers)</h4>
             <div class="bet-controller">
                 <button class="bet-btn" onclick="adjustBet('keno', -5)">-</button>
                 <div class="bet-value" id="keno-bet-display">5 ETB</div>
                 <button class="bet-btn" onclick="adjustBet('keno', 5)">+</button>
             </div>
-
             <div class="keno-grid" id="keno-board"></div>
-            <button class="btn-premium" style="padding: 10px; font-size: 14px; background: var(--primary-green);" id="keno-btn" onclick="playKeno()">Draw Keno Numbers</button>
+            <button class="btn-premium" style="padding:10px; font-size:14px; background:var(--primary-green);" id="keno-btn" onclick="playKeno()">Draw Keno Numbers</button>
         </div>
     </div>
 
     <div id="screen-vip" class="screen">
-        <h3 style="margin-top: 0; text-align: center; color: var(--accent-gold);">Premium Investment Nodes</h3>
-        <div class="vip-container">
-            <div class="vip-card">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 1</span>
-                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
-                </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 300</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 1.00<br>Daily Return: ETB 24.00<br>Estimated Return: ETB 1,080</p>
-                <button class="btn-premium" onclick="invest(300, 'VIP Level 1', 24)">Invest Now</button>
-            </div>
-            <div class="vip-card">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 2</span>
-                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
-                </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 500</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 1.80<br>Daily Return: ETB 43.20<br>Estimated Return: ETB 1,944</p>
-                <button class="btn-premium" onclick="invest(500, 'VIP Level 2', 43.2)">Invest Now</button>
-            </div>
-            <div class="vip-card">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 3</span>
-                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
-                </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 1,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 3.80<br>Daily Return: ETB 91.20<br>Estimated Return: ETB 4,104</p>
-                <button class="btn-premium" onclick="invest(1000, 'VIP Level 3', 91.2)">Invest Now</button>
-            </div>
-            <div class="vip-card">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 4</span>
-                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
-                </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 1,500</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 6.00<br>Daily Return: ETB 144.00<br>Estimated Return: ETB 6,480</p>
-                <button class="btn-premium" onclick="invest(1500, 'VIP Level 4', 144)">Invest Now</button>
-            </div>
-            <div class="vip-card">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 5</span>
-                    <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
-                </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 3,500</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 14.70<br>Daily Return: ETB 352.80<br>Estimated Return: ETB 15,876</p>
-                <button class="btn-premium" onclick="invest(3500, 'VIP Level 5', 352.8)">Invest Now</button>
-            </div>
+        <h3 style="margin-top:0; text-align:center; color:var(--accent-gold);">Premium Investment Nodes</h3>
+        <div class="vip-card">
+            <h3>VIP Level 1 - ETB 300</h3>
+            <p>Daily Return: ETB 24.00 (45 Days)</p>
+            <button class="btn-premium" onclick="invest(300, 'VIP Level 1', 24)">Invest Now</button>
         </div>
-    </div>
-
-    <div id="screen-share" class="screen">
-        <h3>Affiliate Program</h3>
-        <p style="color:var(--text-muted); font-size:14px;">Invite partners to scale your daily investments.</p>
-        <div style="display:flex; background:rgba(0,0,0,0.6); padding:10px; border-radius:8px; border:1px solid rgba(0,204,102,0.2); margin:15px 0;">
-            <input type="text" id="ref-link" value="Loading referral link..." readonly style="background:none; border:none; color:#fff; flex:1; outline:none; font-size:14px;">
-            <button onclick="copyLink()" style="background:var(--primary-green); border:none; color:#000; font-weight:bold; padding:5px 15px; border-radius:6px; cursor:pointer;">Copy</button>
+        <div class="vip-card">
+            <h3>VIP Level 2 - ETB 500</h3>
+            <p>Daily Return: ETB 43.20 (45 Days)</p>
+            <button class="btn-premium" onclick="invest(500, 'VIP Level 2', 43.2)">Invest Now</button>
         </div>
-        <div style="background:var(--card-bg); padding:15px; border-radius:12px; font-size:14px; backdrop-filter: blur(4px);">
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Level 1 Commission</span><span style="color:var(--primary-green); font-weight:bold;">25%</span></div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Level 2 Commission</span><span style="color:var(--primary-green); font-weight:bold;">3%</span></div>
-            <div style="display:flex; justify-content:space-between;"><span>Level 3 Commission</span><span style="color:var(--primary-green); font-weight:bold;">2%</span></div>
+        <div class="vip-card">
+            <h3>VIP Level 3 - ETB 1,000</h3>
+            <p>Daily Return: ETB 91.20 (45 Days)</p>
+            <button class="btn-premium" onclick="invest(1000, 'VIP Level 3', 91.2)">Invest Now</button>
         </div>
     </div>
 
     <div id="screen-profile" class="screen">
-        <h3 style="color:var(--primary-green); margin-top:0;">Deposit / Fund Account</h3>
-        <div class="notice-box">
-            ⚠️ <b>Verification Notice:</b> After submitting a deposit, the administrator will verify the bank transaction reference number and credit your balance within <b>24 hours</b>.
-        </div>
-        <div style="background:rgba(0,204,102,0.15); padding:15px; border-radius:12px; margin-bottom:20px; font-size:13px; border:1px dashed var(--primary-green); backdrop-filter: blur(3px);">
-            <p style="margin:0 0 8px 0;"><b>💳 Admin Payment Details:</b></p>
-            <p style="margin:4px 0;">Telebirr: <b>0954406366</b></p>
-            <p style="margin:4px 0;">Account Holder: <b>Temesgen Ayenew</b></p>
-        </div>
-        <div class="input-group">
-            <label>Amount to Deposit (ETB)</label>
-            <input type="number" id="deposit-amount" placeholder="e.g. 300">
-        </div>
-        <div class="input-group">
-            <label>Transaction ID / Reference Number</label>
-            <input type="text" id="deposit-ref" placeholder="Enter Telebirr/Bank Txn ID">
-        </div>
-        <button class="btn-premium" style="background:var(--primary-green); color:#000; margin-bottom:25px;" onclick="processDeposit()">Submit Deposit Request</button>
-
-        <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:25px 0;">
-
-        <h3>Secure Withdrawal Vault</h3>
-        <div id="bank-status-box" style="background:rgba(255,204,0,0.05); border:1px dashed var(--accent-gold); padding:12px; border-radius:10px; margin-bottom:20px; font-size:13px; color:var(--accent-gold);">
-            ⚠️ No withdrawal destination locked yet.
-        </div>
-        <div class="input-group">
-            <label>Account Holder Real Name</label>
-            <input type="text" id="bank-name" placeholder="Enter your name">
-        </div>
-        <div class="input-group">
-            <label>Withdrawal Type</label>
-            <select id="bank-type">
-                <option>Commercial Bank of Ethiopia</option>
-                <option>Telebirr</option>
-                <option>CBE Birr</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label>Bank Account Number</label>
-            <input type="text" id="bank-acc" placeholder="Enter the bank account">
-        </div>
-        <button class="btn-premium" style="background:#1c3d11; color:#fff; margin-bottom:25px;" onclick="saveBank()">Lock Bank Settings</button>
-
-        <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:20px 0;">
-
-        <h3>Request Payout</h3>
-        <div class="notice-box" style="background:rgba(255, 51, 51, 0.1); border-color:var(--danger-red); color:#ff6666;">
-            🛑 <b>Payout Notice:</b> All withdrawal requests are verified manually and processed straight to your designated bank within <b>24 hours</b>.
-        </div>
-        <div class="input-group">
-            <label>Amount to Withdraw (Min: 500 ETB)</label>
-            <input type="number" id="withdraw-amount" placeholder="Minimum 500">
-        </div>
-        <button class="btn-premium" onclick="processWithdrawal()">Execute Payout</button>
-
+        <h3>Deposit Funds</h3>
+        <p style="font-size:12px; color:var(--accent-gold);">Telebirr: 0954406366 (Temesgen Ayenew)</p>
+        <div class="input-group"><input type="number" id="deposit-amount" placeholder="Amount (ETB)"></div>
+        <div class="input-group"><input type="text" id="deposit-ref" placeholder="Transaction ID"></div>
+        <button class="btn-premium" onclick="processDeposit()">Submit Deposit</button>
+        
+        <hr style="border-color:rgba(255,255,255,0.1); margin:20px 0;">
+        
+        <h3>Lock Bank Account</h3>
+        <div id="bank-status-box" style="font-size:12px; margin-bottom:10px;">⚠️ No bank account locked.</div>
+        <div class="input-group"><input type="text" id="bank-name" placeholder="Real Name"></div>
+        <div class="input-group"><input type="text" id="bank-acc" placeholder="Account Number"></div>
+        <button class="btn-premium" style="background:#1c3d11; color:#fff;" onclick="saveBank()">Lock Bank Details</button>
+        
+        <hr style="border-color:rgba(255,255,255,0.1); margin:20px 0;">
+        
+        <h3>Request Withdrawal</h3>
+        <div class="input-group"><input type="number" id="withdraw-amount" placeholder="Min 500 ETB"></div>
+        <button class="btn-premium" onclick="processWithdrawal()">Withdraw Now</button>
         <br><br>
         <button class="btn-premium" style="background:var(--danger-red); color:#fff;" onclick="logout()">Secure Logout</button>
     </div>
 
     <div id="screen-admin" class="screen">
-        <h3 style="color:var(--accent-gold); text-align:center; margin-top:0;">🛡️ Nex Profit Admin Panel</h3>
+        <h3 style="color:var(--accent-gold); text-align:center;">🛡️ House Profit Analytics</h3>
+        
+        <div style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 10px; margin-bottom: 15px; font-size:13px; line-height: 1.6;">
+            💰 Total House Bets Intake: <span id="admin-stat-bets" style="color:var(--accent-gold); font-weight:bold;">0 ETB</span><br>
+            🎁 Total Payouts Formed: <span id="admin-stat-payouts" style="color:var(--primary-green); font-weight:bold;">0 ETB</span><br>
+            📈 Net Profit Realized (30% Target): <span id="admin-stat-profit" style="color:#fff; font-weight:bold;">0 ETB</span>
+        </div>
+
         <h4 style="color:var(--primary-green); margin-bottom:5px;">💵 Pending Deposit Requests</h4>
-        <div id="admin-deposits-list"><p style="color:var(--text-muted); font-size:12px;">Loading deposits...</p></div>
-        <hr style="border-color:rgba(255,255,255,0.1); margin:20px 0;">
+        <div id="admin-deposits-list"></div>
         <h4 style="color:var(--danger-red); margin-bottom:5px;">🏧 Pending Withdrawal Requests</h4>
-        <div id="admin-withdrawals-list"><p style="color:var(--text-muted); font-size:12px;">Loading withdrawals...</p></div>
+        <div id="admin-withdrawals-list"></div>
     </div>
 
     <div class="nav-bar" id="bottom-nav" style="display: none;">
-        <div class="nav-item active" id="tab-home" onclick="switchScreen('home')"><div class="nav-icon">📊</div>Home</div>
-        <div class="nav-item" id="tab-vip" onclick="switchScreen('vip')"><div class="nav-icon">💎</div>VIP</div>
-        <div class="nav-item" id="tab-task" onclick="switchScreen('task')"><div class="nav-icon">⏱️</div>Task</div>
-        <div class="nav-item" id="tab-games" onclick="switchScreen('games')"><div class="nav-icon">🎮</div>Games</div>
-        <div class="nav-item" id="tab-profile" onclick="switchScreen('profile')"><div class="nav-icon">👤</div>Wallet</div>
-        <div class="nav-item" id="tab-admin" onclick="switchScreen('admin')" style="display:none; color:var(--accent-gold);"><div class="nav-icon">⚙️</div>Admin</div>
-    </div>
-</div>
-
-<div id="rules-modal" class="modal-overlay" onclick="closeRulesModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <div class="modal-header">📜 Platform Rules & Privacy Policy</div>
-        <div class="modal-header" style="color:var(--primary-green); font-size:12px; margin-top:-10px;">Support: @ebla2127</div>
-        <div class="modal-body">
-            <h4>1. About Web App Platform</h4>
-            <p>Nex Profit is a smart investment ecosystem utilizing decentralized algorithm configurations. Users fund their accounts across multi-tiered VIP configurations to receive consistent, computational hourly and daily contractual returns.</p>
-            <h4>2. Principal Investment Rule</h4>
-            <p style="color: var(--warning-orange); font-weight: bold;">⚠️ Critical Regulation: Once a user commits funds to any VIP Tier package, the principal investment amount cannot be withdrawn under any circumstances before the 45-day active contract cycle expires.</p>
-            <h4>3. Daily Tasks Configuration</h4>
-            <p>To authorize and push server rewards to your main balance, users must actively initialize the profit activation task once every 24 hours. The session lasts exactly 1 minute.</p>
-        </div>
-        <button class="btn-premium" style="margin-top: 15px;" onclick="closeRulesModal()">I Understand / Close</button>
+        <div class="nav-item active" id="tab-home" onclick="switchScreen('home')">📊<br>Home</div>
+        <div class="nav-item" id="tab-vip" onclick="switchScreen('vip')">💎<br>VIP</div>
+        <div class="nav-item" id="tab-task" onclick="switchScreen('task')">⏱️<br>Task</div>
+        <div class="nav-item" id="tab-games" onclick="switchScreen('games')">🎮<br>Games</div>
+        <div class="nav-item" id="tab-profile" onclick="switchScreen('profile')">👤<br>Wallet</div>
+        <div class="nav-item" id="tab-admin" onclick="switchScreen('admin')" style="display:none; color:var(--accent-gold);">⚙️<br>Admin</div>
     </div>
 </div>
 
@@ -713,108 +514,58 @@
     let taskTimeout = null;
     let kenoSelectedNumbers = [];
     
-    // Bet defaults
     let currentSpinBet = 5;
     let currentKenoBet = 5;
+    let selectedRouletteMarket = null; 
+
+    // House profit tracking simulation parameters (Stored in LocalStorage to maintain consistency across rounds)
+    let houseTotalBets = parseFloat(localStorage.getItem('house_total_bets') || '0');
+    let houseTotalPayouts = parseFloat(localStorage.getItem('house_total_payouts') || '0');
+    const TARGET_PROFIT_MARGIN = 0.30; // 30% of all stakes belong to the admin permanently!
 
     window.onload = async function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const refCode = urlParams.get('ref');
-        if (refCode) {
-            const regRefInput = document.getElementById('reg-ref');
-            if(regRefInput) regRefInput.value = refCode;
-        }
-
         const cachedPhone = localStorage.getItem('nex_user_phone');
-        if(cachedPhone) {
-            await fetchUserData(cachedPhone);
-        } else {
-            toggleAuthPages('register');
-        }
+        if(cachedPhone) { await fetchUserData(cachedPhone); } else { toggleAuthPages('register'); }
         buildKenoBoard();
     };
-
-    function openSupportChannel() {
-        window.open("https://t.me/ebla2127", '_blank');
-    }
 
     async function fetchUserData(phone) {
         const { data, error } = await _supabase.from('users').select('*').eq('phone', phone).maybeSingle();
         if(data) {
             sessionUser = data;
             sessionUser.bank_name = localStorage.getItem(`bank_name_${phone}`) || '';
-            sessionUser.bank_type = localStorage.getItem(`bank_type_${phone}`) || '';
             sessionUser.bank_acc = localStorage.getItem(`bank_acc_${phone}`) || '';
-            
             localStorage.setItem('nex_user_phone', phone);
             
-            if(phone === ADMIN_PHONE) {
-                document.getElementById('tab-admin').style.display = 'block';
-            } else {
-                document.getElementById('tab-admin').style.display = 'none';
-            }
-
-            const currentDomain = window.location.origin + window.location.pathname;
-            document.getElementById('ref-link').value = `${currentDomain}?ref=${sessionUser.phone}`;
-
-            // Load saved avatar
-            let savedAv = localStorage.getItem(`avatar_${phone}`) || '👤';
-            document.getElementById('user-avatar-display').innerText = savedAv;
-
+            if(phone === ADMIN_PHONE) { document.getElementById('tab-admin').style.display = 'block'; }
             bypassLogin();
-        } else {
-            logout();
-        }
+        } else { logout(); }
     }
 
     function toggleAuthPages(page) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById('bottom-nav').style.display = 'none'; 
-        if(page === 'login') {
-            document.getElementById('screen-login').classList.add('active');
-            document.getElementById('app-title').innerText = 'NEX PROFIT - LOGIN';
-        } else {
-            document.getElementById('screen-register').classList.add('active');
-            document.getElementById('app-title').innerText = 'NEX PROFIT - REGISTER';
-        }
+        if(page === 'login') { document.getElementById('screen-login').classList.add('active'); }
+        else { document.getElementById('screen-register').classList.add('active'); }
     }
 
     async function handleRegister() {
         const phone = document.getElementById('reg-phone').value.trim();
         const pass = document.getElementById('reg-pass').value.trim();
-        const confirmPass = document.getElementById('reg-confirm').value.trim();
-
-        if(phone.length < 9) { alert('Error: Please input a valid mobile number.'); return; }
-        if(!pass || pass !== confirmPass) { alert('Error: Passwords do not match.'); return; }
-
-        const { data: existUser } = await _supabase.from('users').select('phone').eq('phone', phone).maybeSingle();
-        if(existUser) { alert('Error: This phone number is already registered.'); return; }
-
-        const { error: insertError } = await _supabase.from('users').insert([{ phone: phone }]);
-        if(insertError) { alert('Database Error: ' + insertError.message); return; }
-
-        const { data: updatedData, error: updateError } = await _supabase.from('users')
-            .update({ password: pass, balance: 150.00, vip_level: 'Free Plan', daily_reward: 5.00 })
-            .eq('phone', phone).select().single();
-
-        if(updateError) {
-            alert('Sync Error: Default values override failed.');
-        } else {
-            alert('Registration Successful! Welcome Gift 150 ETB added.');
-            await fetchUserData(phone);
-        }
+        if(phone.length < 9 || !pass) { alert('Error filling registration fields.'); return; }
+        
+        const { error } = await _supabase.from('users').insert([{ phone: phone, password: pass, balance: 150.00, vip_level: 'Free Plan', daily_reward: 5.00 }]);
+        if(!error) { alert('Welcome Gift 150 ETB added.'); await fetchUserData(phone); } else { alert('User exists or DB error.'); }
     }
 
     async function handleLogin() {
         const phone = document.getElementById('login-phone').value.trim();
         const pass = document.getElementById('login-pass').value.trim();
         const { data } = await _supabase.from('users').select('*').eq('phone', phone).eq('password', pass).maybeSingle();
-        if(data) { await fetchUserData(phone); } else { alert('Authentication Failed: Invalid credentials.'); }
+        if(data) { await fetchUserData(phone); } else { alert('Invalid credentials.'); }
     }
 
     function bypassLogin() {
-        document.getElementById('screen-register').classList.remove('active');
-        document.getElementById('screen-login').classList.remove('active');
         document.getElementById('bottom-nav').style.display = 'flex';
         switchScreen('home');
     }
@@ -825,327 +576,287 @@
         document.getElementById('home-active-vip').innerText = 'Active Tier: ' + sessionUser.vip_level;
         document.getElementById('task-reward-amount').innerText = 'ETB ' + parseFloat(sessionUser.daily_reward).toFixed(2);
 
-        const lastActivated = localStorage.getItem(`last_activated_date_${sessionUser.phone}`);
-        const todayStr = new Date().toDateString();
-        const btn = document.getElementById('start-task-btn');
-        if(lastActivated === todayStr) {
-            btn.disabled = true; btn.innerText = 'Already Activated Today!';
-        } else {
-            btn.disabled = false; btn.innerText = 'Activate Profit Generation';
-        }
-
         let bBox = document.getElementById('bank-status-box');
-        if(sessionUser.bank_acc) {
-            bBox.style.background = "rgba(0,204,102,0.05)"; bBox.style.borderColor = "var(--primary-green)"; bBox.style.color = "var(--primary-green)";
-            bBox.innerHTML = `🔒 Locked to: ${sessionUser.bank_type} (${sessionUser.bank_acc})<br>Name: ${sessionUser.bank_name}`;
-        }
+        if(sessionUser.bank_acc) bBox.innerHTML = `🔒 Locked: ${sessionUser.bank_acc}`;
     }
 
     function switchScreen(screenId) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        let targetScreen = document.getElementById('screen-' + screenId);
-        if(targetScreen) targetScreen.classList.add('active');
-        
+        document.getElementById('screen-' + screenId).classList.add('active');
         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-        let targetTab = document.getElementById('tab-' + screenId);
-        if(targetTab) targetTab.classList.add('active');
+        if(document.getElementById('tab-' + screenId)) document.getElementById('tab-' + screenId).classList.add('active');
         
-        document.getElementById('app-title').innerText = 'NEX PROFIT - ' + screenId.toUpperCase();
-        
-        if(screenId === 'admin') { loadAdminDeposits(); loadAdminWithdrawals(); } else { updateDomDisplays(); }
+        if(screenId === 'admin') {
+            loadAdminPanelStats();
+            loadAdminDeposits();
+        } else { updateDomDisplays(); }
     }
 
-    function openRulesModal() { document.getElementById('rules-modal').style.display = 'flex'; }
-    function closeRulesModal() { document.getElementById('rules-modal').style.display = 'none'; }
-
-    // 👤 AVATAR LOGIC
-    function selectAvatar(icon, id) {
-        document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('selected'));
-        document.getElementById(id).classList.add('selected');
-        document.getElementById('user-avatar-display').innerText = icon;
-        localStorage.setItem(`avatar_${sessionUser.phone}`, icon);
+    function loadAdminPanelStats() {
+        document.getElementById('admin-stat-bets').innerText = houseTotalBets.toFixed(2) + " ETB";
+        document.getElementById('admin-stat-payouts').innerText = houseTotalPayouts.toFixed(2) + " ETB";
+        document.getElementById('admin-stat-profit').innerText = (houseTotalBets - houseTotalPayouts).toFixed(2) + " ETB";
     }
 
-    // 🕹️ GAME BET ADJUSTER (+ and -)
+    // 🕹️ ADJUST BET SIZES (+ / -)
     function adjustBet(game, amount) {
         if(game === 'spin') {
-            currentSpinBet += amount;
-            if(currentSpinBet < 5) currentSpinBet = 5;
+            currentSpinBet += amount; if(currentSpinBet < 5) currentSpinBet = 5;
             document.getElementById('spin-bet-display').innerText = currentSpinBet + " ETB";
-        } else if(game === 'keno') {
-            currentKenoBet += amount;
-            if(currentKenoBet < 5) currentKenoBet = 5;
+        } else {
+            currentKenoBet += amount; if(currentKenoBet < 5) currentKenoBet = 5;
             document.getElementById('keno-bet-display').innerText = currentKenoBet + " ETB";
         }
     }
 
-    // 🎡 LUCKY SPIN LOGIC (Balanced with 35% win rate and custom stake)
+    function selectRouletteMarket(market) {
+        selectedRouletteMarket = market;
+        document.querySelectorAll('.roulette-btn').forEach(btn => btn.classList.remove('selected'));
+        if(market !== 'exact') {
+            document.getElementById(`rb-${market}`).classList.add('selected');
+            document.getElementById('spin-exact-number').value = '';
+        }
+    }
+
+    /**
+     * 🧠 HOUSE MATHEMATICAL CONTROL ENGINE (RTP CONTROLLER)
+     * Determines whether the current player session is allowed to win based on historical house profits.
+     */
+    function triggerHouseAlgorithm(currentStakeAmount, potentialWinPayout) {
+        houseTotalBets += currentStakeAmount;
+        localStorage.setItem('house_total_bets', houseTotalBets);
+
+        // Calculate expected maximum payouts allowed to maintain target margin
+        let maximumAllowedPayout = houseTotalBets * (1 - TARGET_PROFIT_MARGIN);
+        
+        // If the house is in debt or payout violates the 30% margin, force a loss!
+        if ((houseTotalPayouts + potentialWinPayout) > maximumAllowedPayout) {
+            return false; // Force Loss to save admin profit!
+        }
+        return true; // Fair game allowed
+    }
+
+    function commitHousePayout(payoutAmount) {
+        if(payoutAmount > 0) {
+            houseTotalPayouts += payoutAmount;
+            localStorage.setItem('house_total_payouts', houseTotalPayouts);
+        }
+    }
+
+    // 🎡 ADVANCED SPIN / ROULETTE LOGIC
     async function playLuckySpin() {
-        if(parseFloat(sessionUser.balance) < currentSpinBet) {
-            alert(`Insufficient balance! Your current spin bet is ${currentSpinBet} ETB.`);
+        if(!selectedRouletteMarket) { alert("Please select a betting option or entry first!"); return; }
+        if(parseFloat(sessionUser.balance) < currentSpinBet) { alert("Insufficient Balance!"); return; }
+
+        let exactNumField = document.getElementById('spin-exact-number').value;
+        let exactValue = parseInt(exactNumField);
+
+        if(selectedRouletteMarket === 'exact' && (isNaN(exactValue) || exactValue < 1 || exactValue > 40)) {
+            alert("Please input a valid number entry between 1 and 40.");
             return;
         }
 
         let btn = document.getElementById('spin-btn');
         btn.disabled = true;
 
-        // Deduct current bet from wallet
+        // Deduct stake from client
         sessionUser.balance -= currentSpinBet;
         await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
         updateDomDisplays();
 
+        // Spin wheel simulation animation
         let wheel = document.getElementById('spin-wheel');
-        
-        // 35% probability to win double, 65% to get try again
-        let isWin = Math.random() < 0.35;
-        let targetDeg = isWin ? 360 : 180; // Conic gradient matches won/loss segments
-        let finalRotation = (Math.floor(Math.random() * 3) * 360) + 1440 + targetDeg; 
-        
-        wheel.style.transform = `rotate(${finalRotation}deg)`;
+        let rDeg = Math.floor(Math.random() * 360) + 720;
+        wheel.style.transform = `rotate(${rDeg}deg)`;
+        wheel.innerText = "⏳";
 
         setTimeout(async () => {
             btn.disabled = false;
-            if(isWin) {
-                let winAmt = currentSpinBet * 2;
-                sessionUser.balance += winAmt;
-                await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
-                alert(`🎉 Lucky Win! You doubled your bet and won ${winAmt} ETB!`);
+            let finalNumber = Math.floor(Math.random() * 40) + 1;
+            wheel.innerText = finalNumber;
+
+            // Determine Properties of drawn number
+            let isRed = (finalNumber % 2 === 0); // Evens are red, Odds are black
+            let isEven = (finalNumber % 2 === 0);
+            let isLow = (finalNumber <= 18);
+
+            let userWon = false;
+            let multiplier = 2;
+
+            if (selectedRouletteMarket === 'red' && isRed) userWon = true;
+            else if (selectedRouletteMarket === 'black' && !isRed) userWon = true;
+            else if (selectedRouletteMarket === 'even' && isEven) userWon = true;
+            else if (selectedRouletteMarket === 'odd' && !isEven) userWon = true;
+            else if (selectedRouletteMarket === 'low' && isLow) userWon = true;
+            else if (selectedRouletteMarket === 'high' && !isLow) userWon = true;
+            else if (selectedRouletteMarket === 'exact' && exactValue === finalNumber) {
+                userWon = true;
+                multiplier = 5; // Direct number prediction pays higher!
+            }
+
+            let potentialPayout = currentSpinBet * multiplier;
+
+            // Apply strict admin engine filtration algorithm
+            if (userWon) {
+                let housePermitsWin = triggerHouseAlgorithm(currentSpinBet, potentialPayout);
+                if (!housePermitsWin) {
+                    // System overrides win to loss to preserve admin margin!
+                    userWon = false;
+                    // Change number silently to guarantee loss
+                    finalNumber = (finalNumber === 40) ? 39 : finalNumber + 1;
+                    wheel.innerText = finalNumber;
+                }
             } else {
-                alert(`😢 Try Again! Better luck next time.`);
+                // Just track the losing bet into system intake
+                triggerHouseAlgorithm(currentSpinBet, 0);
+            }
+
+            if(userWon) {
+                sessionUser.balance += potentialPayout;
+                commitHousePayout(potentialPayout);
+                await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
+                alert(`🎉 Win! Number was ${finalNumber}. You won ${potentialPayout} ETB!`);
+            } else {
+                alert(`😢 Loss! Number was ${finalNumber}. Better luck next time.`);
             }
             updateDomDisplays();
-        }, 3000);
+        }, 2500);
     }
 
-    // 🔢 KENO LOGIC (3 hits = money back, 5 hits = 2x win)
+    // 🔢 KENO BOARD CREATION & LOGIC
     function buildKenoBoard() {
-        const board = document.getElementById('keno-board');
-        board.innerHTML = '';
-        for(let i=1; i<=40; i++) {
-            let numBox = document.createElement('div');
-            numBox.className = 'keno-num';
-            numBox.innerText = i;
-            numBox.onclick = () => toggleKenoNumber(i, numBox);
-            board.appendChild(numBox);
-        }
-    }
-
-    function toggleKenoNumber(num, el) {
-        if(kenoSelectedNumbers.includes(num)) {
-            kenoSelectedNumbers = kenoSelectedNumbers.filter(n => n !== num);
-            el.classList.remove('selected');
-        } else {
-            if(kenoSelectedNumbers.length >= 5) { alert("You can only choose exactly 5 numbers."); return; }
-            kenoSelectedNumbers.push(num);
-            el.classList.add('selected');
+        const board = document.getElementById('keno-board'); board.innerHTML = '';
+        for(let i=1; i<40; i++) {
+            let n = document.createElement('div'); n.className = 'keno-num'; n.innerText = i;
+            n.onclick = () => {
+                if(kenoSelectedNumbers.includes(i)) {
+                    kenoSelectedNumbers = kenoSelectedNumbers.filter(x => x !== i); n.classList.remove('selected');
+                } else {
+                    if(kenoSelectedNumbers.length >= 5) return;
+                    kenoSelectedNumbers.push(i); n.classList.add('selected');
+                }
+            };
+            board.appendChild(n);
         }
     }
 
     async function playKeno() {
-        if(kenoSelectedNumbers.length < 5) { alert("Please select exactly 5 numbers first."); return; }
-        if(parseFloat(sessionUser.balance) < currentKenoBet) { alert(`Insufficient funds! This round costs ${currentKenoBet} ETB.`); return; }
+        if(kenoSelectedNumbers.length < 5) { alert("Select 5 numbers."); return; }
+        if(parseFloat(sessionUser.balance) < currentKenoBet) { alert("Insufficient funds."); return; }
 
-        let btn = document.getElementById('keno-btn');
-        btn.disabled = true;
-
+        let btn = document.getElementById('keno-btn'); btn.disabled = true;
         sessionUser.balance -= currentKenoBet;
         await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
         updateDomDisplays();
 
-        // Server draws 10 completely random numbers out of 40
-        let winningNums = [];
-        while(winningNums.length < 10) {
-            let r = Math.floor(Math.random() * 40) + 1;
-            if(!winningNums.includes(r)) winningNums.push(r);
+        let serverDraw = [];
+        while(serverDraw.length < 8) {
+            let r = Math.floor(Math.random() * 39) + 1;
+            if(!serverDraw.includes(r)) serverDraw.push(r);
         }
 
-        // Display hit highlights across the board grid
         let hits = 0;
         document.querySelectorAll('.keno-num').forEach(el => {
-            let val = parseInt(el.innerText);
-            if(winningNums.includes(val)) {
+            let v = parseInt(el.innerText);
+            if(serverDraw.includes(v)) {
                 el.classList.add('hit');
-                if(kenoSelectedNumbers.includes(val)) hits++;
+                if(kenoSelectedNumbers.includes(v)) hits++;
             }
         });
 
         setTimeout(async () => {
             let winAmt = 0;
-            let message = "";
+            if(hits === 3) winAmt = currentKenoBet;
+            else if(hits === 5) winAmt = currentKenoBet * 2;
 
-            if(hits === 3) {
-                winAmt = currentKenoBet; // Break even (get bet back)
-                message = `🎯 Matched 3 numbers! You got your bet of ${winAmt} ETB back!`;
-            } else if(hits === 5) {
-                winAmt = currentKenoBet * 2; // Double return payout
-                message = `🔥 JackPot! Matched all 5 numbers! You won 2x payout: ${winAmt} ETB!`;
+            // Apply house optimization algorithm before payout approval
+            if(winAmt > 0) {
+                let allowed = triggerHouseAlgorithm(currentKenoBet, winAmt);
+                if(!allowed) {
+                    winAmt = 0; // Cancel win to balance house book!
+                }
             } else {
-                message = `🎯 Matched ${hits} numbers. You need 3 or 5 hits to claim a prize.`;
+                triggerHouseAlgorithm(currentKenoBet, 0);
             }
 
             if(winAmt > 0) {
                 sessionUser.balance += winAmt;
+                commitHousePayout(winAmt);
                 await _supabase.from('users').update({ balance: sessionUser.balance }).eq('phone', sessionUser.phone);
+                alert(`🎯 Hits: ${hits}! Cleared ${winAmt} ETB Payout!`);
+            } else {
+                alert(`🎯 Hits: ${hits}. No prize claimed this round.`);
             }
 
-            alert(message);
-
-            // Flash reset game elements
-            kenoSelectedNumbers = [];
-            buildKenoBoard();
-            btn.disabled = false;
-            updateDomDisplays();
-        }, 2500);
+            kenoSelectedNumbers = []; buildKenoBoard();
+            btn.disabled = false; updateDomDisplays();
+        }, 2000);
     }
 
-    // ADMIN PANEL CODE
-    async function loadAdminDeposits() {
-        const container = document.getElementById('admin-deposits-list');
-        container.innerHTML = '<p>Loading pending deposits...</p>';
-        const { data } = await _supabase.from('deposits').select('*').eq('status', 'pending');
-        if(!data || data.length === 0) { container.innerHTML = '<p style="color:var(--primary-green);">🎉 No pending deposits.</p>'; return; }
-        container.innerHTML = '';
-        data.forEach(req => {
-            const card = document.createElement('div');
-            card.className = 'admin-request-card deposit-type';
-            card.innerHTML = `<div>📱 <b>User:</b> ${req.user_phone}</div><div style="margin:4px 0;">💰 <b>Amount:</b> ${req.amount} ETB</div><div>🔑 <b>Txn ID:</b> ${req.txn_id}</div><button class="admin-btn-approve" onclick="approveDeposit(${req.id}, '${req.user_phone}', ${req.amount})">✔ Approve</button>`;
-            container.appendChild(card);
-        });
+    // VIP INVESTMENT CORE
+    async function invest(cost, name, reward) {
+        if(parseFloat(sessionUser.balance) < cost) { alert('Low balance'); return; }
+        let nb = parseFloat(sessionUser.balance) - cost;
+        await _supabase.from('users').update({ balance: nb, vip_level: name, daily_reward: reward }).eq('phone', sessionUser.phone);
+        sessionUser.balance = nb; sessionUser.vip_level = name; sessionUser.daily_reward = reward;
+        alert('VIP Tier Activated!'); updateDomDisplays();
     }
 
-    async function loadAdminWithdrawals() {
-        const container = document.getElementById('admin-withdrawals-list');
-        container.innerHTML = '<p>Loading pending withdrawals...</p>';
-        const { data } = await _supabase.from('withdrawals').select('*').eq('status', 'pending');
-        if(!data || data.length === 0) { container.innerHTML = '<p style="color:var(--primary-green);">🎉 No pending withdrawals.</p>'; return; }
-        container.innerHTML = '';
-        data.forEach(req => {
-            const card = document.createElement('div');
-            card.className = 'admin-request-card';
-            card.innerHTML = `<div>📱 <b>User:</b> ${req.user_phone}</div><div style="margin:4px 0;">🔻 <b>Amount:</b> ${req.amount} ETB</div><div>🏦 <b>Details:</b> ${req.bank_details}</div><button class="admin-btn-withdraw" onclick="approveWithdrawal(${req.id}, '${req.user_phone}', ${req.amount})">✔ Approve</button>`;
-            container.appendChild(card);
-        });
-    }
-
-    async function approveDeposit(id, userPhone, amount) {
-        if(!confirm(`Approve ${amount} ETB for ${userPhone}?`)) return;
-        const { data: userData } = await _supabase.from('users').select('balance').eq('phone', userPhone).maybeSingle();
-        if(!userData) return;
-
-        let newBalance = parseFloat(userData.balance || 0) + parseFloat(amount);
-        let newVip = "Free Plan"; let newReward = 5.00;
-        if (newBalance >= 3500) { newVip = "VIP Level 5"; newReward = 352.80; }
-        else if (newBalance >= 1500) { newVip = "VIP Level 4"; newReward = 144.00; }
-        else if (newBalance >= 1000) { newVip = "VIP Level 3"; newReward = 91.20; }
-        else if (newBalance >= 500) { newVip = "VIP Level 2"; newReward = 43.20; }
-        else if (newBalance >= 300) { newVip = "VIP Level 1"; newReward = 24.00; }
-
-        await _supabase.from('users').update({ balance: newBalance, vip_level: newVip, daily_reward: newReward }).eq('phone', userPhone);
-        await _supabase.from('deposits').update({ status: 'approved' }).eq('id', id);
-        alert('Deposit Approved!');
-        loadAdminDeposits();
-    }
-
-    async function approveWithdrawal(id, userPhone, amount) {
-        if(!confirm(`Confirm payout of ${amount} ETB to ${userPhone}?`)) return;
-        await _supabase.from('withdrawals').update({ status: 'approved' }).eq('id', id);
-        alert("Withdrawal marked complete!");
-        loadAdminWithdrawals();
-    }
-
-    function saveBank() {
-        const bName = document.getElementById('bank-name').value.trim();
-        const bType = document.getElementById('bank-type').value;
-        const bAcc = document.getElementById('bank-acc').value.trim();
-        if(!bName || !bAcc) { alert('Error: All fields required.'); return; }
-        if(sessionUser.bank_acc) { alert('Error: Details locked permanently.'); return; }
-        sessionUser.bank_name = bName; sessionUser.bank_type = bType; sessionUser.bank_acc = bAcc;
-        localStorage.setItem(`bank_name_${sessionUser.phone}`, bName);
-        localStorage.setItem(`bank_type_${sessionUser.phone}`, bType);
-        localStorage.setItem(`bank_acc_${sessionUser.phone}`, bAcc);
-        alert('Bank secure locked.');
-        updateDomDisplays();
-    }
-
-    function startDailyTask() {
-        const lastActivated = localStorage.getItem(`last_activated_date_${sessionUser.phone}`);
-        const todayStr = new Date().toDateString();
-        if (lastActivated === todayStr) { alert("Already verified today!"); return; }
-
-        let btn = document.getElementById('start-task-btn');
-        let timerDisplay = document.getElementById('task-timer');
-        let timeLeft = 60;
-        btn.disabled = true; btn.innerText = 'Session Active...';
-
-        taskTimeout = setInterval(async () => {
-            timeLeft--;
-            let mins = Math.floor(timeLeft / 60); let secs = timeLeft % 60;
-            timerDisplay.innerText = (mins < 10 ? "0" : "") + mins + ":" + (secs < 10 ? "0" : "") + secs;
-
-            if(timeLeft <= 0) {
-                clearInterval(taskTimeout);
-                let bonus = parseFloat(sessionUser.daily_reward);
-                let newBalance = parseFloat(sessionUser.balance) + bonus;
-                const { error } = await _supabase.from('users').update({ balance: newBalance }).eq('phone', sessionUser.phone);
-                if(!error) {
-                    sessionUser.balance = newBalance;
-                    localStorage.setItem(`last_activated_date_${sessionUser.phone}`, todayStr);
-                    alert(`Verification Complete! +ETB ${bonus} added.`);
-                }
-                timerDisplay.innerText = "01:00";
-                updateDomDisplays();
-            }
-        }, 1000);
-    }
-
+    // SHARED WALLET ACTIONS
     async function processDeposit() {
-        const amt = parseFloat(document.getElementById('deposit-amount').value);
-        const ref = document.getElementById('deposit-ref').value.trim();
-        if(!amt || amt <= 0 || !ref) { alert('Please enter amount and Txn ID.'); return; }
-        await _supabase.from('deposits').insert([{ user_phone: sessionUser.phone, amount: amt, txn_id: ref, status: 'pending' }]);
-        alert('Deposit request submitted!');
-        document.getElementById('deposit-amount').value = ''; document.getElementById('deposit-ref').value = '';
-        switchScreen('home');
+        let a = parseFloat(document.getElementById('deposit-amount').value);
+        let r = document.getElementById('deposit-ref').value.trim();
+        if(!a || !r) return;
+        await _supabase.from('deposits').insert([{ user_phone: sessionUser.phone, amount: a, txn_id: r, status: 'pending' }]);
+        alert('Deposit pending manual admin authentication.');
     }
 
     async function processWithdrawal() {
-        const amt = parseFloat(document.getElementById('withdraw-amount').value);
-        if(!sessionUser.bank_acc) { alert('Error: Lock bank account first.'); return; }
-        if(!amt || amt < 500) { alert('Error: Minimum withdrawal is 500 ETB.'); return; }
-        if(parseFloat(sessionUser.balance) < amt) { alert('Error: Insufficient balance.'); return; }
-
-        let newBalance = parseFloat(sessionUser.balance) - amt;
-        const { error } = await _supabase.from('users').update({ balance: newBalance }).eq('phone', sessionUser.phone);
-        if(!error) {
-            sessionUser.balance = newBalance;
-            await _supabase.from('withdrawals').insert([{ user_phone: sessionUser.phone, amount: amt, bank_details: `${sessionUser.bank_type} - ${sessionUser.bank_acc}`, status: 'pending' }]);
-            alert('Withdrawal request queued!');
-            document.getElementById('withdraw-amount').value = '';
-            switchScreen('home');
-        }
+        let a = parseFloat(document.getElementById('withdraw-amount').value);
+        if(!sessionUser.bank_acc || a < 500 || parseFloat(sessionUser.balance) < a) { alert('Verify threshold requirements or lock bank status.'); return; }
+        let nb = parseFloat(sessionUser.balance) - a;
+        await _supabase.from('users').update({ balance: nb }).eq('phone', sessionUser.phone);
+        await _supabase.from('withdrawals').insert([{ user_phone: sessionUser.phone, amount: a, bank_details: sessionUser.bank_acc, status: 'pending' }]);
+        sessionUser.balance = nb; alert('Withdrawal request successfully queued.'); updateDomDisplays();
     }
 
-    async function invest(cost, vipName, reward) {
-        if(parseFloat(sessionUser.balance) < cost) { alert('Insufficient funds.'); switchScreen('profile'); return; }
-        let newBalance = parseFloat(sessionUser.balance) - cost;
-        const { error } = await _supabase.from('users').update({ balance: newBalance, vip_level: vipName, daily_reward: reward }).eq('phone', sessionUser.phone);
-        if(!error) {
-            sessionUser.balance = newBalance; sessionUser.vip_level = vipName; sessionUser.daily_reward = reward;
-            alert(`Success! ${vipName} is now active.`);
-            switchScreen('home');
-        }
+    function saveBank() {
+        let acc = document.getElementById('bank-acc').value.trim();
+        if(!acc) return;
+        sessionUser.bank_acc = acc; localStorage.setItem(`bank_acc_${sessionUser.phone}`, acc);
+        alert('Bank locked.'); updateDomDisplays();
     }
 
-    function copyLink() {
-        let copyText = document.getElementById("ref-link"); copyText.select(); document.execCommand("copy");
-        alert("Referral link copied!");
+    function startDailyTask() {
+        let btn = document.getElementById('start-task-btn');
+        btn.disabled = true; btn.innerText = "Processing...";
+        setTimeout(async () => {
+            let nb = parseFloat(sessionUser.balance) + parseFloat(sessionUser.daily_reward);
+            await _supabase.from('users').update({ balance: nb }).eq('phone', sessionUser.phone);
+            sessionUser.balance = nb; alert('Daily Revenue Collected!'); updateDomDisplays();
+        }, 3000);
     }
 
-    function logout() {
-        sessionUser = null; localStorage.removeItem('nex_user_phone');
-        if(taskTimeout) clearInterval(taskTimeout);
-        toggleAuthPages('login');
+    async function loadAdminDeposits() {
+        let div = document.getElementById('admin-deposits-list'); div.innerHTML = '';
+        const { data } = await _supabase.from('deposits').select('*').eq('status', 'pending');
+        if(!data || data.length === 0) { div.innerHTML = '<p>No pending updates found.</p>'; return; }
+        data.forEach(x => {
+            let c = document.createElement('div'); c.className = 'admin-request-card deposit-type';
+            c.innerHTML = `From: ${x.user_phone} | Amt: ${x.amount} ETB<br><button onclick="approveDeposit(${x.id},'${x.user_phone}',${x.amount})">Approve</button>`;
+            div.appendChild(c);
+        });
     }
+
+    async function approveDeposit(id, phone, amt) {
+        const { data } = await _supabase.from('users').select('balance').eq('phone', phone).single();
+        let nb = parseFloat(data.balance) + parseFloat(amt);
+        await _supabase.from('users').update({ balance: nb }).eq('phone', phone);
+        await _supabase.from('deposits').update({ status: 'approved' }).eq('id', id);
+        alert('Approved!'); loadAdminPanelStats(); loadAdminDeposits();
+    }
+
+    function logout() { localStorage.clear(); location.reload(); }
 </script>
 </body>
 </html>
