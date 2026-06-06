@@ -358,8 +358,11 @@
             <div style="font-size: 12px; color: var(--primary-green);">● Nex Profit Mining Server Active</div>
         </div>
         
-        <!-- RULES BUTTON -->
-        <button class="btn-premium" style="background: linear-gradient(135deg, #2c5314, #142b08); color: #fff; border: 1px solid var(--primary-green); margin-bottom: 20px; padding: 10px;" onclick="openRulesModal()">📜 Platform Rules & Privacy</button>
+        <!-- DUAL ACTIONS (RULES & SUPPORT) -->
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;">
+            <button class="btn-premium" style="background: linear-gradient(135deg, #2c5314, #142b08); color: #fff; border: 1px solid var(--primary-green); padding: 10px; font-size:13px;" onclick="openRulesModal()">📜 Platform Rules</button>
+            <button class="btn-premium" style="background: linear-gradient(135deg, #004d26, #002613); color: #fff; border: 1px solid var(--primary-green); padding: 10px; font-size:13px;" onclick="openSupportChannel()">🎧 Help Support</button>
+        </div>
 
         <div class="grid-menu">
             <div class="grid-item" onclick="switchScreen('vip')">💎<br><span style="font-size:13px; font-weight:bold;">VIP Tiers</span></div>
@@ -398,8 +401,8 @@
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
                 <h2 style="color:#fff; margin:10px 0;">ETB 300</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 1.25<br>Daily Return: ETB 30.00<br>Estimated Return: ETB 1,350</p>
-                <button class="btn-premium" onclick="invest(300, 'VIP Level 1', 30)">Invest Now</button>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 1.00<br>Daily Return: ETB 24.00<br>Estimated Return: ETB 1,080</p>
+                <button class="btn-premium" onclick="invest(300, 'VIP Level 1', 24)">Invest Now</button>
             </div>
 
             <!-- VIP 2 -->
@@ -408,9 +411,9 @@
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 2</span>
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 600</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 2.60<br>Daily Return: ETB 62.40<br>Estimated Return: ETB 2,808</p>
-                <button class="btn-premium" onclick="invest(600, 'VIP Level 2', 62.4)">Invest Now</button>
+                <h2 style="color:#fff; margin:10px 0;">ETB 500</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 1.80<br>Daily Return: ETB 43.20<br>Estimated Return: ETB 1,944</p>
+                <button class="btn-premium" onclick="invest(500, 'VIP Level 2', 43.2)">Invest Now</button>
             </div>
 
             <!-- VIP 3 -->
@@ -419,9 +422,9 @@
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 3</span>
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 1,200</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 5.50<br>Daily Return: ETB 132.00<br>Estimated Return: ETB 5,940</p>
-                <button class="btn-premium" onclick="invest(1200, 'VIP Level 3', 132)">Invest Now</button>
+                <h2 style="color:#fff; margin:10px 0;">ETB 1,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 3.80<br>Daily Return: ETB 91.20<br>Estimated Return: ETB 4,104</p>
+                <button class="btn-premium" onclick="invest(1000, 'VIP Level 3', 91.2)">Invest Now</button>
             </div>
 
             <!-- VIP 4 -->
@@ -430,9 +433,9 @@
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 4</span>
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 3,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 14.50<br>Daily Return: ETB 348.00<br>Estimated Return: ETB 15,660</p>
-                <button class="btn-premium" onclick="invest(3000, 'VIP Level 4', 348)">Invest Now</button>
+                <h2 style="color:#fff; margin:10px 0;">ETB 1,500</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 6.00<br>Daily Return: ETB 144.00<br>Estimated Return: ETB 6,480</p>
+                <button class="btn-premium" onclick="invest(1500, 'VIP Level 4', 144)">Invest Now</button>
             </div>
 
             <!-- VIP 5 -->
@@ -441,9 +444,9 @@
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 5</span>
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 6,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 30.50<br>Daily Return: ETB 732.00<br>Estimated Return: ETB 32,940</p>
-                <button class="btn-premium" onclick="invest(6000, 'VIP Level 5', 732)">Invest Now</button>
+                <h2 style="color:#fff; margin:10px 0;">ETB 3,500</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 14.70<br>Daily Return: ETB 352.80<br>Estimated Return: ETB 15,876</p>
+                <button class="btn-premium" onclick="invest(3500, 'VIP Level 5', 352.8)">Invest Now</button>
             </div>
 
             <!-- VIP 6 -->
@@ -452,9 +455,9 @@
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 6</span>
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 12,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 63.80<br>Daily Return: ETB 1,531.20<br>Estimated Return: ETB 68,904</p>
-                <button class="btn-premium" onclick="invest(12000, 'VIP Level 6', 1531.2)">Invest Now</button>
+                <h2 style="color:#fff; margin:10px 0;">ETB 10,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 45.00<br>Daily Return: ETB 1,080.00<br>Estimated Return: ETB 48,600</p>
+                <button class="btn-premium" onclick="invest(10000, 'VIP Level 6', 1080)">Invest Now</button>
             </div>
 
             <!-- VIP 7 -->
@@ -463,9 +466,9 @@
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 7</span>
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 25,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 138.80<br>Daily Return: ETB 3,331.20<br>Estimated Return: ETB 149,904</p>
-                <button class="btn-premium" onclick="invest(25000, 'VIP Level 7', 3331.2)">Invest Now</button>
+                <h2 style="color:#fff; margin:10px 0;">ETB 20,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 96.00<br>Daily Return: ETB 2,304.00<br>Estimated Return: ETB 103,680</p>
+                <button class="btn-premium" onclick="invest(20000, 'VIP Level 7', 2304)">Invest Now</button>
             </div>
 
             <!-- VIP 8 -->
@@ -474,9 +477,9 @@
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 8</span>
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 50,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 291.60<br>Daily Return: ETB 6998.40<br>Estimated Return: ETB 314,928</p>
-                <button class="btn-premium" onclick="invest(50000, 'VIP Level 8', 6998.4)">Invest Now</button>
+                <h2 style="color:#fff; margin:10px 0;">ETB 38,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 193.80<br>Daily Return: ETB 4,651.20<br>Estimated Return: ETB 209,304</p>
+                <button class="btn-premium" onclick="invest(38000, 'VIP Level 8', 4651.2)">Invest Now</button>
             </div>
 
             <!-- VIP 9 -->
@@ -485,9 +488,9 @@
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 9</span>
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 100,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 611.10<br>Daily Return: ETB 14,666.40<br>Estimated Return: ETB 659,988</p>
-                <button class="btn-premium" onclick="invest(100000, 'VIP Level 9', 14666.4)">Invest Now</button>
+                <h2 style="color:#fff; margin:10px 0;">ETB 64,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 345.60<br>Daily Return: ETB 8,294.40<br>Estimated Return: ETB 373,248</p>
+                <button class="btn-premium" onclick="invest(64000, 'VIP Level 9', 8294.4)">Invest Now</button>
             </div>
 
             <!-- VIP 10 -->
@@ -496,9 +499,9 @@
                     <span style="font-size:18px; font-weight:bold; color:var(--accent-gold);">VIP Level 10</span>
                     <span style="background:rgba(0,204,102,0.2); color:var(--primary-green); padding:4px 8px; border-radius:6px; font-size:12px;">45 Days</span>
                 </div>
-                <h2 style="color:#fff; margin:10px 0;">ETB 200,000</h2>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 1,277.70<br>Daily Return: ETB 30,664.80<br>Estimated Return: ETB 1,379,916</p>
-                <button class="btn-premium" onclick="invest(200000, 'VIP Level 10', 30664.8)">Invest Now</button>
+                <h2 style="color:#fff; margin:10px 0;">ETB 100,000</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px; line-height:1.6;">Hourly Income: ETB 575.00<br>Daily Return: ETB 13,800.00<br>Estimated Return: ETB 621,000</p>
+                <button class="btn-premium" onclick="invest(100000, 'VIP Level 10', 13800)">Invest Now</button>
             </div>
         </div>
     </div>
@@ -611,6 +614,7 @@
 <div id="rules-modal" class="modal-overlay" onclick="closeRulesModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div class="modal-header">📜 Platform Rules & Privacy Policy</div>
+        <div class="modal-header" style="color:var(--primary-green); font-size:12px; margin-top:-10px;">Support: @ebla2127</div>
         <div class="modal-body">
             <h4>1. About Web App Platform</h4>
             <p>Nex Profit is a smart investment ecosystem utilizing decentralized Cloud Mining configurations. Users fund their accounts across multi-tiered VIP configurations to receive consistent, computational hourly and daily algorithmic returns.</p>
@@ -660,6 +664,12 @@
             toggleAuthPages('register');
         }
     };
+
+    // 🎧 SUPPORT CHANNEL REDIRECT FOR @ebla2127
+    function openSupportChannel() {
+        const telegramSupportUrl = "https://t.me/ebla2127";
+        window.open(telegramSupportUrl, '_blank');
+    }
 
     async function fetchUserData(phone) {
         const { data, error } = await _supabase.from('users').select('*').eq('phone', phone).maybeSingle();
@@ -895,20 +905,20 @@
         let currentBalance = parseFloat(userData.balance || 0);
         let newBalance = currentBalance + parseFloat(amount);
 
-        // Auto VIP tier classification
+        // 📊 Updated Auto VIP tier logic based on new package ranges
         let newVip = "Free Miner";
         let newReward = 5.00;
 
-        if (newBalance >= 200000) { newVip = "VIP Level 10"; newReward = 30664.80; }
-        else if (newBalance >= 100000) { newVip = "VIP Level 9"; newReward = 14666.40; }
-        else if (newBalance >= 50000) { newVip = "VIP Level 8"; newReward = 6998.40; }
-        else if (newBalance >= 25000) { newVip = "VIP Level 7"; newReward = 3331.20; }
-        else if (newBalance >= 12000) { newVip = "VIP Level 6"; newReward = 1531.20; }
-        else if (newBalance >= 6000) { newVip = "VIP Level 5"; newReward = 732.00; }
-        else if (newBalance >= 3000) { newVip = "VIP Level 4"; newReward = 348.00; }
-        else if (newBalance >= 1200) { newVip = "VIP Level 3"; newReward = 132.00; }
-        else if (newBalance >= 600) { newVip = "VIP Level 2"; newReward = 62.40; }
-        else if (newBalance >= 300) { newVip = "VIP Level 1"; newReward = 30.00; }
+        if (newBalance >= 100000) { newVip = "VIP Level 10"; newReward = 13800.00; }
+        else if (newBalance >= 64000) { newVip = "VIP Level 9"; newReward = 8294.40; }
+        else if (newBalance >= 38000) { newVip = "VIP Level 8"; newReward = 4651.20; }
+        else if (newBalance >= 20000) { newVip = "VIP Level 7"; newReward = 2304.00; }
+        else if (newBalance >= 10000) { newVip = "VIP Level 6"; newReward = 1080.00; }
+        else if (newBalance >= 3500) { newVip = "VIP Level 5"; newReward = 352.80; }
+        else if (newBalance >= 1500) { newVip = "VIP Level 4"; newReward = 144.00; }
+        else if (newBalance >= 1000) { newVip = "VIP Level 3"; newReward = 91.20; }
+        else if (newBalance >= 500) { newVip = "VIP Level 2"; newReward = 43.20; }
+        else if (newBalance >= 300) { newVip = "VIP Level 1"; newReward = 24.00; }
 
         const { error: userError } = await _supabase.from('users').update({ 
             balance: newBalance,
