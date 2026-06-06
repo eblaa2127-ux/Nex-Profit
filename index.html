@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nex Profit - Premium Multi-Tier Mining</title>
+    <title>Nex Profit - Premium Multi-Tier Investment</title>
     <!-- Supabase SDK Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --bg-dark: #0a1103;
-            --card-bg: #1c2e11;
+            --card-bg: rgba(28, 46, 17, 0.75); /* ካርዶቹ ከበስተጀርባው ምስል ጋር እንዲዋሃዱ ግልፅነት (Opacity) ተሰጥቷቸዋል */
             --primary-green: #00cc66;
             --accent-gold: #ffcc00;
             --text-main: #ffffff;
@@ -34,7 +34,11 @@
             width: 100%;
             max-width: 450px;
             height: 100vh;
-            background-color: var(--bg-dark);
+            /* 🖼️ የጀርባ ምስል (Premium Tech Background with Dark Overlay) */
+            background: linear-gradient(rgba(10, 17, 3, 0.88), rgba(0, 0, 0, 0.96)), 
+                        url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000');
+            background-size: cover;
+            background-position: center;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -43,7 +47,7 @@
         }
 
         .header {
-            background: linear-gradient(180deg, #16350c, #0a1705);
+            background: linear-gradient(180deg, rgba(22, 53, 12, 0.9), rgba(10, 23, 5, 0.95));
             padding: 18px;
             text-align: center;
             font-size: 18px;
@@ -51,6 +55,7 @@
             letter-spacing: 1px;
             border-bottom: 1px solid rgba(0, 204, 102, 0.2);
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px); /* ለበለጠ ውበት የበስተጀርባ ማደብዘዣ */
         }
 
         .screen {
@@ -88,7 +93,7 @@
             padding: 14px;
             border-radius: 12px;
             border: 1px solid rgba(0, 204, 102, 0.3);
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.6);
             color: white;
             box-sizing: border-box;
             outline: none;
@@ -120,7 +125,7 @@
         }
 
         .notice-box {
-            background: rgba(255, 153, 0, 0.1);
+            background: rgba(255, 153, 0, 0.15);
             border: 1px solid var(--warning-orange);
             padding: 12px;
             border-radius: 10px;
@@ -128,15 +133,17 @@
             color: var(--warning-orange);
             margin-bottom: 15px;
             line-height: 1.4;
+            backdrop-filter: blur(3px);
         }
 
         .hero-card {
-            background: linear-gradient(135deg, var(--card-bg), #0f1c08);
+            background: linear-gradient(135deg, var(--card-bg), rgba(15, 28, 8, 0.8));
             border-radius: 16px;
             padding: 22px;
             text-align: center;
-            border: 1px solid rgba(0, 204, 102, 0.2);
+            border: 1px solid rgba(0, 204, 102, 0.25);
             margin-bottom: 20px;
+            backdrop-filter: blur(5px);
         }
 
         .balance-title {
@@ -161,15 +168,16 @@
         }
         .grid-item {
             background-color: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 12px;
             padding: 15px;
             text-align: center;
             cursor: pointer;
             transition: 0.2s;
+            backdrop-filter: blur(4px);
         }
         .grid-item:active {
-            background-color: #253d17;
+            background-color: rgba(37, 61, 23, 0.9);
         }
 
         .vip-container {
@@ -177,12 +185,13 @@
         }
 
         .vip-card {
-            background: #11220a;
+            background: rgba(17, 34, 10, 0.8);
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 20px;
-            border: 1px solid rgba(0,204,102,0.15);
+            border: 1px solid rgba(0,204,102,0.2);
             text-align: center;
+            backdrop-filter: blur(4px);
         }
 
         .timer-box {
@@ -190,7 +199,7 @@
             font-weight: bold;
             color: var(--accent-gold);
             margin: 15px 0;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.6);
             padding: 12px;
             border-radius: 8px;
             display: inline-block;
@@ -203,13 +212,14 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: #050d03;
-            border-top: 1px solid rgba(0,204,102,0.2);
+            background: rgba(5, 13, 3, 0.95);
+            border-top: 1px solid rgba(0,204,102,0.25);
             display: flex;
             justify-content: space-around;
             padding: 12px 0;
             z-index: 100;
             box-sizing: border-box;
+            backdrop-filter: blur(10px);
         }
         .nav-item {
             color: var(--text-muted);
@@ -252,13 +262,6 @@
             padding: 20px;
             box-sizing: border-box;
         }
-        .modal-header {
-            font-size: 18px;
-            font-weight: bold;
-            color: var(--accent-gold);
-            text-align: center;
-            margin-bottom: 15px;
-        }
         .modal-body h4 {
             color: var(--primary-green);
             margin: 12px 0 5px 0;
@@ -273,14 +276,14 @@
 
         /* Admin Dashboard Styles */
         .admin-request-card {
-            background: #1e1111;
+            background: rgba(30, 17, 17, 0.85);
             border: 1px solid #ff4444;
             border-radius: 12px;
             padding: 15px;
             margin-bottom: 15px;
         }
         .admin-request-card.deposit-type {
-            background: #0d1f11;
+            background: rgba(13, 31, 17, 0.85);
             border: 1px solid var(--primary-green);
         }
         .admin-btn-approve {
@@ -355,7 +358,7 @@
             <div class="balance-title">Available Balance</div>
             <div class="balance-amount" id="user-balance">ETB 0.00</div>
             <div style="font-size: 13px; color: var(--accent-gold); margin-top:10px; margin-bottom:5px;" id="home-active-vip">Active Tier: Loading...</div>
-            <div style="font-size: 12px; color: var(--primary-green);">● Nex Profit Mining Server Active</div>
+            <div style="font-size: 12px; color: var(--primary-green);">● Nex Profit Smart Server Active</div>
         </div>
         
         <!-- DUAL ACTIONS (RULES & SUPPORT) -->
@@ -371,28 +374,28 @@
             <div class="grid-item" onclick="switchScreen('profile')">💼<br><span style="font-size:13px; font-weight:bold;">Wallet</span></div>
         </div>
 
-        <div style="background: rgba(0,204,102,0.08); padding: 15px; border-radius: 12px; font-size: 13px; line-height: 1.5; border: 1px solid rgba(0,204,102,0.2);">
+        <div style="background: rgba(0,204,102,0.12); padding: 15px; border-radius: 12px; font-size: 13px; line-height: 1.5; border: 1px solid rgba(0,204,102,0.2); backdrop-filter: blur(3px);">
             <span style="color:var(--primary-green); font-weight:bold;">Platform Notice:</span> Welcome to Nex Profit. Ensure your withdrawal bank details are properly locked before initiating requests. Daily tasks reset every 24 hours.
         </div>
     </div>
 
     <!-- DAILY TASK SCREEN -->
     <div id="screen-task" class="screen" style="text-align: center;">
-        <h3>Daily Mining Verification</h3>
-        <p style="color: var(--text-muted); font-size:14px; padding: 0 10px;">To claim your current daily VIP node reward, activate the cloud server and keep it active for 1 minute.</p>
+        <h3>Daily Revenue Growth</h3>
+        <p style="color: var(--text-muted); font-size:14px; padding: 0 10px;">To claim your current daily VIP node reward, activate the premium smart contract and keep it active for 1 minute.</p>
         
-        <div style="background:rgba(255,204,0,0.1); border:1px solid var(--accent-gold); padding:10px; border-radius:10px; margin:15px 0; font-size:14px;">
+        <div style="background:rgba(255,204,0,0.15); border:1px solid var(--accent-gold); padding:10px; border-radius:10px; margin:15px 0; font-size:14px; backdrop-filter: blur(3px);">
             Your Current Daily Return: <b style="color:var(--accent-gold);" id="task-reward-amount">ETB 0.00</b>
         </div>
 
         <div class="timer-box" id="task-timer">01:00</div>
         <br><br>
-        <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Start Mining Task</button>
+        <button class="btn-premium" id="start-task-btn" onclick="startDailyTask()">Activate Profit Generation</button>
     </div>
 
-    <!-- VIP / EARNINGS SCREEN (LEVEL 1 TO LEVEL 10) -->
+    <!-- VIP / EARNINGS SCREEN -->
     <div id="screen-vip" class="screen">
-        <h3 style="margin-top: 0; text-align: center; color: var(--accent-gold);">Premium Mining Nodes</h3>
+        <h3 style="margin-top: 0; text-align: center; color: var(--accent-gold);">Premium Investment Nodes</h3>
         <div class="vip-container">
             <!-- VIP 1 -->
             <div class="vip-card">
@@ -509,12 +512,12 @@
     <!-- SHARE SCREEN -->
     <div id="screen-share" class="screen">
         <h3>Affiliate Program</h3>
-        <p style="color:var(--text-muted); font-size:14px;">Invite partners to scale your daily mining operations.</p>
-        <div style="display:flex; background:rgba(0,0,0,0.4); padding:10px; border-radius:8px; border:1px solid rgba(0,204,102,0.2); margin:15px 0;">
+        <p style="color:var(--text-muted); font-size:14px;">Invite partners to scale your daily investments.</p>
+        <div style="display:flex; background:rgba(0,0,0,0.6); padding:10px; border-radius:8px; border:1px solid rgba(0,204,102,0.2); margin:15px 0;">
             <input type="text" id="ref-link" value="Loading referral link..." readonly style="background:none; border:none; color:#fff; flex:1; outline:none; font-size:14px;">
             <button onclick="copyLink()" style="background:var(--primary-green); border:none; color:#000; font-weight:bold; padding:5px 15px; border-radius:6px; cursor:pointer;">Copy</button>
         </div>
-        <div style="background:var(--card-bg); padding:15px; border-radius:12px; font-size:14px;">
+        <div style="background:var(--card-bg); padding:15px; border-radius:12px; font-size:14px; backdrop-filter: blur(4px);">
             <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Level 1 Commission</span><span style="color:var(--primary-green); font-weight:bold;">25%</span></div>
             <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Level 2 Commission</span><span style="color:var(--primary-green); font-weight:bold;">3%</span></div>
             <div style="display:flex; justify-content:space-between;"><span>Level 3 Commission</span><span style="color:var(--primary-green); font-weight:bold;">2%</span></div>
@@ -527,7 +530,7 @@
         <div class="notice-box">
             ⚠️ <b>Verification Notice:</b> After submitting a deposit, the administrator will verify the bank transaction reference number and credit your balance within <b>24 hours</b>.
         </div>
-        <div style="background:rgba(0,204,102,0.1); padding:15px; border-radius:12px; margin-bottom:20px; font-size:13px; border:1px dashed var(--primary-green);">
+        <div style="background:rgba(0,204,102,0.15); padding:15px; border-radius:12px; margin-bottom:20px; font-size:13px; border:1px dashed var(--primary-green); backdrop-filter: blur(3px);">
             <p style="margin:0 0 8px 0;"><b>💳 Admin Payment Details:</b></p>
             <p style="margin:4px 0;">Telebirr: <b>0954406366</b></p>
             <p style="margin:4px 0;">Account Holder: <b>Temesgen Ayenew</b></p>
@@ -617,13 +620,13 @@
         <div class="modal-header" style="color:var(--primary-green); font-size:12px; margin-top:-10px;">Support: @ebla2127</div>
         <div class="modal-body">
             <h4>1. About Web App Platform</h4>
-            <p>Nex Profit is a smart investment ecosystem utilizing decentralized Cloud Mining configurations. Users fund their accounts across multi-tiered VIP configurations to receive consistent, computational hourly and daily algorithmic returns.</p>
+            <p>Nex Profit is a smart investment ecosystem utilizing decentralized algorithm configurations. Users fund their accounts across multi-tiered VIP configurations to receive consistent, computational hourly and daily contractual returns.</p>
             
             <h4>2. Principal Investment Rule</h4>
             <p style="color: var(--warning-orange); font-weight: bold;">⚠️ Critical Regulation: Once a user commits funds to any VIP Tier package, the principal investment amount cannot be withdrawn under any circumstances before the 45-day active contract cycle expires. However, accumulated daily interest/returns can be withdrawn securely at any given time.</p>
 
             <h4>3. Daily Tasks Configuration</h4>
-            <p>To authorize and push server rewards to your main balance, users must actively initialize the computational verification task once every 24 hours. The active mining node verification session lasts exactly 1 minute.</p>
+            <p>To authorize and push server rewards to your main balance, users must actively initialize the profit activation task once every 24 hours. The session lasts exactly 1 minute.</p>
 
             <h4>4. Deposit Guidelines</h4>
             <p>All deposits must be completed via designated Telebirr routes using valid Transaction ID (Txn ID) references. The administrative team reviews and authorizes pending requests within a maximum window of 24 hours, automatically upgrading accounts based on the deposited tiers.</p>
@@ -740,7 +743,7 @@
             .update({ 
                 password: pass,        
                 balance: 150.00,       
-                vip_level: 'Free Miner', 
+                vip_level: 'Free Plan', 
                 daily_reward: 5.00 
             })
             .eq('phone', phone)
@@ -796,15 +799,15 @@
         document.getElementById('home-active-vip').innerText = 'Active Tier: ' + sessionUser.vip_level;
         document.getElementById('task-reward-amount').innerText = 'ETB ' + parseFloat(sessionUser.daily_reward).toFixed(2);
 
-        const lastMined = localStorage.getItem(`last_mined_date_${sessionUser.phone}`);
+        const lastActivated = localStorage.getItem(`last_activated_date_${sessionUser.phone}`);
         const todayStr = new Date().toDateString();
         const btn = document.getElementById('start-task-btn');
-        if(lastMined === todayStr) {
+        if(lastActivated === todayStr) {
             btn.disabled = true;
-            btn.innerText = 'Already Mined Today!';
+            btn.innerText = 'Already Activated Today!';
         } else {
             btn.disabled = false;
-            btn.innerText = 'Start Mining Task';
+            btn.innerText = 'Activate Profit Generation';
         }
 
         let bBox = document.getElementById('bank-status-box');
@@ -905,8 +908,7 @@
         let currentBalance = parseFloat(userData.balance || 0);
         let newBalance = currentBalance + parseFloat(amount);
 
-        // 📊 Updated Auto VIP tier logic based on new package ranges
-        let newVip = "Free Miner";
+        let newVip = "Free Plan";
         let newReward = 5.00;
 
         if (newBalance >= 100000) { newVip = "VIP Level 10"; newReward = 13800.00; }
@@ -976,11 +978,11 @@
     }
 
     function startDailyTask() {
-        const lastMined = localStorage.getItem(`last_mined_date_${sessionUser.phone}`);
+        const lastActivated = localStorage.getItem(`last_activated_date_${sessionUser.phone}`);
         const todayStr = new Date().toDateString();
 
-        if (lastMined === todayStr) {
-            alert("You have already performed mining verification today. Come back tomorrow!");
+        if (lastActivated === todayStr) {
+            alert("You have already performed verification today. Come back tomorrow!");
             return;
         }
 
@@ -989,7 +991,7 @@
         let timeLeft = 60;
 
         btn.disabled = true;
-        btn.innerText = 'Mining Active...';
+        btn.innerText = 'Session Active...';
 
         taskTimeout = setInterval(async () => {
             timeLeft--;
@@ -1007,7 +1009,7 @@
 
                 if(!error) {
                     sessionUser.balance = newBalance;
-                    localStorage.setItem(`last_mined_date_${sessionUser.phone}`, todayStr);
+                    localStorage.setItem(`last_activated_date_${sessionUser.phone}`, todayStr);
                     alert(`Verification Complete! +ETB ${bonus} successfully added to balance.`);
                 } else {
                     alert('Error updating balance: ' + error.message);
